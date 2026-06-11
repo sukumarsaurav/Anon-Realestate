@@ -14,11 +14,11 @@ export default async function GalleryPage() {
   const projectsWithMedia = projects.filter((p) => p.gallery_urls?.length > 0)
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-blue-900 text-white py-14">
+    <div className="min-h-screen bg-cream">
+      <div className="bg-brand-900 text-white py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-bold mb-2">Gallery</h1>
-          <p className="text-blue-200">Photos and videos from our projects</p>
+          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight mb-2">Gallery</h1>
+          <p className="text-gray-300">Photos and videos from our projects</p>
         </div>
       </div>
 

@@ -11,11 +11,11 @@ export default function ContactPage() {
   const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, '') ?? '919876543210'
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-blue-900 text-white py-14">
+    <div className="min-h-screen bg-cream">
+      <div className="bg-brand-900 text-white py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-bold mb-2">Contact Us</h1>
-          <p className="text-blue-200">Our advisors are available 9am–7pm, Monday to Saturday</p>
+          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight mb-2">Contact Us</h1>
+          <p className="text-gray-300">Our advisors are available 9am–7pm, Monday to Saturday</p>
         </div>
       </div>
 
@@ -25,7 +25,7 @@ export default function ContactPage() {
           <div className="space-y-5">
             {[
               {
-                icon: MapPin, label: 'Office Address', color: 'text-blue-600', bg: 'bg-blue-50',
+                icon: MapPin, label: 'Office Address', color: 'text-gold-600', bg: 'bg-gold-50',
                 content: 'ANON INDIA Real Estate\n123, Sindhi Colony, Jaipur, Rajasthan 302001',
               },
               {
@@ -58,7 +58,7 @@ export default function ContactPage() {
                     {href ? (
                       <a href={href} target={href.startsWith('http') ? '_blank' : undefined}
                         rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                        className="text-sm text-gray-500 hover:text-blue-600 whitespace-pre-line">{content}</a>
+                        className="text-sm text-gray-500 hover:text-gold-600 whitespace-pre-line">{content}</a>
                     ) : (
                       <p className="text-sm text-gray-500 whitespace-pre-line">{content}</p>
                     )}

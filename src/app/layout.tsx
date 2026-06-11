@@ -1,8 +1,14 @@
 import type { Metadata } from 'next'
+import { Fraunces, Inter } from 'next/font/google'
 import './globals.css'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
-import WhatsAppButton from '@/components/WhatsAppButton'
+import FloatingActions from '@/components/FloatingActions'
+import { getCitiesWithCounts, getProjectsForMenu, getPublishedBlogPosts } from '@/lib/queries'
+
+// Display serif (with italics) + clean body sans — the premium editorial look.
+const display = Fraunces({ subsets: ['latin'], variable: '--font-display', style: ['normal', 'italic'], display: 'swap' })
+const sans = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swap' })
 
 const SITE_NAME = 'ANON INDIA'
 
@@ -30,19 +36,26 @@ export const metadata: Metadata = {
   robots:   { index: true, follow: true },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  // Data for the Projects + Blog mega-menus in the nav.
+  const [cities, menuProjects, blogPosts] = await Promise.all([
+    getCitiesWithCounts(),
+    getProjectsForMenu(),
+    getPublishedBlogPosts(4),
+  ])
+
   return (
-    <html lang="en">
+    <html lang="en" className={`${sans.variable} ${display.variable}`}>
       <head>
         {/* Warm up the connection to Supabase (data + storage images) early. */}
         <link rel="preconnect" href={SUPABASE_ORIGIN} crossOrigin="anonymous" />
         <link rel="dns-prefetch" href={SUPABASE_ORIGIN} />
       </head>
-      <body className="bg-white">
-        <Nav />
+      <body className="bg-white font-sans antialiased">
+        <Nav cities={cities} projects={menuProjects} posts={blogPosts} />
         <main>{children}</main>
         <Footer />
-        <WhatsAppButton />
+        <FloatingActions />
       </body>
     </html>
   )

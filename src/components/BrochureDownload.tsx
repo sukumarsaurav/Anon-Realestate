@@ -53,7 +53,7 @@ export default function BrochureDownload({ projectId, projectName, brochureUrl }
   if (!open) {
     return (
       <button onClick={() => setOpen(true)}
-        className="flex items-center gap-2 w-full py-3 border-2 border-dashed border-gray-300 text-gray-600 text-sm font-medium rounded-xl hover:border-blue-400 hover:text-blue-600 transition-colors">
+        className="flex items-center gap-2 w-full py-3 border-2 border-dashed border-gray-300 text-gray-600 text-sm font-medium rounded-xl hover:border-gold-400 hover:text-gold-600 transition-colors">
         <Download size={16} /> Download Brochure
       </button>
     )
@@ -63,12 +63,12 @@ export default function BrochureDownload({ projectId, projectName, brochureUrl }
     <form onSubmit={handleSubmit} className="space-y-3">
       <p className="text-sm font-medium text-gray-700">Enter your details to download</p>
       <input name="name" required placeholder="Your Name"
-        className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gold-400" />
       <input name="phone" type="tel" required placeholder="Phone Number"
-        className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gold-400" />
       {error && <p className="text-xs text-red-600">{error}</p>}
       <button type="submit" disabled={loading}
-        className="flex items-center justify-center gap-2 w-full py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 disabled:opacity-50">
+        className="flex items-center justify-center gap-2 w-full py-2.5 bg-gold-500 text-brand-900 text-sm font-semibold rounded-xl hover:bg-gold-600 hover:text-white disabled:opacity-50">
         <Download size={15} />
         {loading ? 'Processing...' : 'Download Brochure'}
       </button>

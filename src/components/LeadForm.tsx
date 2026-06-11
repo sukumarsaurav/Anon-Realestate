@@ -78,19 +78,19 @@ export default function LeadForm({
 
       <div>
         <input name="name" required placeholder="Your Name"
-          className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold-400" />
       </div>
       <div>
         <input name="phone" type="tel" required placeholder="Phone Number"
           pattern="[6-9][0-9]{9}"
           title="Enter a valid 10-digit Indian mobile number"
-          className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold-400" />
       </div>
 
       {!projectId && (
         <div>
           <select name="project_interest"
-            className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-gold-400">
             <option value="">Project Interest (optional)</option>
             <option>Plotted Development</option>
             <option>Apartment</option>
@@ -103,7 +103,7 @@ export default function LeadForm({
       {error && <p className="text-sm text-red-600">{error}</p>}
 
       <button type="submit" disabled={loading}
-        className="w-full py-3.5 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-50 text-sm">
+        className="w-full py-3.5 bg-gold-500 text-brand-900 font-semibold rounded-xl hover:bg-gold-600 hover:text-white transition-colors disabled:opacity-50 text-sm">
         {loading ? 'Submitting...' : 'Request Callback'}
       </button>
 

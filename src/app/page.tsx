@@ -1,175 +1,176 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
-import Image from 'next/image'
-import { getFeaturedProjects, getActiveTestimonials } from '@/lib/queries'
-import LeadForm from '@/components/LeadForm'
+import {
+  Award, Users, MapPinned, ShieldCheck, Headphones, Cpu, Star, ArrowRight, Quote,
+} from 'lucide-react'
+import {
+  getFeaturedProjects, getDevelopers, getTeamMembers, getCitiesWithCounts,
+  getActiveTestimonials, getProjectCities, getPublishedBlogPosts,
+} from '@/lib/queries'
+import HeroSearch from '@/components/home/HeroSearch'
+import PremiumProjects from '@/components/home/PremiumProjects'
+import ReelsSection from '@/components/home/ReelsSection'
 import ProjectCard from '@/components/ProjectCard'
-import { CheckCircle, Award, Users, MapPin, Star, ArrowRight, Building2 } from 'lucide-react'
+import Reveal from '@/components/Reveal'
+import CountUp from '@/components/CountUp'
+import { avatarFor } from '@/lib/images'
 
-// Revalidate at most every 5 minutes — content changes rarely, so serve
-// statically generated HTML instead of re-querying Supabase on every request.
 export const revalidate = 300
 
-export const metadata: Metadata = {
-  title: 'ANON INDIA — Premium Real Estate in Rajasthan',
-  description: 'Trusted plotted development and real estate projects in Jaipur and Rajasthan. RERA approved. 1000+ happy families. Get a free callback today.',
-}
-
-const TRUST_STATS = [
-  { value: '15+', label: 'Years Experience',   icon: Award },
-  { value: '50+', label: 'Projects Delivered', icon: Building2 },
-  { value: '1000+', label: 'Happy Families',   icon: Users },
-  { value: '8',   label: 'Cities Covered',     icon: MapPin },
-]
-
 export default async function HomePage() {
-  const [projects, testimonials] = await Promise.all([
+  const [featured, developers, team, cities, testimonials, cityList, posts] = await Promise.all([
     getFeaturedProjects(),
+    getDevelopers(),
+    getTeamMembers(),
+    getCitiesWithCounts(),
     getActiveTestimonials(),
+    getProjectCities(),
+    getPublishedBlogPosts(3),
   ])
 
   return (
     <>
-      {/* ── HERO ── */}
-      <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white overflow-hidden">
-        <div className="absolute inset-0 opacity-10"
-          style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }} />
+      <HeroSearch cities={cityList} />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left */}
-            <div>
-              <span className="inline-block px-4 py-1.5 bg-blue-700/50 text-blue-200 text-sm font-medium rounded-full mb-5">
-                🏆 Rajasthan&apos;s Trusted Real Estate Developer
-              </span>
-              <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-5">
-                Find Your Dream <span className="text-blue-300">Property</span> in Rajasthan
-              </h1>
-              <p className="text-blue-100 text-lg leading-relaxed mb-8">
-                Premium plotted developments and residential projects. RERA approved, transparent pricing, and lifetime support. Trusted by 1000+ families across Rajasthan.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                {['RERA Approved', 'Clear Titles', 'EMI Available', 'On-time Delivery'].map((tag) => (
-                  <span key={tag} className="flex items-center gap-1.5 px-3 py-1.5 bg-white/10 rounded-lg text-sm">
-                    <CheckCircle size={13} className="text-green-400" /> {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Lead form card */}
-            <div className="bg-white rounded-2xl p-6 shadow-2xl">
-              <LeadForm
-                source="homepage_hero"
-                title="Get a Free Callback"
-                subtitle="Talk to an expert advisor within 30 minutes."
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── TRUST STATS ── */}
+      {/* Trust strip with animated counters */}
       <section className="bg-white border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-            {TRUST_STATS.map(({ value, label, icon: Icon }) => (
-              <div key={label}>
-                <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <Icon size={22} className="text-blue-600" />
-                </div>
-                <p className="text-3xl font-bold text-gray-900">{value}</p>
-                <p className="text-sm text-gray-500 mt-1">{label}</p>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {[
+            { Icon: Award, end: 15, suffix: '+', s: 'Years of expertise' },
+            { Icon: Users, end: 2500, suffix: '+', s: 'Happy investors' },
+            { Icon: MapPinned, end: 12, suffix: '+', s: 'Cities & projects' },
+          ].map(({ Icon, end, suffix, s }) => (
+            <div key={s} className="flex items-center gap-3 justify-center sm:justify-start">
+              <div className="w-12 h-12 rounded-xl bg-gold-50 flex items-center justify-center shrink-0">
+                <Icon size={22} className="text-gold-600" />
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── FEATURED PROJECTS ── */}
-      <section className="bg-gray-50 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-end justify-between mb-10">
-            <div>
-              <p className="text-sm font-semibold text-blue-600 uppercase tracking-wide mb-2">Our Projects</p>
-              <h2 className="section-heading">Featured Developments</h2>
-            </div>
-            <Link href="/projects" className="hidden sm:flex items-center gap-1 text-blue-600 font-medium text-sm hover:text-blue-700">
-              View all <ArrowRight size={16} />
-            </Link>
-          </div>
-
-          {projects.length === 0 ? (
-            <div className="text-center py-12 text-gray-400">Projects coming soon. Check back shortly.</div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {projects.map((p) => <ProjectCard key={p.id} project={p} />)}
-            </div>
-          )}
-
-          <div className="text-center mt-10">
-            <Link href="/projects" className="btn-primary">
-              View All Projects <ArrowRight size={18} />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ── WHY ANON INDIA ── */}
-      <section className="bg-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-sm font-semibold text-blue-600 uppercase tracking-wide mb-2">Why Choose Us</p>
-            <h2 className="section-heading">The ANON INDIA Difference</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              { title: 'RERA Registered',          desc: 'All projects registered under RERA. Full legal compliance, documented and verifiable.',          icon: '🏛️' },
-              { title: 'Clear Land Titles',          desc: 'Every plot has clear, encumbrance-free titles. Legal team verification on every project.',     icon: '📜' },
-              { title: 'On-Time Delivery',           desc: '95% of our projects delivered on or before promised date. Accountability is our promise.',     icon: '⏱️' },
-              { title: 'Transparent Pricing',        desc: 'No hidden charges. What you see is what you pay. Detailed cost sheet before booking.',         icon: '💯' },
-              { title: 'EMI & Loan Assistance',      desc: 'Tie-ups with leading banks. Get home loan approval assistance at zero extra cost.',           icon: '🏦' },
-              { title: 'Post-Sale Support',          desc: 'Dedicated relationship manager. Construction updates, document support, and more post-booking.',icon: '🤝' },
-            ].map(({ title, desc, icon }) => (
-              <div key={title} className="p-6 rounded-2xl border border-gray-100 hover:border-blue-200 hover:shadow-sm transition-all">
-                <span className="text-3xl mb-4 block">{icon}</span>
-                <h3 className="font-bold text-gray-900 mb-2">{title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
+              <div>
+                <p className="font-serif text-2xl font-semibold text-brand-900"><CountUp end={end} suffix={suffix} /></p>
+                <p className="text-sm text-gray-500">{s}</p>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* ── TESTIMONIALS ── */}
-      {testimonials.length > 0 && (
-        <section className="bg-blue-50 py-20">
+      {/* Popular new launches */}
+      {featured.length > 0 && (
+        <section className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <p className="text-sm font-semibold text-blue-600 uppercase tracking-wide mb-2">Testimonials</p>
-              <h2 className="section-heading">What Our Clients Say</h2>
+            <div className="flex items-end justify-between mb-8">
+              <div>
+                <h2 className="section-heading">Popular New Launches</h2>
+                <p className="section-sub">Trending projects investors are booking right now.</p>
+              </div>
+              <Link href="/projects" className="hidden sm:flex items-center gap-1 text-sm font-semibold text-gold-600 hover:text-gold-700">
+                View all <ArrowRight size={15} />
+              </Link>
+            </div>
+            <div className="flex gap-6 overflow-x-auto pb-4 snap-x">
+              {featured.map((p) => (
+                <div key={p.id} className="w-[300px] shrink-0 snap-start"><ProjectCard project={p} /></div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Associated developers */}
+      {developers.length > 0 && (
+        <section className="bg-cream py-14">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <Reveal className="text-center mb-8">
+              <h2 className="section-heading">The ANON INDIA Group</h2>
+              <p className="section-sub mx-auto">Real estate, construction &amp; interiors — engineered by Anon.</p>
+            </Reveal>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+              {developers.map((d) => (
+                <div key={d.id} className="bg-white rounded-xl border border-gray-100 h-20 flex items-center justify-center px-4 text-center">
+                  {d.logo_url
+                    ? /* eslint-disable-next-line @next/next/no-img-element */
+                      <img src={d.logo_url} alt={d.name} className="max-h-10 max-w-full object-contain" />
+                    : <span className="text-sm font-semibold text-gray-600">{d.name}</span>}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Premium properties (tabbed) */}
+      {featured.length > 0 && <PremiumProjects projects={featured} />}
+
+      {/* Explore by city */}
+      {cities.length > 0 && (
+        <section className="py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-8">
+              <h2 className="section-heading">Explore by City</h2>
+              <p className="section-sub mx-auto">Find projects in your preferred location.</p>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+              {cities.map((c) => (
+                <Link key={c.city} href={`/projects?city=${encodeURIComponent(c.city)}`}
+                  className="group relative h-28 rounded-2xl bg-brand-900 text-white overflow-hidden flex flex-col items-center justify-center hover:bg-brand-700 transition-colors">
+                  <MapPinned size={20} className="text-gold-400 mb-1" />
+                  <p className="font-semibold">{c.city}</p>
+                  <p className="text-xs text-gray-300">{c.count} project{c.count !== 1 ? 's' : ''}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Team */}
+      {team.length > 0 && (
+        <section className="bg-cream py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <Reveal className="text-center mb-8">
+              <h2 className="section-heading">Meet Your Property Advisors</h2>
+              <p className="section-sub mx-auto">Experts who guide you from first call to final handover.</p>
+            </Reveal>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+              {team.map((m) => (
+                <div key={m.id} className="bg-white rounded-2xl border border-gray-100 p-4 text-center">
+                  <div className="w-16 h-16 mx-auto rounded-full bg-brand-900 overflow-hidden mb-3">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={m.photo_url || avatarFor(m.name)} alt={m.name} className="w-full h-full object-cover" />
+                  </div>
+                  <p className="font-semibold text-brand-900 text-sm">{m.name}</p>
+                  <p className="text-xs text-gray-500">{m.designation}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Testimonials */}
+      {testimonials.length > 0 && (
+        <section className="py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-8">
+              <h2 className="section-heading">Real Stories from Happy Homeowners</h2>
+              <p className="section-sub mx-auto">Trusted by thousands of families and investors.</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {testimonials.map((t) => (
-                <div key={t.id} className="bg-white rounded-2xl p-6 shadow-sm">
-                  <div className="flex gap-0.5 mb-3">
-                    {Array.from({ length: t.rating }).map((_, i) => (
-                      <Star key={i} size={14} className="text-amber-400 fill-amber-400" />
-                    ))}
-                  </div>
-                  <p className="text-gray-700 text-sm leading-relaxed mb-4">&ldquo;{t.content}&rdquo;</p>
-                  <div className="flex items-center gap-3">
-                    {t.photo_url ? (
-                      <Image src={t.photo_url} alt={t.client_name} width={40} height={40}
-                        className="w-10 h-10 rounded-full object-cover" />
-                    ) : (
-                      <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
-                        <span className="text-blue-600 font-bold text-sm">{t.client_name[0]}</span>
+              {testimonials.slice(0, 6).map((t) => (
+                <div key={t.id} className="bg-white rounded-2xl border border-gray-100 p-6">
+                  <Quote size={22} className="text-gold-400 mb-3" />
+                  <p className="text-gray-600 text-sm leading-relaxed mb-4">&ldquo;{t.content}&rdquo;</p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={t.photo_url || avatarFor(t.client_name)} alt={t.client_name} className="w-10 h-10 rounded-full object-cover" />
+                      <div>
+                        <p className="font-semibold text-brand-900 text-sm">{t.client_name}</p>
+                        {t.project && <p className="text-xs text-gray-400">{t.project}</p>}
                       </div>
-                    )}
-                    <div>
-                      <p className="font-semibold text-gray-900 text-sm">{t.client_name}</p>
-                      {t.project && <p className="text-xs text-gray-400">{t.project}</p>}
+                    </div>
+                    <div className="flex">
+                      {Array.from({ length: t.rating }).map((_, i) => (
+                        <Star key={i} size={13} className="text-gold-500 fill-gold-500" />
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -179,25 +180,74 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* ── CTA BANNER ── */}
-      <section className="bg-blue-600 py-16">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">Ready to Invest in Your Future?</h2>
-          <p className="text-blue-100 text-lg mb-8">
-            Book a site visit today. Our advisors will guide you through every step — from plot selection to possession.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/projects"
-              className="px-8 py-4 bg-white text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-colors">
-              View Projects
-            </Link>
-            <Link href="/contact"
-              className="px-8 py-4 bg-blue-700 text-white font-bold rounded-xl hover:bg-blue-800 transition-colors">
-              Talk to an Advisor
+      {/* On the Gram — reels */}
+      <ReelsSection />
+
+      {/* Why choose us */}
+      <section className="bg-cream py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <h2 className="section-heading">Why Choose ANON INDIA</h2>
+            <p className="section-sub mx-auto">A consultant that puts your interests first.</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { Icon: ShieldCheck, t: 'RERA Verified', s: 'Only compliant, verified projects make our list.' },
+              { Icon: Headphones, t: 'Customer Oriented', s: 'Genuine advice and proactive follow-up, always.' },
+              { Icon: Cpu, t: 'Tech Enabled', s: 'Modern CRM, instant updates, zero paperwork hassle.' },
+              { Icon: Award, t: 'Proven Track Record', s: '15+ years and thousands of happy investors.' },
+            ].map(({ Icon, t, s }) => (
+              <div key={t} className="bg-white rounded-2xl border border-gray-100 p-6">
+                <div className="w-11 h-11 rounded-xl bg-gold-50 flex items-center justify-center mb-4">
+                  <Icon size={20} className="text-gold-600" />
+                </div>
+                <p className="font-semibold text-brand-900 mb-1">{t}</p>
+                <p className="text-sm text-gray-500">{s}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA band */}
+      <section className="bg-brand-900 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 text-center">
+          <h2 className="text-3xl font-bold">Find the Right Property with Expert Guidance</h2>
+          <p className="text-gray-300 mt-3 max-w-2xl mx-auto">Free consultation, RERA-verified options, and honest advice tailored to your budget.</p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center mt-7">
+            <Link href="/contact" className="btn-primary">Get Free Consultation</Link>
+            <Link href="/projects" className="px-6 py-3 border-2 border-white/30 text-white font-semibold rounded-xl hover:bg-white/10 transition-colors">
+              View Premium Properties
             </Link>
           </div>
         </div>
       </section>
+
+      {/* Blog */}
+      {posts.length > 0 && (
+        <section className="py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-end justify-between mb-8">
+              <div>
+                <h2 className="section-heading">Property Guides &amp; Market Updates</h2>
+                <p className="section-sub">Expert advice to help you invest smarter.</p>
+              </div>
+              <Link href="/blog" className="hidden sm:flex items-center gap-1 text-sm font-semibold text-gold-600 hover:text-gold-700">
+                Read more <ArrowRight size={15} />
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {posts.map((p) => (
+                <Link key={p.id} href={`/blog/${p.slug}`} className="card block p-6">
+                  <p className="text-xs font-semibold text-gold-600 uppercase tracking-wide mb-2">{p.category}</p>
+                  <h3 className="font-bold text-brand-900 mb-2 line-clamp-2">{p.title}</h3>
+                  {p.excerpt && <p className="text-sm text-gray-500 line-clamp-3">{p.excerpt}</p>}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </>
   )
 }

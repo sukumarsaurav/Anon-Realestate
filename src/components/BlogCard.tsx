@@ -33,7 +33,7 @@ export default function BlogCard({ post }: Props) {
             <Tag size={11} />{post.category}
           </span>
         </div>
-        <h3 className="font-bold text-gray-900 group-hover:text-blue-600 transition-colors mb-2 line-clamp-2">
+        <h3 className="font-bold text-gray-900 group-hover:text-gold-600 transition-colors mb-2 line-clamp-2">
           {post.title}
         </h3>
         {post.excerpt && (

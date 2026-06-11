@@ -39,8 +39,8 @@ export default function EmiCalculator({ defaultPrice = 2000000 }: Props) {
   return (
     <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
       <div className="flex items-center gap-2 mb-5">
-        <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center">
-          <Calculator size={16} className="text-blue-600" />
+        <div className="w-8 h-8 bg-gold-50 rounded-lg flex items-center justify-center">
+          <Calculator size={16} className="text-gold-600" />
         </div>
         <h3 className="font-bold text-gray-900">EMI Calculator</h3>
       </div>
@@ -54,7 +54,7 @@ export default function EmiCalculator({ defaultPrice = 2000000 }: Props) {
           </div>
           <input type="range" min={500000} max={20000000} step={100000}
             value={price} onChange={(e) => setPrice(Number(e.target.value))}
-            className="w-full accent-blue-600" />
+            className="w-full accent-gold-500" />
           <div className="flex justify-between text-xs text-gray-400 mt-1">
             <span>₹5L</span><span>₹2Cr</span>
           </div>
@@ -68,7 +68,7 @@ export default function EmiCalculator({ defaultPrice = 2000000 }: Props) {
           </div>
           <input type="range" min={5} max={50} step={5}
             value={downPct} onChange={(e) => setDownPct(Number(e.target.value))}
-            className="w-full accent-blue-600" />
+            className="w-full accent-gold-500" />
           <div className="flex justify-between text-xs text-gray-400 mt-1">
             <span>5%</span><span>50%</span>
           </div>
@@ -82,7 +82,7 @@ export default function EmiCalculator({ defaultPrice = 2000000 }: Props) {
           </div>
           <input type="range" min={6} max={15} step={0.25}
             value={rate} onChange={(e) => setRate(Number(e.target.value))}
-            className="w-full accent-blue-600" />
+            className="w-full accent-gold-500" />
           <div className="flex justify-between text-xs text-gray-400 mt-1">
             <span>6%</span><span>15%</span>
           </div>
@@ -96,17 +96,17 @@ export default function EmiCalculator({ defaultPrice = 2000000 }: Props) {
           </div>
           <input type="range" min={1} max={30} step={1}
             value={tenure} onChange={(e) => setTenure(Number(e.target.value))}
-            className="w-full accent-blue-600" />
+            className="w-full accent-gold-500" />
           <div className="flex justify-between text-xs text-gray-400 mt-1">
             <span>1yr</span><span>30yrs</span>
           </div>
         </div>
 
         {/* Result */}
-        <div className="bg-blue-50 rounded-xl p-4 space-y-2">
+        <div className="bg-gold-50 rounded-xl p-4 space-y-2">
           <div className="text-center mb-2">
-            <p className="text-xs text-blue-600 font-medium uppercase tracking-wide">Monthly EMI</p>
-            <p className="text-3xl font-bold text-blue-700">{fmt(emi)}</p>
+            <p className="text-xs text-gold-600 font-medium uppercase tracking-wide">Monthly EMI</p>
+            <p className="text-3xl font-bold text-gold-700">{fmt(emi)}</p>
           </div>
           <div className="grid grid-cols-2 gap-3 text-sm">
             <div className="bg-white rounded-lg p-3 text-center">
@@ -127,7 +127,7 @@ export default function EmiCalculator({ defaultPrice = 2000000 }: Props) {
         {/* CTA */}
         {!showCtA ? (
           <button onClick={handleCalc}
-            className="w-full py-3.5 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 text-sm transition-colors">
+            className="w-full py-3.5 bg-gold-500 text-brand-900 font-semibold rounded-xl hover:bg-gold-600 hover:text-white text-sm transition-colors">
             Check Loan Eligibility
           </button>
         ) : (

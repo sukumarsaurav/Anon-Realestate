@@ -40,7 +40,7 @@ function ApplicationForm({ listing, onClose }: { listing: CareerListing; onClose
         <CheckCircle size={36} className="text-green-500 mx-auto mb-3" />
         <p className="font-bold text-gray-900">Application Submitted!</p>
         <p className="text-sm text-gray-500 mt-1">Our HR team will reach out within 3 business days.</p>
-        <button onClick={onClose} className="mt-4 text-sm text-blue-600 underline">Close</button>
+        <button onClick={onClose} className="mt-4 text-sm text-gold-600 underline">Close</button>
       </div>
     )
   }
@@ -49,21 +49,21 @@ function ApplicationForm({ listing, onClose }: { listing: CareerListing; onClose
     <form onSubmit={handleSubmit} className="space-y-3 mt-4">
       <p className="text-sm font-semibold text-gray-800">Apply for: {listing.title}</p>
       <input name="name" required placeholder="Full Name"
-        className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gold-400" />
       <input name="phone" type="tel" required placeholder="Phone Number"
-        className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gold-400" />
       <input name="email" type="email" placeholder="Email (optional)"
-        className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gold-400" />
       <textarea name="cover_letter" rows={3} placeholder="Why do you want to join ANON INDIA?"
-        className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gold-400" />
       {error && <p className="text-xs text-red-600">{error}</p>}
       <div className="flex gap-2">
         <button type="button" onClick={onClose}
-          className="px-4 py-2.5 border border-gray-300 text-gray-600 text-sm rounded-xl hover:bg-gray-50">
+          className="px-4 py-2.5 border border-gray-300 text-gray-600 text-sm rounded-xl hover:bg-cream">
           Cancel
         </button>
         <button type="submit" disabled={loading}
-          className="flex-1 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 disabled:opacity-50">
+          className="flex-1 py-2.5 bg-gold-500 text-brand-900 text-sm font-semibold rounded-xl hover:bg-gold-600 disabled:opacity-50">
           {loading ? 'Submitting...' : 'Submit Application'}
         </button>
       </div>
@@ -77,11 +77,11 @@ export default function CareersPage({ listings = [] }: { listings?: CareerListin
   const [expanded, setExpanded] = useState<string | null>(null)
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-blue-900 text-white py-14">
+    <div className="min-h-screen bg-cream">
+      <div className="bg-brand-900 text-white py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-bold mb-2">Careers at ANON INDIA</h1>
-          <p className="text-blue-200">Join Rajasthan&apos;s fastest growing real estate team</p>
+          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight mb-2">Careers at ANON INDIA</h1>
+          <p className="text-gray-300">Join Rajasthan&apos;s fastest growing real estate team</p>
         </div>
       </div>
 
@@ -118,7 +118,7 @@ export default function CareersPage({ listings = [] }: { listings?: CareerListin
               We&apos;re always looking for great talent. Send us your profile anyway!
             </p>
             <a href="mailto:careers@anonindia.com"
-              className="inline-block px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 text-sm">
+              className="inline-block px-6 py-3 bg-gold-500 text-brand-900 font-semibold rounded-xl hover:bg-gold-600 text-sm">
               Send Your CV
             </a>
           </div>
@@ -154,7 +154,7 @@ export default function CareersPage({ listings = [] }: { listings?: CareerListin
                       <ApplicationForm listing={job} onClose={() => setApplying(null)} />
                     ) : (
                       <button onClick={() => setApplying(job.id)}
-                        className="mt-4 px-6 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700">
+                        className="mt-4 px-6 py-2.5 bg-gold-500 text-brand-900 text-sm font-semibold rounded-xl hover:bg-gold-600">
                         Apply Now
                       </button>
                     )}

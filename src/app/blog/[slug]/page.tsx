@@ -47,7 +47,7 @@ export default async function BlogPostPage({ params }: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-cream">
       {/* Counts a view per visit — the page itself is statically cached. */}
       <BlogViewTracker postId={post.id} />
       {post.featured_image_url && (
@@ -82,7 +82,7 @@ export default async function BlogPostPage({ params }: Props) {
             <h1 className="text-3xl font-bold text-gray-900 mb-6 leading-tight">{post.title}</h1>
 
             {post.excerpt && (
-              <p className="text-lg text-gray-500 leading-relaxed mb-8 border-l-4 border-blue-500 pl-4">
+              <p className="text-lg text-gray-500 leading-relaxed mb-8 border-l-4 border-gold-500 pl-4">
                 {post.excerpt}
               </p>
             )}
@@ -93,9 +93,9 @@ export default async function BlogPostPage({ params }: Props) {
             </div>
 
             {/* Bottom CTA */}
-            <div className="mt-12 p-6 bg-blue-50 rounded-2xl border border-blue-200">
-              <h3 className="font-bold text-blue-900 mb-2">Interested in investing in real estate?</h3>
-              <p className="text-sm text-blue-700 mb-4">Talk to our expert advisors for personalized guidance.</p>
+            <div className="mt-12 p-6 bg-gold-50 rounded-2xl border border-gold-100">
+              <h3 className="font-bold text-brand-900 mb-2">Interested in investing in real estate?</h3>
+              <p className="text-sm text-gold-700 mb-4">Talk to our expert advisors for personalized guidance.</p>
               <LeadForm source={`blog_${post.slug}`} compact title="" subtitle="" />
             </div>
 
@@ -106,8 +106,8 @@ export default async function BlogPostPage({ params }: Props) {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   {relatedPosts.map((r) => (
                     <Link key={r.id} href={`/blog/${r.slug}`}
-                      className="block p-4 bg-gray-50 rounded-xl hover:bg-blue-50 transition-colors">
-                      <p className="text-sm font-medium text-gray-900 line-clamp-2 hover:text-blue-700">{r.title}</p>
+                      className="block p-4 bg-cream rounded-xl hover:bg-gold-50 transition-colors">
+                      <p className="text-sm font-medium text-gray-900 line-clamp-2 hover:text-gold-700">{r.title}</p>
                     </Link>
                   ))}
                 </div>

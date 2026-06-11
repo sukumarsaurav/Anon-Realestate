@@ -20,7 +20,38 @@ export interface Project {
   video_url: string | null
   virtual_tour_url: string | null
   layout_image_url: string | null
+  // Website-facing fields
+  developer_id: string | null
+  starting_price: number | null
+  price_per_sqft: number | null
+  bhk_config: string | null
+  website_category: string | null
+  is_featured: boolean
+  hero_image_url: string | null
+  developer?: { name: string } | null
   plots?: PlotSummary[]
+}
+
+export interface Developer {
+  id: string
+  name: string
+  logo_url: string | null
+  website_url: string | null
+  sort_order: number
+}
+
+export interface TeamMember {
+  id: string
+  name: string
+  designation: string | null
+  level: string | null
+  photo_url: string | null
+  sort_order: number
+}
+
+export interface CityStat {
+  city: string
+  count: number
 }
 
 export interface PlotSummary {
@@ -85,10 +116,10 @@ export const PROJECT_STATUS_LABELS: Record<string, string> = {
 }
 
 export const PROJECT_TYPE_LABELS: Record<string, string> = {
-  plotted:   'Plotted Development',
-  apartment: 'Apartment',
-  villa:     'Villa',
-  commercial:'Commercial',
+  plotted_development: 'Plotted Development',
+  apartment:           'Apartment',
+  villa:               'Villa',
+  commercial:          'Commercial',
 }
 
 export const EMPLOYMENT_TYPE_LABELS: Record<string, string> = {

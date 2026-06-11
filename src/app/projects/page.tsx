@@ -1,85 +1,107 @@
 import type { Metadata } from 'next'
 import { getAllProjects, getProjectCities } from '@/lib/queries'
+import { PROJECT_TYPE_LABELS } from '@/types'
 import ProjectCard from '@/components/ProjectCard'
 import LeadForm from '@/components/LeadForm'
+import Reveal from '@/components/Reveal'
 import { SlidersHorizontal } from 'lucide-react'
 
 export const revalidate = 300
 
 export const metadata: Metadata = {
   title: 'All Projects',
-  description: 'Browse all ANON INDIA real estate projects across Rajasthan. Plotted developments, apartments, and villas. RERA approved.',
+  description: 'Browse all ANON INDIA real estate projects. Plotted developments, apartments, villas & commercial. RERA approved.',
 }
 
 interface Props {
-  searchParams: Promise<{ city?: string; type?: string; status?: string }>
+  searchParams: Promise<{ city?: string; type?: string; status?: string; category?: string; budget_max?: string }>
 }
+
+const BUDGET_OPTIONS = [
+  { value: '5000000', label: 'Under ₹50 L' },
+  { value: '10000000', label: 'Under ₹1 Cr' },
+  { value: '20000000', label: 'Under ₹2 Cr' },
+  { value: '50000000', label: 'Under ₹5 Cr' },
+]
+const STATUS_OPTIONS = [
+  { value: 'pre_launch', label: 'Pre-Launch' },
+  { value: 'under_construction', label: 'Under Construction' },
+  { value: 'ready_to_move', label: 'Ready to Move' },
+]
+const CATEGORY_OPTIONS = [
+  { value: 'residential', label: 'Residential' },
+  { value: 'luxury', label: 'Luxury' },
+  { value: 'commercial', label: 'Commercial' },
+]
+
+const selectCls =
+  'w-full text-sm rounded-xl border border-gray-200 px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-gold-400'
 
 export default async function ProjectsPage({ searchParams }: Props) {
   const filters = await searchParams
-  const [projects, cities] = await Promise.all([
-    getAllProjects(filters),
-    getProjectCities(),
-  ])
+  const [projects, cities] = await Promise.all([getAllProjects(filters), getProjectCities()])
+  const hasFilters = !!(filters.city || filters.type || filters.status || filters.category || filters.budget_max)
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-cream">
       {/* Hero */}
-      <div className="bg-blue-900 text-white py-14">
+      <div className="bg-brand-900 text-white py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-bold mb-2">Our Projects</h1>
-          <p className="text-blue-200">Discover premium real estate across Rajasthan</p>
+          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight mb-2">Our Projects</h1>
+          <p className="text-gray-300">RERA-approved properties — find the one that fits.</p>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Filters sidebar */}
+          {/* Filters */}
           <aside className="lg:w-64 shrink-0">
             <div className="bg-white rounded-2xl border border-gray-100 p-5 sticky top-24">
               <div className="flex items-center gap-2 mb-4">
                 <SlidersHorizontal size={16} className="text-gray-500" />
-                <p className="font-semibold text-gray-900">Filters</p>
+                <p className="font-semibold text-brand-900">Filters</p>
               </div>
               <form method="GET" className="space-y-4">
                 <div>
                   <label className="block text-xs font-medium text-gray-600 mb-1">City</label>
-                  <select name="city" defaultValue={filters.city ?? ''}
-                    className="w-full text-sm rounded-xl border border-gray-200 px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <select name="city" defaultValue={filters.city ?? ''} className={selectCls}>
                     <option value="">All Cities</option>
                     {cities.map((c) => <option key={c} value={c}>{c}</option>)}
                   </select>
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-gray-600 mb-1">Property Type</label>
-                  <select name="type" defaultValue={filters.type ?? ''}
-                    className="w-full text-sm rounded-xl border border-gray-200 px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <select name="type" defaultValue={filters.type ?? ''} className={selectCls}>
                     <option value="">All Types</option>
-                    <option value="plotted">Plotted Development</option>
-                    <option value="apartment">Apartment</option>
-                    <option value="villa">Villa</option>
-                    <option value="commercial">Commercial</option>
+                    {Object.entries(PROJECT_TYPE_LABELS).map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-gray-600 mb-1">Category</label>
+                  <select name="category" defaultValue={filters.category ?? ''} className={selectCls}>
+                    <option value="">All Categories</option>
+                    {CATEGORY_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-gray-600 mb-1">Budget</label>
+                  <select name="budget_max" defaultValue={filters.budget_max ?? ''} className={selectCls}>
+                    <option value="">Any Budget</option>
+                    {BUDGET_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
                   </select>
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-gray-600 mb-1">Status</label>
-                  <select name="status" defaultValue={filters.status ?? ''}
-                    className="w-full text-sm rounded-xl border border-gray-200 px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <select name="status" defaultValue={filters.status ?? ''} className={selectCls}>
                     <option value="">All Status</option>
-                    <option value="pre_launch">Pre-Launch</option>
-                    <option value="under_construction">Under Construction</option>
-                    <option value="ready_to_move">Ready to Move</option>
+                    {STATUS_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
                   </select>
                 </div>
-                <button type="submit"
-                  className="w-full py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700">
+                <button type="submit" className="w-full py-2.5 bg-gold-500 text-brand-900 text-sm font-semibold rounded-xl hover:bg-gold-600 hover:text-white transition-colors">
                   Apply Filters
                 </button>
-                {(filters.city || filters.type || filters.status) && (
-                  <a href="/projects"
-                    className="block text-center text-sm text-gray-400 hover:text-gray-600">
-                    Clear all
-                  </a>
+                {hasFilters && (
+                  <a href="/projects" className="block text-center text-sm text-gray-400 hover:text-gray-600">Clear all</a>
                 )}
               </form>
 
@@ -90,21 +112,18 @@ export default async function ProjectsPage({ searchParams }: Props) {
             </div>
           </aside>
 
-          {/* Project grid */}
+          {/* Grid */}
           <div className="flex-1">
-            <div className="flex items-center justify-between mb-5">
-              <p className="text-sm text-gray-500">
-                {projects.length} project{projects.length !== 1 ? 's' : ''} found
-              </p>
-            </div>
-
+            <p className="text-sm text-gray-500 mb-5">{projects.length} project{projects.length !== 1 ? 's' : ''} found</p>
             {projects.length === 0 ? (
               <div className="bg-white rounded-2xl border border-gray-100 p-12 text-center">
-                <p className="text-gray-400">No projects match your filters. <a href="/projects" className="text-blue-600 underline">Clear filters</a></p>
+                <p className="text-gray-400">No projects match your filters. <a href="/projects" className="text-gold-600 underline">Clear filters</a></p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-                {projects.map((p) => <ProjectCard key={p.id} project={p} />)}
+                {projects.map((p, i) => (
+                  <Reveal key={p.id} delay={(i % 3) * 90}><ProjectCard project={p} /></Reveal>
+                ))}
               </div>
             )}
           </div>

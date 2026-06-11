@@ -1,61 +1,223 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
-import { Menu, X, Building2, Phone } from 'lucide-react'
+import Image from 'next/image'
+import { useState, useEffect } from 'react'
+import { Menu, X, Phone, ChevronDown, LogIn, ArrowRight, MapPin } from 'lucide-react'
+import { PROJECT_TYPE_LABELS } from '@/types'
+import type { Project, BlogPost, CityStat } from '@/types'
+import { formatINR } from '@/lib/format'
+import { projectImage } from '@/lib/images'
 
-const links = [
-  { label: 'Home',     href: '/' },
-  { label: 'Projects', href: '/projects' },
-  { label: 'Gallery',  href: '/gallery' },
-  { label: 'Blog',     href: '/blog' },
-  { label: 'About',    href: '/about' },
-  { label: 'Careers',  href: '/careers' },
-  { label: 'Contact',  href: '/contact' },
+const DASHBOARD_URL = process.env.NEXT_PUBLIC_DASHBOARD_URL ?? 'https://dashboard.anonindia.com'
+const PHONE = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '+919876543210'
+
+const simpleLinks = [
+  { label: 'About', href: '/about' },
+  { label: 'Careers', href: '/careers' },
+  { label: 'Contact', href: '/contact' },
 ]
 
-export default function Nav() {
+const moreLinks = [
+  { label: 'ANON Group', href: '/developers' },
+  { label: 'Testimonials', href: '/testimonials' },
+  { label: 'Gallery', href: '/gallery' },
+  { label: 'CSR', href: '/csr' },
+  { label: 'Events', href: '/events' },
+  { label: 'Awards & Recognition', href: '/awards' },
+  { label: 'Vision & Mission', href: '/vision' },
+]
+
+type MenuKey = 'projects' | 'blog' | 'more' | null
+
+interface NavProps {
+  cities: CityStat[]
+  projects: Project[]
+  posts: BlogPost[]
+}
+
+export default function Nav({ cities, projects, posts }: NavProps) {
   const [open, setOpen] = useState(false)
+  const [menu, setMenu] = useState<MenuKey>(null)
+  const [activeCity, setActiveCity] = useState<string>(cities[0]?.city ?? '')
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  const cityProjects = projects.filter((p) => p.city === (activeCity || cities[0]?.city)).slice(0, 3)
+  const featured = posts[0]
+  const moreArticles = posts.slice(1, 4)
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-100">
+    <header className={`sticky top-0 z-50 bg-white/90 backdrop-blur transition-shadow ${scrolled ? 'shadow-md border-b border-transparent' : 'border-b border-gray-100'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className={`flex items-center justify-between transition-[height] duration-300 ${scrolled ? 'h-14' : 'h-16'}`}>
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5">
-            <div className="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center">
-              <Building2 size={20} className="text-white" />
-            </div>
+            <Image src="/logo.svg" alt="ANON INDIA" width={40} height={40} className="rounded-full" priority />
             <div className="leading-none">
-              <p className="font-bold text-gray-900 text-sm">ANON INDIA</p>
-              <p className="text-xs text-gray-400">Real Estate</p>
+              <p className="font-bold text-brand-900 text-sm tracking-wide">ANON INDIA</p>
+              <p className="text-[10px] text-gray-400">Structures · Spaces · Solutions</p>
             </div>
           </Link>
 
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-1">
-            {links.map((l) => (
-              <Link key={l.href} href={l.href}
-                className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
-                {l.label}
-              </Link>
+            {/* Projects mega */}
+            <div className="static" onMouseEnter={() => setMenu('projects')} onMouseLeave={() => setMenu(null)}>
+              <button className="flex items-center gap-1 px-3.5 py-2 text-sm font-medium text-gray-600 hover:text-brand-900 hover:bg-cream rounded-lg">
+                Projects <ChevronDown size={14} className={menu === 'projects' ? 'rotate-180 transition-transform' : 'transition-transform'} />
+              </button>
+              {menu === 'projects' && (
+                <MegaPanel>
+                  <div className="grid grid-cols-12 gap-0">
+                    {/* Cities */}
+                    <div className="col-span-3 border-r border-gray-100 pr-2 max-h-[60vh] overflow-y-auto">
+                      <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide px-3 py-2">Select City</p>
+                      {cities.length === 0 && <p className="px-3 py-2 text-sm text-gray-400">No cities yet</p>}
+                      {cities.map((c) => (
+                        <Link key={c.city} href={`/projects?city=${encodeURIComponent(c.city)}`}
+                          onMouseEnter={() => setActiveCity(c.city)} onClick={() => setMenu(null)}
+                          className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-sm transition-colors ${
+                            activeCity === c.city ? 'bg-brand-900 text-white' : 'text-gray-700 hover:bg-cream'
+                          }`}>
+                          <span>{c.city}</span>
+                          <span className={`text-xs px-1.5 py-0.5 rounded ${activeCity === c.city ? 'bg-white/20' : 'bg-gray-100 text-gray-500'}`}>{c.count}</span>
+                        </Link>
+                      ))}
+                    </div>
+                    {/* Property types */}
+                    <div className="col-span-3 border-r border-gray-100 px-2">
+                      <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide px-3 py-2">Property Type</p>
+                      <Link href="/projects" onClick={() => setMenu(null)} className="block px-3 py-2.5 rounded-lg text-sm bg-gold-50 text-gold-700 font-medium">All Types</Link>
+                      {Object.entries(PROJECT_TYPE_LABELS).map(([v, l]) => (
+                        <Link key={v} href={`/projects?type=${v}`} onClick={() => setMenu(null)}
+                          className="block px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-cream">{l}</Link>
+                      ))}
+                    </div>
+                    {/* Property preview */}
+                    <div className="col-span-6 pl-4">
+                      <div className="flex items-center justify-between px-1 py-2">
+                        <p className="font-semibold text-brand-900">Properties in {activeCity || '—'}</p>
+                        {activeCity && (
+                          <Link href={`/projects?city=${encodeURIComponent(activeCity)}`} onClick={() => setMenu(null)}
+                            className="flex items-center gap-1 text-sm font-semibold text-gold-600 hover:text-gold-700">
+                            View All <ArrowRight size={14} />
+                          </Link>
+                        )}
+                      </div>
+                      <div className="space-y-2">
+                        {cityProjects.length === 0 && <p className="px-1 py-3 text-sm text-gray-400">No properties listed here yet.</p>}
+                        {cityProjects.map((p) => {
+                          const img = projectImage(p)
+                          return (
+                            <Link key={p.id} href={`/projects/${p.id}`} onClick={() => setMenu(null)}
+                              className="flex items-center gap-3 p-2 rounded-xl hover:bg-cream transition-colors">
+                              <div className="relative w-20 h-16 rounded-lg bg-gray-100 overflow-hidden shrink-0">
+                                <Image src={img} alt={p.name} fill sizes="80px" className="object-cover" />
+                              </div>
+                              <div className="min-w-0">
+                                <p className="font-semibold text-brand-900 text-sm truncate">{p.name}</p>
+                                <p className="text-xs text-gray-500 flex items-center gap-1"><MapPin size={11} />{p.locality || p.city}</p>
+                                <p className="text-sm font-bold text-gold-600 mt-0.5">{formatINR(p.starting_price)}</p>
+                              </div>
+                            </Link>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                </MegaPanel>
+              )}
+            </div>
+
+            {/* Blog mega */}
+            <div className="static" onMouseEnter={() => setMenu('blog')} onMouseLeave={() => setMenu(null)}>
+              <button className="flex items-center gap-1 px-3.5 py-2 text-sm font-medium text-gray-600 hover:text-brand-900 hover:bg-cream rounded-lg">
+                Blog <ChevronDown size={14} className={menu === 'blog' ? 'rotate-180 transition-transform' : 'transition-transform'} />
+              </button>
+              {menu === 'blog' && (
+                <MegaPanel>
+                  {posts.length === 0 ? (
+                    <p className="px-2 py-6 text-sm text-gray-400">No articles published yet.</p>
+                  ) : (
+                    <div className="grid grid-cols-12 gap-6">
+                      {/* Featured */}
+                      {featured && (
+                        <Link href={`/blog/${featured.slug}`} onClick={() => setMenu(null)} className="col-span-5 group">
+                          <div className="relative h-44 rounded-xl bg-gray-100 overflow-hidden mb-3">
+                            {featured.featured_image_url && (
+                              <Image src={featured.featured_image_url} alt={featured.title} fill sizes="360px" className="object-cover group-hover:scale-105 transition-transform" />
+                            )}
+                            <span className="absolute top-2 left-2 text-[10px] font-semibold uppercase tracking-wide bg-gold-500 text-brand-900 px-2 py-0.5 rounded">Featured</span>
+                          </div>
+                          <h4 className="font-bold text-brand-900 leading-snug group-hover:text-gold-600 line-clamp-2">{featured.title}</h4>
+                          {featured.excerpt && <p className="text-sm text-gray-500 mt-1 line-clamp-2">{featured.excerpt}</p>}
+                        </Link>
+                      )}
+                      {/* More articles */}
+                      <div className="col-span-7">
+                        <div className="flex items-center justify-between mb-2">
+                          <p className="font-semibold text-brand-900">More Articles</p>
+                          <Link href="/blog" onClick={() => setMenu(null)} className="flex items-center gap-1 text-sm font-semibold text-gold-600 hover:text-gold-700">View All <ArrowRight size={14} /></Link>
+                        </div>
+                        <div className="space-y-2">
+                          {moreArticles.map((a) => (
+                            <Link key={a.id} href={`/blog/${a.slug}`} onClick={() => setMenu(null)} className="flex items-center gap-3 p-2 rounded-xl hover:bg-cream group">
+                              <div className="relative w-20 h-16 rounded-lg bg-gray-100 overflow-hidden shrink-0">
+                                {a.featured_image_url && <Image src={a.featured_image_url} alt={a.title} fill sizes="80px" className="object-cover" />}
+                              </div>
+                              <div className="min-w-0">
+                                <p className="font-semibold text-brand-900 text-sm leading-snug line-clamp-2 group-hover:text-gold-600">{a.title}</p>
+                                <p className="text-xs text-gold-600 font-medium mt-1">Read now →</p>
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </MegaPanel>
+              )}
+            </div>
+
+            {simpleLinks.map((l) => (
+              <Link key={l.href} href={l.href} className="px-3.5 py-2 text-sm font-medium text-gray-600 hover:text-brand-900 hover:bg-cream rounded-lg transition-colors">{l.label}</Link>
             ))}
+
+            {/* More dropdown */}
+            <div className="relative" onMouseEnter={() => setMenu('more')} onMouseLeave={() => setMenu(null)}>
+              <button className="flex items-center gap-1 px-3.5 py-2 text-sm font-medium text-gray-600 hover:text-brand-900 hover:bg-cream rounded-lg">
+                More <ChevronDown size={14} className={menu === 'more' ? 'rotate-180 transition-transform' : 'transition-transform'} />
+              </button>
+              {menu === 'more' && (
+                <div className="absolute right-0 top-full pt-2 w-56">
+                  <div className="bg-white rounded-xl border border-gray-100 shadow-lg overflow-hidden py-1">
+                    {moreLinks.map((l) => (
+                      <Link key={l.href} href={l.href} onClick={() => setMenu(null)} className="block px-4 py-2.5 text-sm text-gray-600 hover:text-brand-900 hover:bg-cream">{l.label}</Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </nav>
 
           {/* CTA */}
-          <div className="hidden lg:flex items-center gap-3">
-            <a href={`tel:${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '+919876543210'}`}
-              className="flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-blue-600">
-              <Phone size={14} />
-              <span>Call Us</span>
+          <div className="hidden lg:flex items-center gap-2.5">
+            <a href={`tel:${PHONE}`} className="flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-brand-900">
+              <Phone size={14} /><span>{PHONE}</span>
             </a>
-            <Link href="/contact"
-              className="px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition-colors">
-              Get a Callback
-            </Link>
+            <a href={DASHBOARD_URL} className="flex items-center gap-1.5 px-4 py-2 border border-gray-200 text-brand-900 text-sm font-semibold rounded-xl hover:border-gold-400 transition-colors">
+              <LogIn size={14} /> Login
+            </a>
           </div>
 
-          {/* Mobile menu toggle */}
+          {/* Mobile toggle */}
           <button onClick={() => setOpen((v) => !v)} className="lg:hidden p-2 text-gray-500">
             {open ? <X size={22} /> : <Menu size={22} />}
           </button>
@@ -64,21 +226,27 @@ export default function Nav() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="lg:hidden border-t border-gray-100 bg-white">
+        <div className="lg:hidden border-t border-gray-100 bg-white max-h-[80vh] overflow-y-auto">
           <div className="px-4 py-3 space-y-1">
-            {links.map((l) => (
-              <Link key={l.href} href={l.href} onClick={() => setOpen(false)}
-                className="block px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-xl">
-                {l.label}
-              </Link>
+            {[{ label: 'Projects', href: '/projects' }, { label: 'Blog', href: '/blog' }, ...simpleLinks, ...moreLinks].map((l) => (
+              <Link key={l.href} href={l.href} onClick={() => setOpen(false)} className="block px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-brand-900 hover:bg-cream rounded-xl">{l.label}</Link>
             ))}
-            <Link href="/contact" onClick={() => setOpen(false)}
-              className="block mt-2 px-3 py-3 bg-blue-600 text-white text-sm font-semibold rounded-xl text-center">
-              Get a Callback
-            </Link>
+            <Link href="/contact" onClick={() => setOpen(false)} className="block mt-2 px-3 py-3 bg-gold-500 text-brand-900 text-sm font-semibold rounded-xl text-center">Free Consultation</Link>
+            <a href={DASHBOARD_URL} className="block mt-1 px-3 py-3 border border-gray-200 text-brand-900 text-sm font-semibold rounded-xl text-center">Login</a>
           </div>
         </div>
       )}
     </header>
+  )
+}
+
+/** Full-width dropdown panel anchored under the header. */
+function MegaPanel({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="absolute left-0 right-0 top-full px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-xl p-4 mt-2">{children}</div>
+      </div>
+    </div>
   )
 }

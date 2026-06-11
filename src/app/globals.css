@@ -5,26 +5,36 @@
 @layer base {
   html { scroll-behavior: smooth; }
   body { @apply text-gray-900 antialiased; }
+  /* Display serif for all headings — the editorial, premium look. */
+  h1, h2, h3 { @apply font-serif; }
 }
 
 @layer components {
+  /* Primary CTA — gold accent on the premium charcoal brand */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors;
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-gold-500 text-brand-900 font-semibold rounded-xl hover:bg-gold-600 hover:text-white transition-colors;
+  }
+  .btn-dark {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand-900 text-white font-semibold rounded-xl hover:bg-brand-700 transition-colors;
   }
   .btn-outline {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-blue-600 text-blue-600 font-semibold rounded-xl hover:bg-blue-50 transition-colors;
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-brand-900 text-brand-900 font-semibold rounded-xl hover:bg-brand-900 hover:text-white transition-colors;
   }
   .section-heading {
-    @apply text-3xl md:text-4xl font-bold text-gray-900;
+    @apply font-serif text-3xl md:text-[2.6rem] md:leading-[1.1] font-semibold text-brand-900 tracking-tight;
   }
   .section-sub {
     @apply text-lg text-gray-500 mt-3 max-w-2xl;
   }
   .card {
-    @apply bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md transition-shadow;
+    @apply bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5;
+  }
+  /* Italic display accent (e.g. "Find the home that's already yours.") */
+  .accent-italic {
+    @apply font-serif italic text-gold-600;
   }
   .input {
-    @apply w-full rounded-xl border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+    @apply w-full rounded-xl border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold-400 focus:border-transparent;
   }
   .badge {
     @apply inline-block px-3 py-1 rounded-full text-xs font-semibold;

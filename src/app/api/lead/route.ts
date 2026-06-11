@@ -5,7 +5,7 @@ export async function POST(req: NextRequest) {
   try {
     const service = getServiceClient()
     const body = await req.json()
-    const { name, phone, project_id, project_name, source = 'website', notes } = body
+    const { name, phone, email, city, project_id, project_name, source = 'website', notes } = body
 
     if (!name || !phone) {
       return NextResponse.json({ error: 'Name and phone are required.' }, { status: 400 })
@@ -29,20 +29,30 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: true })
     }
 
-    const { error } = await service.from('leads').insert({
+    const note = [project_name && `Interested in: ${project_name}`, notes].filter(Boolean).join('\n') || null
+
+    const { data: lead, error } = await service.from('leads').insert({
       full_name:    String(name).trim(),
       phone:        cleaned,
-      source:       source,
+      email:        email ? String(email).trim() : null,
+      city:         city ? String(city).trim() : null,
+      source:       'website_form',   // valid lead_source enum value
+      utm_source:   String(source),   // granular page attribution (projects_page, project_detail, …)
+      utm_medium:   'website',
       stage:        'new_lead',
-      notes:        [project_name && `Interested in: ${project_name}`, notes].filter(Boolean).join('\n') || null,
       project_id:   project_id ?? null,
       created_at:   new Date().toISOString(),
       updated_at:   new Date().toISOString(),
-    })
+    }).select('id').single()
 
     if (error) {
       console.error('Lead insert error:', error)
       return NextResponse.json({ error: 'Failed to save lead.' }, { status: 500 })
+    }
+
+    // Log the enquiry as the lead's first activity (timeline).
+    if (lead?.id && note) {
+      await service.from('lead_activities').insert({ lead_id: lead.id, type: 'note', notes: note })
     }
 
     return NextResponse.json({ success: true })

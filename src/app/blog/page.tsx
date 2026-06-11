@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { getPublishedBlogPosts } from '@/lib/queries'
 import BlogCard from '@/components/BlogCard'
 import LeadForm from '@/components/LeadForm'
+import Reveal from '@/components/Reveal'
 import { BLOG_CATEGORIES } from '@/types'
 
 export const revalidate = 300
@@ -21,11 +22,11 @@ export default async function BlogPage({ searchParams }: Props) {
   const filtered = category ? posts.filter((p) => p.category === category) : posts
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-blue-900 text-white py-14">
+    <div className="min-h-screen bg-cream">
+      <div className="bg-brand-900 text-white py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-bold mb-2">Real Estate Blog</h1>
-          <p className="text-blue-200">Investment tips, market trends, and project updates</p>
+          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight mb-2">Real Estate Blog</h1>
+          <p className="text-gray-300">Investment tips, market trends, and project updates</p>
         </div>
       </div>
 
@@ -38,7 +39,7 @@ export default async function BlogPage({ searchParams }: Props) {
                 <p className="font-semibold text-gray-900 mb-3 text-sm">Categories</p>
                 <div className="space-y-1">
                   <a href="/blog"
-                    className={`block px-3 py-2 rounded-xl text-sm ${!category ? 'bg-blue-50 text-blue-700 font-medium' : 'text-gray-600 hover:bg-gray-50'}`}>
+                    className={`block px-3 py-2 rounded-xl text-sm ${!category ? 'bg-gold-50 text-gold-700 font-medium' : 'text-gray-600 hover:bg-cream'}`}>
                     All Posts ({posts.length})
                   </a>
                   {BLOG_CATEGORIES.map((c) => {
@@ -46,7 +47,7 @@ export default async function BlogPage({ searchParams }: Props) {
                     if (count === 0) return null
                     return (
                       <a key={c.value} href={`/blog?category=${c.value}`}
-                        className={`block px-3 py-2 rounded-xl text-sm ${category === c.value ? 'bg-blue-50 text-blue-700 font-medium' : 'text-gray-600 hover:bg-gray-50'}`}>
+                        className={`block px-3 py-2 rounded-xl text-sm ${category === c.value ? 'bg-gold-50 text-gold-700 font-medium' : 'text-gray-600 hover:bg-cream'}`}>
                         {c.label} ({count})
                       </a>
                     )
@@ -68,7 +69,9 @@ export default async function BlogPage({ searchParams }: Props) {
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-                {filtered.map((post) => <BlogCard key={post.id} post={post} />)}
+                {filtered.map((post, i) => (
+                  <Reveal key={post.id} delay={(i % 3) * 90}><BlogCard post={post} /></Reveal>
+                ))}
               </div>
             )}
           </div>
