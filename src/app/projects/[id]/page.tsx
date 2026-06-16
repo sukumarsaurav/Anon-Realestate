@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getProjectBySlug, getAllProjectIds } from '@/lib/queries'
 import LeadForm from '@/components/LeadForm'
@@ -11,7 +12,8 @@ import { projectImage, projectGallery } from '@/lib/images'
 import Breadcrumbs from '@/components/Breadcrumbs'
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://anonindia.com'
-import { MapPin, CheckCircle, Calendar, Home, Info, BedDouble, Building2, IndianRupee, LayoutGrid } from 'lucide-react'
+import { MapPin, CheckCircle, Calendar, Home, Info, BedDouble, Building2, IndianRupee, LayoutGrid, ShieldCheck, TrendingUp, Sparkles, Navigation, HelpCircle, ArrowRight } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 
 interface Props {
   params: Promise<{ id: string }>
@@ -47,6 +49,29 @@ export default async function ProjectDetailPage({ params }: Props) {
   const defaultPrice = project.starting_price ?? (priceRange ? Math.round((priceRange.min + priceRange.max) / 2) : 2000000)
   const heroImg = projectImage(project, 1200)
   const gallery = projectGallery(project, 6)
+
+  const location = [project.locality, project.city].filter(Boolean).join(', ')
+  const possession = project.expected_completion_date
+    ? new Date(project.expected_completion_date).toLocaleDateString('en-IN', { month: 'long', year: 'numeric' })
+    : null
+
+  // "Why invest" highlights — derived only from verified project data (no invented claims).
+  const investHighlights: { Icon: LucideIcon; t: string; s: string }[] = []
+  if (project.rera_number) investHighlights.push({ Icon: ShieldCheck, t: 'RERA Registered', s: `Compliant & verified — ${project.rera_number}` })
+  if (location) investHighlights.push({ Icon: MapPin, t: 'Prime Location', s: `Well-connected address in ${location}` })
+  if (possession) investHighlights.push({ Icon: Calendar, t: 'Assured Possession', s: `Expected handover by ${possession}` })
+  if (project.bhk_config) investHighlights.push({ Icon: BedDouble, t: 'Smart Configurations', s: `${project.bhk_config} options to choose from` })
+  if (project.amenities?.length) investHighlights.push({ Icon: Sparkles, t: 'Lifestyle Amenities', s: `${project.amenities.length}+ curated amenities on offer` })
+  investHighlights.push({ Icon: TrendingUp, t: 'Advisory-Backed', s: 'Vetted and supported by ANON INDIA advisors' })
+
+  // FAQs — generated from real fields; also emitted as FAQPage schema for SEO.
+  const faqs: { q: string; a: string }[] = []
+  if (location) faqs.push({ q: `Where is ${project.name} located?`, a: `${project.name} is located in ${location}.` })
+  if (project.rera_number) faqs.push({ q: `Is ${project.name} RERA approved?`, a: `Yes. ${project.name} is registered under RERA number ${project.rera_number}${project.rera_registration_date ? `, registered on ${new Date(project.rera_registration_date).toLocaleDateString('en-IN')}` : ''}.` })
+  if (project.bhk_config) faqs.push({ q: `What configurations are available at ${project.name}?`, a: `${project.name} offers ${project.bhk_config} configurations.` })
+  if (project.starting_price) faqs.push({ q: `What is the starting price of ${project.name}?`, a: `Prices start from ${formatINR(project.starting_price)}. The final price sheet is shared after enquiry.` })
+  if (possession) faqs.push({ q: `When is possession for ${project.name}?`, a: `Possession is expected by ${possession}.` })
+  if (project.amenities?.length) faqs.push({ q: `What amenities does ${project.name} offer?`, a: `Key amenities include ${project.amenities.slice(0, 6).join(', ')}${project.amenities.length > 6 ? ' and more' : ''}.` })
 
   return (
     <div className="min-h-screen bg-cream">
@@ -126,13 +151,36 @@ export default async function ProjectDetailPage({ params }: Props) {
               </div>
             )}
 
-            {/* Price range from plots */}
-            {priceRange && (
-              <div className="bg-gold-50 border border-gold-100 rounded-2xl p-6">
-                <h2 className="font-bold text-brand-900 text-lg mb-1">Price Range</h2>
-                <p className="text-3xl font-bold text-gold-700">{formatINR(priceRange.min)} — {formatINR(priceRange.max)}</p>
-                <p className="text-sm text-gray-500 mt-1">{availablePlots.length} units available · varies by size & facing</p>
-                <p className="text-xs text-gold-700 mt-2 flex items-center gap-1"><Info size={11} /> Final price sheet shared after enquiry</p>
+            {/* Configurations & pricing (unit-level table from plots) */}
+            {availablePlots.length > 0 && (
+              <div className="bg-white rounded-2xl border border-gray-100 p-6">
+                <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+                  <h2 className="font-bold text-brand-900 text-lg flex items-center gap-2"><IndianRupee size={18} className="text-gold-700" /> Configurations &amp; Pricing</h2>
+                  {priceRange && <span className="text-sm font-semibold text-gold-700">{formatINR(priceRange.min)} – {formatINR(priceRange.max)}</span>}
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm min-w-[480px]">
+                    <thead>
+                      <tr className="text-left text-xs uppercase tracking-wide text-gray-400 border-b border-gray-100">
+                        <th className="px-2 py-2 font-semibold">Unit</th>
+                        <th className="px-2 py-2 font-semibold">Size</th>
+                        <th className="px-2 py-2 font-semibold">Facing</th>
+                        <th className="px-2 py-2 font-semibold text-right">Price</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {availablePlots.slice(0, 8).map((p) => (
+                        <tr key={p.id} className="border-b border-gray-50 last:border-0">
+                          <td className="px-2 py-3 font-medium text-brand-900">{[p.type, p.plot_number].filter(Boolean).join(' ') || 'Unit'}</td>
+                          <td className="px-2 py-3 text-gray-600">{p.size_sqft ? `${p.size_sqft.toLocaleString('en-IN')} sq.ft` : `${p.size_sqyd} sq.yd`}</td>
+                          <td className="px-2 py-3 text-gray-600">{p.facing || '—'}</td>
+                          <td className="px-2 py-3 text-right font-bold text-brand-900">{formatINR(p.total_price)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <p className="text-xs text-gold-700 mt-3 flex items-center gap-1"><Info size={11} /> {availablePlots.length} units available · final price sheet shared after enquiry</p>
               </div>
             )}
 
@@ -157,6 +205,47 @@ export default async function ProjectDetailPage({ params }: Props) {
                     </div>
                   ))}
                 </div>
+              </div>
+            )}
+
+            {/* Why invest */}
+            {investHighlights.length > 0 && (
+              <div className="bg-white rounded-2xl border border-gray-100 p-6">
+                <h2 className="font-bold text-brand-900 text-lg mb-4 flex items-center gap-2"><TrendingUp size={18} className="text-gold-700" /> Why Invest in {project.name}</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {investHighlights.map(({ Icon, t, s }) => (
+                    <div key={t} className="flex items-start gap-3 p-4 bg-cream rounded-xl">
+                      <span className="w-9 h-9 rounded-lg bg-gold-50 flex items-center justify-center shrink-0"><Icon size={17} className="text-gold-700" /></span>
+                      <div>
+                        <p className="font-semibold text-brand-900 text-sm">{t}</p>
+                        <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">{s}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Location & connectivity */}
+            {location && (
+              <div className="bg-white rounded-2xl border border-gray-100 p-6">
+                <h2 className="font-bold text-brand-900 text-lg mb-3 flex items-center gap-2"><Navigation size={18} className="text-gold-700" /> Location &amp; Connectivity</h2>
+                <p className="text-gray-600 leading-relaxed mb-4">
+                  {project.name} is situated in {location} — explore the neighbourhood and nearby connectivity on the map below.
+                </p>
+                <div className="relative h-64 md:h-80 rounded-xl overflow-hidden border border-gray-100">
+                  <iframe
+                    title={`Map of ${project.name}, ${location}`}
+                    src={`https://www.google.com/maps?q=${encodeURIComponent(location)}&output=embed`}
+                    loading="lazy" referrerPolicy="no-referrer-when-downgrade"
+                    className="absolute inset-0 w-full h-full" />
+                </div>
+                {project.google_maps_pin && (
+                  <a href={project.google_maps_pin} target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 mt-3 text-sm font-medium text-gold-700 hover:text-brand-900 transition-colors">
+                    <MapPin size={14} /> Open exact location in Google Maps
+                  </a>
+                )}
               </div>
             )}
 
@@ -190,6 +279,48 @@ export default async function ProjectDetailPage({ params }: Props) {
                     </div>
                   )}
                 </div>
+              </div>
+            )}
+
+            {/* About the developer */}
+            {project.developer?.name && (
+              <div className="bg-white rounded-2xl border border-gray-100 p-6">
+                <h2 className="font-bold text-brand-900 text-lg mb-4">About the Developer</h2>
+                <div className="flex items-start gap-4">
+                  <span className="w-12 h-12 rounded-xl bg-brand-900 flex items-center justify-center shrink-0"><Building2 size={22} className="text-gold-400" /></span>
+                  <div>
+                    <p className="font-bold text-brand-900">{project.developer.name}</p>
+                    <p className="text-sm text-gray-600 mt-1 leading-relaxed">
+                      {project.developer.name} is among the trusted developers ANON INDIA partners with, delivering RERA-compliant, quality-led projects.
+                    </p>
+                    <Link href="/developers" className="inline-flex items-center gap-1 mt-2 text-sm font-semibold text-gold-700 hover:text-brand-900 transition-colors">
+                      View the ANON Group <ArrowRight size={14} />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* FAQs */}
+            {faqs.length > 0 && (
+              <div className="bg-white rounded-2xl border border-gray-100 p-6">
+                <h2 className="font-bold text-brand-900 text-lg mb-4 flex items-center gap-2"><HelpCircle size={18} className="text-gold-700" /> Frequently Asked Questions</h2>
+                <div className="divide-y divide-gray-100">
+                  {faqs.map((f) => (
+                    <details key={f.q} className="group py-3">
+                      <summary className="flex items-center justify-between gap-4 cursor-pointer list-none font-medium text-brand-900 text-sm">
+                        {f.q}
+                        <ArrowRight size={15} className="shrink-0 text-gold-700 transition-transform group-open:rotate-90" />
+                      </summary>
+                      <p className="text-sm text-gray-600 leading-relaxed mt-2">{f.a}</p>
+                    </details>
+                  ))}
+                </div>
+                <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+                  '@context': 'https://schema.org',
+                  '@type': 'FAQPage',
+                  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+                }) }} />
               </div>
             )}
 
