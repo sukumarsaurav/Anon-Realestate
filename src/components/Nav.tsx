@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Menu, X, Phone, ChevronDown, LogIn, ArrowRight, MapPin } from 'lucide-react'
 import { PROJECT_TYPE_LABELS } from '@/types'
 import type { Project, BlogPost, CityStat } from '@/types'
@@ -54,11 +54,24 @@ export default function Nav({ cities, projects, posts }: NavProps) {
   const featured = posts[0]
   const moreArticles = posts.slice(1, 4)
 
+  // Short close-delay so moving the pointer across the gap between the trigger
+  // and the panel doesn't close the menu (re-entering cancels the pending close).
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const openMenu = (key: Exclude<MenuKey, null>) => {
+    if (closeTimer.current) clearTimeout(closeTimer.current)
+    setMenu(key)
+  }
+  const scheduleClose = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current)
+    closeTimer.current = setTimeout(() => setMenu(null), 140)
+  }
+  useEffect(() => () => { if (closeTimer.current) clearTimeout(closeTimer.current) }, [])
+
   // Open on hover AND keyboard focus; close on Escape or when focus leaves the group.
   const menuHandlers = (key: Exclude<MenuKey, null>) => ({
-    onMouseEnter: () => setMenu(key),
-    onMouseLeave: () => setMenu(null),
-    onFocus: () => setMenu(key),
+    onMouseEnter: () => openMenu(key),
+    onMouseLeave: scheduleClose,
+    onFocus: () => openMenu(key),
     onBlur: (e: React.FocusEvent) => {
       if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setMenu(null)
     },
@@ -305,9 +318,9 @@ export default function Nav({ cities, projects, posts }: NavProps) {
 /** Full-width dropdown panel anchored under the header. */
 function MegaPanel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="absolute left-0 right-0 top-full px-4 sm:px-6 lg:px-8">
+    <div className="absolute left-0 right-0 top-full pt-2 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-xl p-4 mt-2">{children}</div>
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-xl p-4">{children}</div>
       </div>
     </div>
   )
