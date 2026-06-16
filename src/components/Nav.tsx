@@ -39,6 +39,7 @@ interface NavProps {
 export default function Nav({ cities, projects, posts }: NavProps) {
   const [open, setOpen] = useState(false)
   const [menu, setMenu] = useState<MenuKey>(null)
+  const [mobileSection, setMobileSection] = useState<'projects' | 'blog' | null>(null)
   const [activeCity, setActiveCity] = useState<string>(cities[0]?.city ?? '')
   const [scrolled, setScrolled] = useState(false)
 
@@ -53,6 +54,19 @@ export default function Nav({ cities, projects, posts }: NavProps) {
   const featured = posts[0]
   const moreArticles = posts.slice(1, 4)
 
+  // Open on hover AND keyboard focus; close on Escape or when focus leaves the group.
+  const menuHandlers = (key: Exclude<MenuKey, null>) => ({
+    onMouseEnter: () => setMenu(key),
+    onMouseLeave: () => setMenu(null),
+    onFocus: () => setMenu(key),
+    onBlur: (e: React.FocusEvent) => {
+      if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setMenu(null)
+    },
+    onKeyDown: (e: React.KeyboardEvent) => {
+      if (e.key === 'Escape') setMenu(null)
+    },
+  })
+
   return (
     <header className={`sticky top-0 z-50 bg-white/90 backdrop-blur transition-shadow ${scrolled ? 'shadow-md border-b border-transparent' : 'border-b border-gray-100'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -62,15 +76,16 @@ export default function Nav({ cities, projects, posts }: NavProps) {
             <Image src="/logo.svg" alt="ANON INDIA" width={40} height={40} className="rounded-full" priority />
             <div className="leading-none">
               <p className="font-bold text-brand-900 text-sm tracking-wide">ANON INDIA</p>
-              <p className="text-[10px] text-gray-400">Structures · Spaces · Solutions</p>
+              <p className="text-[10px] text-gray-500">Structures · Spaces · Solutions</p>
             </div>
           </Link>
 
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-1">
             {/* Projects mega */}
-            <div className="static" onMouseEnter={() => setMenu('projects')} onMouseLeave={() => setMenu(null)}>
-              <button className="flex items-center gap-1 px-3.5 py-2 text-sm font-medium text-gray-600 hover:text-brand-900 hover:bg-cream rounded-lg">
+            <div className="static" {...menuHandlers('projects')}>
+              <button aria-haspopup="true" aria-expanded={menu === 'projects'}
+                className="flex items-center gap-1 px-3.5 py-2 text-sm font-medium text-gray-600 hover:text-brand-900 hover:bg-cream rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-400">
                 Projects <ChevronDown size={14} className={menu === 'projects' ? 'rotate-180 transition-transform' : 'transition-transform'} />
               </button>
               {menu === 'projects' && (
@@ -106,7 +121,7 @@ export default function Nav({ cities, projects, posts }: NavProps) {
                         <p className="font-semibold text-brand-900">Properties in {activeCity || '—'}</p>
                         {activeCity && (
                           <Link href={`/projects?city=${encodeURIComponent(activeCity)}`} onClick={() => setMenu(null)}
-                            className="flex items-center gap-1 text-sm font-semibold text-gold-600 hover:text-gold-700">
+                            className="flex items-center gap-1 text-sm font-semibold text-gold-700 hover:text-brand-900 transition-colors">
                             View All <ArrowRight size={14} />
                           </Link>
                         )}
@@ -124,7 +139,7 @@ export default function Nav({ cities, projects, posts }: NavProps) {
                               <div className="min-w-0">
                                 <p className="font-semibold text-brand-900 text-sm truncate">{p.name}</p>
                                 <p className="text-xs text-gray-500 flex items-center gap-1"><MapPin size={11} />{p.locality || p.city}</p>
-                                <p className="text-sm font-bold text-gold-600 mt-0.5">{formatINR(p.starting_price)}</p>
+                                <p className="text-sm font-bold text-gold-700 mt-0.5">{formatINR(p.starting_price)}</p>
                               </div>
                             </Link>
                           )
@@ -137,8 +152,9 @@ export default function Nav({ cities, projects, posts }: NavProps) {
             </div>
 
             {/* Blog mega */}
-            <div className="static" onMouseEnter={() => setMenu('blog')} onMouseLeave={() => setMenu(null)}>
-              <button className="flex items-center gap-1 px-3.5 py-2 text-sm font-medium text-gray-600 hover:text-brand-900 hover:bg-cream rounded-lg">
+            <div className="static" {...menuHandlers('blog')}>
+              <button aria-haspopup="true" aria-expanded={menu === 'blog'}
+                className="flex items-center gap-1 px-3.5 py-2 text-sm font-medium text-gray-600 hover:text-brand-900 hover:bg-cream rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-400">
                 Blog <ChevronDown size={14} className={menu === 'blog' ? 'rotate-180 transition-transform' : 'transition-transform'} />
               </button>
               {menu === 'blog' && (
@@ -156,7 +172,7 @@ export default function Nav({ cities, projects, posts }: NavProps) {
                             )}
                             <span className="absolute top-2 left-2 text-[10px] font-semibold uppercase tracking-wide bg-gold-500 text-brand-900 px-2 py-0.5 rounded">Featured</span>
                           </div>
-                          <h4 className="font-bold text-brand-900 leading-snug group-hover:text-gold-600 line-clamp-2">{featured.title}</h4>
+                          <h4 className="font-bold text-brand-900 leading-snug group-hover:text-gold-700 line-clamp-2">{featured.title}</h4>
                           {featured.excerpt && <p className="text-sm text-gray-500 mt-1 line-clamp-2">{featured.excerpt}</p>}
                         </Link>
                       )}
@@ -164,7 +180,7 @@ export default function Nav({ cities, projects, posts }: NavProps) {
                       <div className="col-span-7">
                         <div className="flex items-center justify-between mb-2">
                           <p className="font-semibold text-brand-900">More Articles</p>
-                          <Link href="/blog" onClick={() => setMenu(null)} className="flex items-center gap-1 text-sm font-semibold text-gold-600 hover:text-gold-700">View All <ArrowRight size={14} /></Link>
+                          <Link href="/blog" onClick={() => setMenu(null)} className="flex items-center gap-1 text-sm font-semibold text-gold-700 hover:text-brand-900 transition-colors">View All <ArrowRight size={14} /></Link>
                         </div>
                         <div className="space-y-2">
                           {moreArticles.map((a) => (
@@ -173,8 +189,8 @@ export default function Nav({ cities, projects, posts }: NavProps) {
                                 {a.featured_image_url && <Image src={a.featured_image_url} alt={a.title} fill sizes="80px" className="object-cover" />}
                               </div>
                               <div className="min-w-0">
-                                <p className="font-semibold text-brand-900 text-sm leading-snug line-clamp-2 group-hover:text-gold-600">{a.title}</p>
-                                <p className="text-xs text-gold-600 font-medium mt-1">Read now →</p>
+                                <p className="font-semibold text-brand-900 text-sm leading-snug line-clamp-2 group-hover:text-gold-700">{a.title}</p>
+                                <p className="text-xs text-gold-700 font-medium mt-1">Read now →</p>
                               </div>
                             </Link>
                           ))}
@@ -191,8 +207,9 @@ export default function Nav({ cities, projects, posts }: NavProps) {
             ))}
 
             {/* More dropdown */}
-            <div className="relative" onMouseEnter={() => setMenu('more')} onMouseLeave={() => setMenu(null)}>
-              <button className="flex items-center gap-1 px-3.5 py-2 text-sm font-medium text-gray-600 hover:text-brand-900 hover:bg-cream rounded-lg">
+            <div className="relative" {...menuHandlers('more')}>
+              <button aria-haspopup="true" aria-expanded={menu === 'more'}
+                className="flex items-center gap-1 px-3.5 py-2 text-sm font-medium text-gray-600 hover:text-brand-900 hover:bg-cream rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-400">
                 More <ChevronDown size={14} className={menu === 'more' ? 'rotate-180 transition-transform' : 'transition-transform'} />
               </button>
               {menu === 'more' && (
@@ -228,7 +245,52 @@ export default function Nav({ cities, projects, posts }: NavProps) {
       {open && (
         <div className="lg:hidden border-t border-gray-100 bg-white max-h-[80vh] overflow-y-auto">
           <div className="px-4 py-3 space-y-1">
-            {[{ label: 'Projects', href: '/projects' }, { label: 'Blog', href: '/blog' }, ...simpleLinks, ...moreLinks].map((l) => (
+            {/* Projects — expandable: browse by city */}
+            <div>
+              <button
+                onClick={() => setMobileSection((s) => (s === 'projects' ? null : 'projects'))}
+                aria-expanded={mobileSection === 'projects'}
+                className="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-cream rounded-xl">
+                Projects
+                <ChevronDown size={16} className={`transition-transform ${mobileSection === 'projects' ? 'rotate-180' : ''}`} />
+              </button>
+              {mobileSection === 'projects' && (
+                <div className="pl-3 pb-1">
+                  <Link href="/projects" onClick={() => setOpen(false)} className="block px-3 py-2 text-sm font-medium text-gold-700 hover:bg-cream rounded-lg">View all projects →</Link>
+                  {cities.length === 0 && <p className="px-3 py-2 text-sm text-gray-400">No cities yet</p>}
+                  {cities.map((c) => (
+                    <Link key={c.city} href={`/projects?city=${encodeURIComponent(c.city)}`} onClick={() => setOpen(false)}
+                      className="flex items-center justify-between px-3 py-2 text-sm text-gray-600 hover:bg-cream rounded-lg">
+                      <span className="flex items-center gap-1.5"><MapPin size={13} className="text-gray-400" />{c.city}</span>
+                      <span className="text-xs px-1.5 py-0.5 rounded bg-gray-100 text-gray-500">{c.count}</span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Blog — expandable: recent posts */}
+            <div>
+              <button
+                onClick={() => setMobileSection((s) => (s === 'blog' ? null : 'blog'))}
+                aria-expanded={mobileSection === 'blog'}
+                className="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-cream rounded-xl">
+                Blog
+                <ChevronDown size={16} className={`transition-transform ${mobileSection === 'blog' ? 'rotate-180' : ''}`} />
+              </button>
+              {mobileSection === 'blog' && (
+                <div className="pl-3 pb-1">
+                  <Link href="/blog" onClick={() => setOpen(false)} className="block px-3 py-2 text-sm font-medium text-gold-700 hover:bg-cream rounded-lg">View all articles →</Link>
+                  {posts.length === 0 && <p className="px-3 py-2 text-sm text-gray-400">No articles yet</p>}
+                  {posts.slice(0, 4).map((p) => (
+                    <Link key={p.id} href={`/blog/${p.slug}`} onClick={() => setOpen(false)}
+                      className="block px-3 py-2 text-sm text-gray-600 hover:bg-cream rounded-lg line-clamp-1">{p.title}</Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {[...simpleLinks, ...moreLinks].map((l) => (
               <Link key={l.href} href={l.href} onClick={() => setOpen(false)} className="block px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-brand-900 hover:bg-cream rounded-xl">{l.label}</Link>
             ))}
             <Link href="/contact" onClick={() => setOpen(false)} className="block mt-2 px-3 py-3 bg-gold-500 text-brand-900 text-sm font-semibold rounded-xl text-center">Free Consultation</Link>

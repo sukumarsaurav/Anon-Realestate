@@ -10,9 +10,10 @@ import HeroSearch from '@/components/home/HeroSearch'
 import PremiumProjects from '@/components/home/PremiumProjects'
 import ReelsSection from '@/components/home/ReelsSection'
 import ProjectCard from '@/components/ProjectCard'
+import LeadForm from '@/components/LeadForm'
 import Reveal from '@/components/Reveal'
 import CountUp from '@/components/CountUp'
-import { avatarFor } from '@/lib/images'
+import Avatar from '@/components/Avatar'
 
 export const revalidate = 300
 
@@ -33,22 +34,33 @@ export default async function HomePage() {
 
       {/* Trust strip with animated counters */}
       <section className="bg-white border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {[
-            { Icon: Award, end: 15, suffix: '+', s: 'Years of expertise' },
-            { Icon: Users, end: 2500, suffix: '+', s: 'Happy investors' },
-            { Icon: MapPinned, end: 12, suffix: '+', s: 'Cities & projects' },
-          ].map(({ Icon, end, suffix, s }) => (
-            <div key={s} className="flex items-center gap-3 justify-center sm:justify-start">
-              <div className="w-12 h-12 rounded-xl bg-gold-50 flex items-center justify-center shrink-0">
-                <Icon size={22} className="text-gold-600" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {[
+              { Icon: Award, end: 15, suffix: '+', s: 'Years of expertise' },
+              { Icon: Users, end: 2500, suffix: '+', s: 'Happy investors' },
+              { Icon: MapPinned, end: 12, suffix: '+', s: 'Cities & projects' },
+            ].map(({ Icon, end, suffix, s }) => (
+              <div key={s} className="flex items-center gap-3 justify-center sm:justify-start">
+                <div className="w-12 h-12 rounded-xl bg-gold-50 flex items-center justify-center shrink-0">
+                  <Icon size={22} className="text-gold-700" />
+                </div>
+                <div>
+                  <p className="font-serif text-2xl font-semibold text-brand-900"><CountUp end={end} suffix={suffix} /></p>
+                  <p className="text-sm text-gray-500">{s}</p>
+                </div>
               </div>
-              <div>
-                <p className="font-serif text-2xl font-semibold text-brand-900"><CountUp end={end} suffix={suffix} /></p>
-                <p className="text-sm text-gray-500">{s}</p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          {/* Credibility anchor — grounds the numbers in verifiable proof */}
+          <div className="mt-6 pt-6 border-t border-gray-100 flex flex-wrap items-center justify-center sm:justify-between gap-x-6 gap-y-2 text-sm text-gray-500">
+            <span className="flex items-center gap-2">
+              <ShieldCheck size={16} className="text-gold-700" /> RERA-compliant projects only
+            </span>
+            <Link href="/awards" className="inline-flex items-center gap-1 font-semibold text-gold-700 hover:text-brand-900 transition-colors">
+              See our awards &amp; recognition <ArrowRight size={14} />
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -61,13 +73,14 @@ export default async function HomePage() {
                 <h2 className="section-heading">Popular New Launches</h2>
                 <p className="section-sub">Trending projects investors are booking right now.</p>
               </div>
-              <Link href="/projects" className="hidden sm:flex items-center gap-1 text-sm font-semibold text-gold-600 hover:text-gold-700">
+              <Link href="/projects" className="hidden sm:inline-flex items-center gap-1 text-sm font-semibold text-gold-700 hover:text-brand-900 transition-colors">
                 View all <ArrowRight size={15} />
               </Link>
             </div>
-            <div className="flex gap-6 overflow-x-auto pb-4 snap-x">
-              {featured.map((p) => (
-                <div key={p.id} className="w-[300px] shrink-0 snap-start"><ProjectCard project={p} /></div>
+            {/* Responsive grid on desktop; horizontal snap-scroll on mobile (no off-screen bleed). */}
+            <div className="flex gap-5 overflow-x-auto pb-4 snap-x sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:overflow-visible sm:pb-0">
+              {featured.slice(0, 4).map((p) => (
+                <div key={p.id} className="w-[280px] shrink-0 snap-start sm:w-auto"><ProjectCard project={p} /></div>
               ))}
             </div>
           </div>
@@ -132,9 +145,8 @@ export default async function HomePage() {
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
               {team.map((m) => (
                 <div key={m.id} className="bg-white rounded-2xl border border-gray-100 p-4 text-center">
-                  <div className="w-16 h-16 mx-auto rounded-full bg-brand-900 overflow-hidden mb-3">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={m.photo_url || avatarFor(m.name)} alt={m.name} className="w-full h-full object-cover" />
+                  <div className="w-16 h-16 mx-auto rounded-full bg-brand-900 overflow-hidden mb-3 flex">
+                    <Avatar name={m.name} src={m.photo_url} fontClass="text-lg" />
                   </div>
                   <p className="font-semibold text-brand-900 text-sm">{m.name}</p>
                   <p className="text-xs text-gray-500">{m.designation}</p>
@@ -155,16 +167,15 @@ export default async function HomePage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {testimonials.slice(0, 6).map((t) => (
-                <div key={t.id} className="bg-white rounded-2xl border border-gray-100 p-6">
+                <div key={t.id} className="bg-white rounded-2xl border border-gray-100 p-6 flex flex-col">
                   <Quote size={22} className="text-gold-400 mb-3" />
-                  <p className="text-gray-600 text-sm leading-relaxed mb-4">&ldquo;{t.content}&rdquo;</p>
-                  <div className="flex items-center justify-between">
+                  <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-4">&ldquo;{t.content}&rdquo;</p>
+                  <div className="flex items-center justify-between mt-auto">
                     <div className="flex items-center gap-3">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={t.photo_url || avatarFor(t.client_name)} alt={t.client_name} className="w-10 h-10 rounded-full object-cover" />
+                      <span className="w-10 h-10 rounded-full bg-brand-900 overflow-hidden flex shrink-0"><Avatar name={t.client_name} src={t.photo_url} fontClass="text-xs" /></span>
                       <div>
                         <p className="font-semibold text-brand-900 text-sm">{t.client_name}</p>
-                        {t.project && <p className="text-xs text-gray-400">{t.project}</p>}
+                        {t.project && <p className="text-xs text-gray-500">{t.project}</p>}
                       </div>
                     </div>
                     <div className="flex">
@@ -199,7 +210,7 @@ export default async function HomePage() {
             ].map(({ Icon, t, s }) => (
               <div key={t} className="bg-white rounded-2xl border border-gray-100 p-6">
                 <div className="w-11 h-11 rounded-xl bg-gold-50 flex items-center justify-center mb-4">
-                  <Icon size={20} className="text-gold-600" />
+                  <Icon size={20} className="text-gold-700" />
                 </div>
                 <p className="font-semibold text-brand-900 mb-1">{t}</p>
                 <p className="text-sm text-gray-500">{s}</p>
@@ -209,16 +220,32 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* CTA band */}
+      {/* Lead capture band */}
       <section className="bg-brand-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 text-center">
-          <h2 className="text-3xl font-bold">Find the Right Property with Expert Guidance</h2>
-          <p className="text-gray-300 mt-3 max-w-2xl mx-auto">Free consultation, RERA-verified options, and honest advice tailored to your budget.</p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center mt-7">
-            <Link href="/contact" className="btn-primary">Get Free Consultation</Link>
-            <Link href="/projects" className="px-6 py-3 border-2 border-white/30 text-white font-semibold rounded-xl hover:bg-white/10 transition-colors">
-              View Premium Properties
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid lg:grid-cols-2 gap-10 items-center">
+          <div>
+            <h2 className="text-3xl md:text-[2.4rem] md:leading-[1.1] font-semibold">Find the Right Property with Expert Guidance</h2>
+            <p className="text-gray-300 mt-4 max-w-xl">Free consultation, RERA-verified options, and honest advice tailored to your budget. Our advisor calls you back within 30 minutes.</p>
+            <ul className="mt-6 space-y-2.5">
+              {[
+                { Icon: ShieldCheck, t: 'RERA-verified projects only' },
+                { Icon: Headphones, t: 'No-pressure, advisory-first approach' },
+                { Icon: Award, t: '15+ years, 2,500+ investors served' },
+              ].map(({ Icon, t }) => (
+                <li key={t} className="flex items-center gap-3 text-gray-200">
+                  <span className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
+                    <Icon size={16} className="text-gold-400" />
+                  </span>
+                  {t}
+                </li>
+              ))}
+            </ul>
+            <Link href="/projects" className="inline-flex items-center gap-1 mt-7 text-sm font-semibold text-gold-400 hover:text-white transition-colors">
+              Browse all properties <ArrowRight size={15} />
             </Link>
+          </div>
+          <div className="bg-white text-gray-900 rounded-2xl p-6 shadow-xl">
+            <LeadForm source="home_cta" />
           </div>
         </div>
       </section>
@@ -232,14 +259,14 @@ export default async function HomePage() {
                 <h2 className="section-heading">Property Guides &amp; Market Updates</h2>
                 <p className="section-sub">Expert advice to help you invest smarter.</p>
               </div>
-              <Link href="/blog" className="hidden sm:flex items-center gap-1 text-sm font-semibold text-gold-600 hover:text-gold-700">
+              <Link href="/blog" className="hidden sm:inline-flex items-center gap-1 text-sm font-semibold text-gold-700 hover:text-brand-900 transition-colors">
                 Read more <ArrowRight size={15} />
               </Link>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {posts.map((p) => (
                 <Link key={p.id} href={`/blog/${p.slug}`} className="card block p-6">
-                  <p className="text-xs font-semibold text-gold-600 uppercase tracking-wide mb-2">{p.category}</p>
+                  <p className="text-xs font-semibold text-gold-700 uppercase tracking-wide mb-2">{p.category}</p>
                   <h3 className="font-bold text-brand-900 mb-2 line-clamp-2">{p.title}</h3>
                   {p.excerpt && <p className="text-sm text-gray-500 line-clamp-3">{p.excerpt}</p>}
                 </Link>

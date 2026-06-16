@@ -28,7 +28,7 @@ export default function ReelsSection() {
         {/* Header */}
         <div className="flex items-end justify-between gap-4 mb-8">
           <div>
-            <p className="text-xs font-semibold tracking-[0.2em] text-gold-600 uppercase mb-2">On the Gram</p>
+            <p className="text-xs font-semibold tracking-[0.2em] text-gold-700 uppercase mb-2">On the Gram</p>
             <h2 className="font-serif text-3xl md:text-[2.6rem] md:leading-[1.1] font-semibold text-brand-900 tracking-tight">
               ANON INDIA in <span className="accent-italic">reels</span>.
             </h2>

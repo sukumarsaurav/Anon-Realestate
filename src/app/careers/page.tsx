@@ -40,7 +40,7 @@ function ApplicationForm({ listing, onClose }: { listing: CareerListing; onClose
         <CheckCircle size={36} className="text-green-500 mx-auto mb-3" />
         <p className="font-bold text-gray-900">Application Submitted!</p>
         <p className="text-sm text-gray-500 mt-1">Our HR team will reach out within 3 business days.</p>
-        <button onClick={onClose} className="mt-4 text-sm text-gold-600 underline">Close</button>
+        <button onClick={onClose} className="mt-4 text-sm text-gold-700 underline">Close</button>
       </div>
     )
   }

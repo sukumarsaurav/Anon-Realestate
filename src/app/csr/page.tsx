@@ -31,7 +31,7 @@ export default function CSRPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {initiatives.map(({ Icon, t, s }) => (
             <div key={t} className="bg-white rounded-2xl border border-gray-100 p-6">
-              <div className="w-11 h-11 rounded-xl bg-gold-50 flex items-center justify-center mb-4"><Icon size={20} className="text-gold-600" /></div>
+              <div className="w-11 h-11 rounded-xl bg-gold-50 flex items-center justify-center mb-4"><Icon size={20} className="text-gold-700" /></div>
               <p className="font-semibold text-brand-900 mb-1">{t}</p>
               <p className="text-sm text-gray-500">{s}</p>
             </div>

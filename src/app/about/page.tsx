@@ -25,7 +25,7 @@ export default function AboutPage() {
         {/* Story */}
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-            <p className="text-sm font-semibold text-gold-600 uppercase tracking-wide mb-3">Our Story</p>
+            <p className="text-sm font-semibold text-gold-700 uppercase tracking-wide mb-3">Our Story</p>
             <h2 className="text-3xl font-bold text-gray-900 mb-5">From a Vision to 1000+ Happy Families</h2>
             <div className="space-y-4 text-gray-600 leading-relaxed">
               <p>
@@ -41,7 +41,7 @@ export default function AboutPage() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             {[
-              { value: '15+', label: 'Years of Experience', icon: Award, bg: 'bg-gold-50', color: 'text-gold-600' },
+              { value: '15+', label: 'Years of Experience', icon: Award, bg: 'bg-gold-50', color: 'text-gold-700' },
               { value: '50+', label: 'Projects Delivered', icon: Building2, bg: 'bg-green-50', color: 'text-green-600' },
               { value: '1000+', label: 'Happy Families', icon: Users, bg: 'bg-amber-50', color: 'text-amber-600' },
               { value: '8', label: 'Cities Covered', icon: MapPin, bg: 'bg-purple-50', color: 'text-purple-600' },
@@ -58,7 +58,7 @@ export default function AboutPage() {
         {/* Mission & Values */}
         <section>
           <div className="text-center mb-10">
-            <p className="text-sm font-semibold text-gold-600 uppercase tracking-wide mb-2">Our Values</p>
+            <p className="text-sm font-semibold text-gold-700 uppercase tracking-wide mb-2">Our Values</p>
             <h2 className="text-3xl font-bold text-gray-900">What We Stand For</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

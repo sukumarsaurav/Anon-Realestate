@@ -31,7 +31,7 @@
   }
   /* Italic display accent (e.g. "Find the home that's already yours.") */
   .accent-italic {
-    @apply font-serif italic text-gold-600;
+    @apply font-serif italic text-gold-700;
   }
   .input {
     @apply w-full rounded-xl border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold-400 focus:border-transparent;

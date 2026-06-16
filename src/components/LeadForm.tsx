@@ -77,21 +77,28 @@ export default function LeadForm({
       )}
 
       <div>
-        <input name="name" required placeholder="Your Name"
+        <label htmlFor="lf-name" className="block text-xs font-medium text-gray-600 mb-1">Full name</label>
+        <input id="lf-name" name="name" required autoComplete="name" placeholder="e.g. Rahul Sharma"
+          aria-invalid={!!error}
           className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold-400" />
       </div>
       <div>
-        <input name="phone" type="tel" required placeholder="Phone Number"
+        <label htmlFor="lf-phone" className="block text-xs font-medium text-gray-600 mb-1">Mobile number</label>
+        <input id="lf-phone" name="phone" type="tel" required autoComplete="tel" inputMode="numeric"
+          placeholder="10-digit mobile"
           pattern="[6-9][0-9]{9}"
           title="Enter a valid 10-digit Indian mobile number"
+          aria-describedby="lf-phone-hint" aria-invalid={!!error}
           className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold-400" />
+        <p id="lf-phone-hint" className="sr-only">Enter a valid 10-digit Indian mobile number.</p>
       </div>
 
       {!projectId && (
         <div>
-          <select name="project_interest"
+          <label htmlFor="lf-interest" className="block text-xs font-medium text-gray-600 mb-1">Project interest <span className="font-normal text-gray-400">(optional)</span></label>
+          <select id="lf-interest" name="project_interest"
             className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-gold-400">
-            <option value="">Project Interest (optional)</option>
+            <option value="">Any</option>
             <option>Plotted Development</option>
             <option>Apartment</option>
             <option>Villa</option>
@@ -100,7 +107,7 @@ export default function LeadForm({
         </div>
       )}
 
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && <p role="alert" className="text-sm text-red-600">{error}</p>}
 
       <button type="submit" disabled={loading}
         className="w-full py-3.5 bg-gold-500 text-brand-900 font-semibold rounded-xl hover:bg-gold-600 hover:text-white transition-colors disabled:opacity-50 text-sm">

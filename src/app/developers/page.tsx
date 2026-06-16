@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { getDevelopers, getTeamMembers } from '@/lib/queries'
-import { avatarFor } from '@/lib/images'
+import Avatar from '@/components/Avatar'
 
 export const revalidate = 300
 
@@ -44,9 +44,8 @@ export default async function DevelopersPage() {
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
               {team.map((m) => (
                 <div key={m.id} className="bg-white rounded-2xl border border-gray-100 p-4 text-center">
-                  <div className="w-16 h-16 mx-auto rounded-full bg-brand-900 overflow-hidden mb-3">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={m.photo_url || avatarFor(m.name)} alt={m.name} className="w-full h-full object-cover" />
+                  <div className="w-16 h-16 mx-auto rounded-full bg-brand-900 overflow-hidden mb-3 flex">
+                    <Avatar name={m.name} src={m.photo_url} fontClass="text-lg" />
                   </div>
                   <p className="font-semibold text-brand-900 text-sm">{m.name}</p>
                   <p className="text-xs text-gray-500">{m.designation}</p>

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Star, Quote } from 'lucide-react'
 import { getActiveTestimonials } from '@/lib/queries'
-import { avatarFor } from '@/lib/images'
+import Avatar from '@/components/Avatar'
 
 export const revalidate = 300
 
@@ -33,8 +33,7 @@ export default async function TestimonialsPage() {
                 <p className="text-gray-600 text-sm leading-relaxed mb-4">&ldquo;{t.content}&rdquo;</p>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={t.photo_url || avatarFor(t.client_name)} alt={t.client_name} className="w-10 h-10 rounded-full object-cover" />
+                    <span className="w-10 h-10 rounded-full bg-brand-900 overflow-hidden flex shrink-0"><Avatar name={t.client_name} src={t.photo_url} fontClass="text-xs" /></span>
                     <div>
                       <p className="font-semibold text-brand-900 text-sm">{t.client_name}</p>
                       {t.project && <p className="text-xs text-gray-400">{t.project}</p>}

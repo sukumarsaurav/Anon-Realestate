@@ -52,6 +52,16 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link rel="dns-prefetch" href={SUPABASE_ORIGIN} />
       </head>
       <body className="bg-white font-sans antialiased">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'RealEstateAgent',
+          name: SITE_NAME,
+          description: SITE_DESC,
+          url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://anonindia.com',
+          telephone: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '+919876543210',
+          areaServed: 'IN',
+          address: { '@type': 'PostalAddress', addressRegion: 'Rajasthan', addressCountry: 'IN' },
+        }) }} />
         <Nav cities={cities} projects={menuProjects} posts={blogPosts} />
         <main>{children}</main>
         <Footer />

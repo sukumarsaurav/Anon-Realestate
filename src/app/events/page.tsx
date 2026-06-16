@@ -27,7 +27,7 @@ export default function EventsPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {events.map((e) => (
             <div key={e.title} className="bg-white rounded-2xl border border-gray-100 p-6">
-              <div className="w-11 h-11 rounded-xl bg-gold-50 flex items-center justify-center mb-4"><CalendarDays size={20} className="text-gold-600" /></div>
+              <div className="w-11 h-11 rounded-xl bg-gold-50 flex items-center justify-center mb-4"><CalendarDays size={20} className="text-gold-700" /></div>
               <p className="font-semibold text-brand-900">{e.title}</p>
               <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500 mt-1.5">
                 <span className="flex items-center gap-1"><CalendarDays size={12} />{e.when}</span>

@@ -53,7 +53,7 @@ export default function BrochureDownload({ projectId, projectName, brochureUrl }
   if (!open) {
     return (
       <button onClick={() => setOpen(true)}
-        className="flex items-center gap-2 w-full py-3 border-2 border-dashed border-gray-300 text-gray-600 text-sm font-medium rounded-xl hover:border-gold-400 hover:text-gold-600 transition-colors">
+        className="flex items-center gap-2 w-full py-3 border-2 border-dashed border-gray-300 text-gray-600 text-sm font-medium rounded-xl hover:border-gold-400 hover:text-gold-700 transition-colors">
         <Download size={16} /> Download Brochure
       </button>
     )

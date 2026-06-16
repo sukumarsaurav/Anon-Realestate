@@ -40,7 +40,7 @@ export default function EmiCalculator({ defaultPrice = 2000000 }: Props) {
     <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
       <div className="flex items-center gap-2 mb-5">
         <div className="w-8 h-8 bg-gold-50 rounded-lg flex items-center justify-center">
-          <Calculator size={16} className="text-gold-600" />
+          <Calculator size={16} className="text-gold-700" />
         </div>
         <h3 className="font-bold text-gray-900">EMI Calculator</h3>
       </div>
@@ -105,7 +105,7 @@ export default function EmiCalculator({ defaultPrice = 2000000 }: Props) {
         {/* Result */}
         <div className="bg-gold-50 rounded-xl p-4 space-y-2">
           <div className="text-center mb-2">
-            <p className="text-xs text-gold-600 font-medium uppercase tracking-wide">Monthly EMI</p>
+            <p className="text-xs text-gold-700 font-medium uppercase tracking-wide">Monthly EMI</p>
             <p className="text-3xl font-bold text-gold-700">{fmt(emi)}</p>
           </div>
           <div className="grid grid-cols-2 gap-3 text-sm">

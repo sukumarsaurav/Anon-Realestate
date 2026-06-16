@@ -4,6 +4,7 @@ import { PROJECT_TYPE_LABELS } from '@/types'
 import ProjectCard from '@/components/ProjectCard'
 import LeadForm from '@/components/LeadForm'
 import Reveal from '@/components/Reveal'
+import Breadcrumbs from '@/components/Breadcrumbs'
 import { SlidersHorizontal } from 'lucide-react'
 
 export const revalidate = 300
@@ -52,7 +53,10 @@ export default async function ProjectsPage({ searchParams }: Props) {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+        <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Projects' }]} />
+      </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Filters */}
           <aside className="lg:w-64 shrink-0">
@@ -117,7 +121,7 @@ export default async function ProjectsPage({ searchParams }: Props) {
             <p className="text-sm text-gray-500 mb-5">{projects.length} project{projects.length !== 1 ? 's' : ''} found</p>
             {projects.length === 0 ? (
               <div className="bg-white rounded-2xl border border-gray-100 p-12 text-center">
-                <p className="text-gray-400">No projects match your filters. <a href="/projects" className="text-gold-600 underline">Clear filters</a></p>
+                <p className="text-gray-400">No projects match your filters. <a href="/projects" className="text-gold-700 underline">Clear filters</a></p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">

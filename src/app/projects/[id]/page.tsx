@@ -8,6 +8,9 @@ import BrochureDownload from '@/components/BrochureDownload'
 import { PROJECT_STATUS_LABELS, PROJECT_TYPE_LABELS } from '@/types'
 import { formatINR } from '@/lib/format'
 import { projectImage, projectGallery } from '@/lib/images'
+import Breadcrumbs from '@/components/Breadcrumbs'
+
+const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://anonindia.com'
 import { MapPin, CheckCircle, Calendar, Home, Info, BedDouble, Building2, IndianRupee, LayoutGrid } from 'lucide-react'
 
 interface Props {
@@ -70,7 +73,26 @@ export default async function ProjectDetailPage({ params }: Props) {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Product',
+        name: project.name,
+        description: project.description ?? `${PROJECT_TYPE_LABELS[project.type] ?? project.type} in ${project.city}`,
+        image: [heroImg],
+        brand: { '@type': 'Brand', name: 'ANON INDIA' },
+        category: 'Real Estate',
+        ...(project.starting_price ? {
+          offers: {
+            '@type': 'Offer', priceCurrency: 'INR', price: project.starting_price,
+            availability: 'https://schema.org/InStock', url: `${SITE}/projects/${project.id}`,
+          },
+        } : {}),
+      }) }} />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+        <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Projects', href: '/projects' }, { label: project.name }]} />
+      </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main */}
           <div className="lg:col-span-2 space-y-8">
@@ -85,7 +107,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                     ? new Date(project.expected_completion_date).toLocaleDateString('en-IN', { month: 'short', year: 'numeric' }) : '—' },
                 ].map(({ Icon, label, value }) => (
                   <div key={label} className="text-center p-4 bg-cream rounded-xl">
-                    <Icon size={16} className="text-gold-600 mx-auto mb-1.5" />
+                    <Icon size={16} className="text-gold-700 mx-auto mb-1.5" />
                     <p className="text-xs text-gray-400 mb-0.5">{label}</p>
                     <p className="font-bold text-brand-900 text-sm">{value}</p>
                   </div>
@@ -117,7 +139,7 @@ export default async function ProjectDetailPage({ params }: Props) {
             {/* Floor plan / layout */}
             {project.layout_image_url && (
               <div className="bg-white rounded-2xl border border-gray-100 p-6">
-                <h2 className="font-bold text-brand-900 text-lg mb-4 flex items-center gap-2"><LayoutGrid size={18} className="text-gold-600" /> Master Plan / Layout</h2>
+                <h2 className="font-bold text-brand-900 text-lg mb-4 flex items-center gap-2"><LayoutGrid size={18} className="text-gold-700" /> Master Plan / Layout</h2>
                 <a href={project.layout_image_url} target="_blank" rel="noopener noreferrer" className="relative block h-72 rounded-xl overflow-hidden bg-cream">
                   <Image src={project.layout_image_url} alt={`${project.name} layout`} fill sizes="(max-width:1024px) 100vw, 66vw" className="object-contain" />
                 </a>
@@ -131,7 +153,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                   {project.amenities.map((a: string) => (
                     <div key={a} className="flex items-center gap-2 text-sm text-gray-700">
-                      <CheckCircle size={14} className="text-gold-600 shrink-0" />{a}
+                      <CheckCircle size={14} className="text-gold-700 shrink-0" />{a}
                     </div>
                   ))}
                 </div>
@@ -192,7 +214,7 @@ export default async function ProjectDetailPage({ params }: Props) {
               )}
               {project.google_maps_pin && (
                 <div className="mt-4 pt-4 border-t border-gray-100">
-                  <a href={project.google_maps_pin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-gold-600 hover:text-gold-700 font-medium">
+                  <a href={project.google_maps_pin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-gold-700 hover:text-brand-900 transition-colors font-medium">
                     <MapPin size={14} /> View on Google Maps
                   </a>
                 </div>

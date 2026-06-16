@@ -28,7 +28,7 @@ export default function AwardsPage() {
         <div className="space-y-3">
           {awards.map((a) => (
             <div key={a.title} className="bg-white rounded-2xl border border-gray-100 p-5 flex items-start gap-4">
-              <div className="w-12 h-12 rounded-xl bg-gold-50 flex items-center justify-center shrink-0"><Award size={22} className="text-gold-600" /></div>
+              <div className="w-12 h-12 rounded-xl bg-gold-50 flex items-center justify-center shrink-0"><Award size={22} className="text-gold-700" /></div>
               <div className="flex-1">
                 <div className="flex items-center gap-2">
                   <p className="font-semibold text-brand-900">{a.title}</p>

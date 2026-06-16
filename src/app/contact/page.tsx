@@ -25,7 +25,7 @@ export default function ContactPage() {
           <div className="space-y-5">
             {[
               {
-                icon: MapPin, label: 'Office Address', color: 'text-gold-600', bg: 'bg-gold-50',
+                icon: MapPin, label: 'Office Address', color: 'text-gold-700', bg: 'bg-gold-50',
                 content: 'ANON INDIA Real Estate\n123, Sindhi Colony, Jaipur, Rajasthan 302001',
               },
               {
@@ -58,7 +58,7 @@ export default function ContactPage() {
                     {href ? (
                       <a href={href} target={href.startsWith('http') ? '_blank' : undefined}
                         rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                        className="text-sm text-gray-500 hover:text-gold-600 whitespace-pre-line">{content}</a>
+                        className="text-sm text-gray-500 hover:text-gold-700 whitespace-pre-line">{content}</a>
                     ) : (
                       <p className="text-sm text-gray-500 whitespace-pre-line">{content}</p>
                     )}
