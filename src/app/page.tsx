@@ -10,6 +10,7 @@ import {
 import HeroSearch from '@/components/home/HeroSearch'
 import PremiumProjects from '@/components/home/PremiumProjects'
 import ReelsSection from '@/components/home/ReelsSection'
+import TeamCarousel from '@/components/home/TeamCarousel'
 import ProjectCard from '@/components/ProjectCard'
 import LeadForm from '@/components/LeadForm'
 import Reveal from '@/components/Reveal'
@@ -152,17 +153,7 @@ export default async function HomePage() {
               <h2 className="section-heading">Meet Your Property Advisors</h2>
               <p className="section-sub mx-auto">Experts who guide you from first call to final handover.</p>
             </Reveal>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-              {team.map((m) => (
-                <div key={m.id} className="bg-white rounded-2xl border border-gray-100 p-4 text-center">
-                  <div className="w-16 h-16 mx-auto rounded-full bg-brand-900 overflow-hidden mb-3 flex">
-                    <Avatar name={m.name} src={m.photo_url} fontClass="text-lg" />
-                  </div>
-                  <p className="font-semibold text-brand-900 text-sm">{m.name}</p>
-                  <p className="text-xs text-gray-500">{m.designation}</p>
-                </div>
-              ))}
-            </div>
+            <TeamCarousel team={team} />
           </div>
         </section>
       )}
