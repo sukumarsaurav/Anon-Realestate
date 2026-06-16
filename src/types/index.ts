@@ -28,6 +28,11 @@ export interface Project {
   website_category: string | null
   is_featured: boolean
   hero_image_url: string | null
+  // Optional editorial content (see migration 20260616000000). Empty/absent → page derives content.
+  developer_about?: string | null
+  usp?: string[] | null
+  connectivity?: { place: string; distance: string }[] | null
+  faqs?: { q: string; a: string }[] | null
   developer?: { name: string } | null
   plots?: PlotSummary[]
 }

@@ -12,8 +12,9 @@ import { projectImage, projectGallery } from '@/lib/images'
 import Breadcrumbs from '@/components/Breadcrumbs'
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://anonindia.com'
-import { MapPin, CheckCircle, Calendar, Home, Info, BedDouble, Building2, IndianRupee, LayoutGrid, ShieldCheck, TrendingUp, Sparkles, Navigation, HelpCircle, ArrowRight } from 'lucide-react'
+import { MapPin, Calendar, Home, Info, BedDouble, Building2, IndianRupee, LayoutGrid, ShieldCheck, TrendingUp, Sparkles, Navigation, HelpCircle, ArrowRight } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
+import { amenityIcon } from '@/lib/amenities'
 
 interface Props {
   params: Promise<{ id: string }>
@@ -55,8 +56,10 @@ export default async function ProjectDetailPage({ params }: Props) {
     ? new Date(project.expected_completion_date).toLocaleDateString('en-IN', { month: 'long', year: 'numeric' })
     : null
 
-  // "Why invest" highlights — derived only from verified project data (no invented claims).
+  // "Why invest" highlights — curated USPs first (if the team has added any),
+  // then highlights derived from verified project data (no invented claims).
   const investHighlights: { Icon: LucideIcon; t: string; s: string }[] = []
+  for (const u of project.usp ?? []) investHighlights.push({ Icon: Sparkles, t: u, s: '' })
   if (project.rera_number) investHighlights.push({ Icon: ShieldCheck, t: 'RERA Registered', s: `Compliant & verified — ${project.rera_number}` })
   if (location) investHighlights.push({ Icon: MapPin, t: 'Prime Location', s: `Well-connected address in ${location}` })
   if (possession) investHighlights.push({ Icon: Calendar, t: 'Assured Possession', s: `Expected handover by ${possession}` })
@@ -64,14 +67,16 @@ export default async function ProjectDetailPage({ params }: Props) {
   if (project.amenities?.length) investHighlights.push({ Icon: Sparkles, t: 'Lifestyle Amenities', s: `${project.amenities.length}+ curated amenities on offer` })
   investHighlights.push({ Icon: TrendingUp, t: 'Advisory-Backed', s: 'Vetted and supported by ANON INDIA advisors' })
 
-  // FAQs — generated from real fields; also emitted as FAQPage schema for SEO.
-  const faqs: { q: string; a: string }[] = []
-  if (location) faqs.push({ q: `Where is ${project.name} located?`, a: `${project.name} is located in ${location}.` })
-  if (project.rera_number) faqs.push({ q: `Is ${project.name} RERA approved?`, a: `Yes. ${project.name} is registered under RERA number ${project.rera_number}${project.rera_registration_date ? `, registered on ${new Date(project.rera_registration_date).toLocaleDateString('en-IN')}` : ''}.` })
-  if (project.bhk_config) faqs.push({ q: `What configurations are available at ${project.name}?`, a: `${project.name} offers ${project.bhk_config} configurations.` })
-  if (project.starting_price) faqs.push({ q: `What is the starting price of ${project.name}?`, a: `Prices start from ${formatINR(project.starting_price)}. The final price sheet is shared after enquiry.` })
-  if (possession) faqs.push({ q: `When is possession for ${project.name}?`, a: `Possession is expected by ${possession}.` })
-  if (project.amenities?.length) faqs.push({ q: `What amenities does ${project.name} offer?`, a: `Key amenities include ${project.amenities.slice(0, 6).join(', ')}${project.amenities.length > 6 ? ' and more' : ''}.` })
+  // FAQs — curated (if the team added any) override the auto-generated set.
+  // Auto-generated FAQs are built from real fields; also emitted as FAQPage schema for SEO.
+  const derivedFaqs: { q: string; a: string }[] = []
+  if (location) derivedFaqs.push({ q: `Where is ${project.name} located?`, a: `${project.name} is located in ${location}.` })
+  if (project.rera_number) derivedFaqs.push({ q: `Is ${project.name} RERA approved?`, a: `Yes. ${project.name} is registered under RERA number ${project.rera_number}${project.rera_registration_date ? `, registered on ${new Date(project.rera_registration_date).toLocaleDateString('en-IN')}` : ''}.` })
+  if (project.bhk_config) derivedFaqs.push({ q: `What configurations are available at ${project.name}?`, a: `${project.name} offers ${project.bhk_config} configurations.` })
+  if (project.starting_price) derivedFaqs.push({ q: `What is the starting price of ${project.name}?`, a: `Prices start from ${formatINR(project.starting_price)}. The final price sheet is shared after enquiry.` })
+  if (possession) derivedFaqs.push({ q: `When is possession for ${project.name}?`, a: `Possession is expected by ${possession}.` })
+  if (project.amenities?.length) derivedFaqs.push({ q: `What amenities does ${project.name} offer?`, a: `Key amenities include ${project.amenities.slice(0, 6).join(', ')}${project.amenities.length > 6 ? ' and more' : ''}.` })
+  const faqs = project.faqs?.length ? project.faqs : derivedFaqs
 
   return (
     <div className="min-h-screen bg-cream">
@@ -197,13 +202,19 @@ export default async function ProjectDetailPage({ params }: Props) {
             {/* Amenities */}
             {project.amenities && project.amenities.length > 0 && (
               <div className="bg-white rounded-2xl border border-gray-100 p-6">
-                <h2 className="font-bold text-brand-900 text-lg mb-4">Amenities</h2>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                  {project.amenities.map((a: string) => (
-                    <div key={a} className="flex items-center gap-2 text-sm text-gray-700">
-                      <CheckCircle size={14} className="text-gold-700 shrink-0" />{a}
-                    </div>
-                  ))}
+                <h2 className="font-bold text-brand-900 text-lg mb-4 flex items-center gap-2"><Sparkles size={18} className="text-gold-700" /> Amenities &amp; Features</h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                  {project.amenities.map((a: string) => {
+                    const Icon = amenityIcon(a)
+                    return (
+                      <div key={a} className="flex flex-col items-center text-center gap-2 p-4 bg-cream rounded-xl border border-gray-100">
+                        <span className="w-11 h-11 rounded-full bg-gold-50 flex items-center justify-center">
+                          <Icon size={20} className="text-gold-700" />
+                        </span>
+                        <span className="text-xs font-medium text-gray-700 leading-snug">{a}</span>
+                      </div>
+                    )
+                  })}
                 </div>
               </div>
             )}
@@ -218,7 +229,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                       <span className="w-9 h-9 rounded-lg bg-gold-50 flex items-center justify-center shrink-0"><Icon size={17} className="text-gold-700" /></span>
                       <div>
                         <p className="font-semibold text-brand-900 text-sm">{t}</p>
-                        <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">{s}</p>
+                        {s && <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">{s}</p>}
                       </div>
                     </div>
                   ))}
@@ -233,6 +244,16 @@ export default async function ProjectDetailPage({ params }: Props) {
                 <p className="text-gray-600 leading-relaxed mb-4">
                   {project.name} is situated in {location} — explore the neighbourhood and nearby connectivity on the map below.
                 </p>
+                {project.connectivity && project.connectivity.length > 0 && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4">
+                    {project.connectivity.map((c) => (
+                      <div key={c.place} className="flex items-center justify-between gap-3 px-4 py-3 bg-cream rounded-xl text-sm">
+                        <span className="flex items-center gap-2 text-gray-700"><MapPin size={14} className="text-gold-700 shrink-0" />{c.place}</span>
+                        <span className="font-semibold text-brand-900 shrink-0">{c.distance}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
                 <div className="relative h-64 md:h-80 rounded-xl overflow-hidden border border-gray-100">
                   <iframe
                     title={`Map of ${project.name}, ${location}`}
@@ -291,7 +312,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                   <div>
                     <p className="font-bold text-brand-900">{project.developer.name}</p>
                     <p className="text-sm text-gray-600 mt-1 leading-relaxed">
-                      {project.developer.name} is among the trusted developers ANON INDIA partners with, delivering RERA-compliant, quality-led projects.
+                      {project.developer_about || `${project.developer.name} is among the trusted developers ANON INDIA partners with, delivering RERA-compliant, quality-led projects.`}
                     </p>
                     <Link href="/developers" className="inline-flex items-center gap-1 mt-2 text-sm font-semibold text-gold-700 hover:text-brand-900 transition-colors">
                       View the ANON Group <ArrowRight size={14} />
