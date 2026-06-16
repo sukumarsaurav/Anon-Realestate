@@ -24,7 +24,7 @@ export default function ProjectCard({ project }: Props) {
   const waMsg = encodeURIComponent(`Hi, I'm interested in ${project.name}. Please share details. (Ref: ${project.id})`)
 
   return (
-    <div className="card group flex flex-col">
+    <div className="card group flex flex-col h-full">
       {/* Image */}
       <Link href={`/projects/${project.id}`} className="relative h-52 bg-gray-100 overflow-hidden block">
         {img ? (

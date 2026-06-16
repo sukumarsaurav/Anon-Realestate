@@ -83,7 +83,7 @@ export default async function HomePage() {
             {/* Responsive grid on desktop; horizontal snap-scroll on mobile (no off-screen bleed). */}
             <div className="flex gap-5 overflow-x-auto pb-4 snap-x sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:overflow-visible sm:pb-0">
               {featured.slice(0, 4).map((p) => (
-                <div key={p.id} className="w-[280px] shrink-0 snap-start sm:w-auto"><ProjectCard project={p} /></div>
+                <div key={p.id} className="w-[280px] shrink-0 snap-start sm:w-auto h-full"><ProjectCard project={p} /></div>
               ))}
             </div>
           </div>

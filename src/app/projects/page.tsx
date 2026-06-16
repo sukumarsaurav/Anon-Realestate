@@ -126,7 +126,7 @@ export default async function ProjectsPage({ searchParams }: Props) {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
                 {projects.map((p, i) => (
-                  <Reveal key={p.id} delay={(i % 3) * 90}><ProjectCard project={p} /></Reveal>
+                  <Reveal key={p.id} delay={(i % 3) * 90} className="h-full"><ProjectCard project={p} /></Reveal>
                 ))}
               </div>
             )}
