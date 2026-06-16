@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import {
   Award, Users, MapPinned, ShieldCheck, Headphones, Cpu, Star, ArrowRight, Quote,
 } from 'lucide-react'
@@ -123,10 +124,19 @@ export default async function HomePage() {
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
               {cities.map((c) => (
                 <Link key={c.city} href={`/projects?city=${encodeURIComponent(c.city)}`}
-                  className="group relative h-28 rounded-2xl bg-brand-900 text-white overflow-hidden flex flex-col items-center justify-center hover:bg-brand-700 transition-colors">
-                  <MapPinned size={20} className="text-gold-400 mb-1" />
-                  <p className="font-semibold">{c.city}</p>
-                  <p className="text-xs text-gray-300">{c.count} project{c.count !== 1 ? 's' : ''}</p>
+                  className="group relative h-44 rounded-2xl overflow-hidden ring-1 ring-black/5 shadow-sm">
+                  <Image src={c.image} alt={`Real estate projects in ${c.city}`} fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-110" />
+                  {/* Bottom-up gradient so the label stays legible over any photo */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 p-4 text-white">
+                    <p className="font-bold text-lg leading-tight drop-shadow-sm">{c.city}</p>
+                    <p className="text-xs text-gray-200 flex items-center gap-1 mt-0.5">
+                      View projects
+                      <ArrowRight size={12} className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                    </p>
+                  </div>
                 </Link>
               ))}
             </div>

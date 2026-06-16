@@ -52,6 +52,7 @@ export interface TeamMember {
 export interface CityStat {
   city: string
   count: number
+  image: string
 }
 
 export interface PlotSummary {

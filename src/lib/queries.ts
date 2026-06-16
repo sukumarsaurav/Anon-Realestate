@@ -1,5 +1,6 @@
 import { unstable_cache } from 'next/cache'
 import { supabase } from './supabase'
+import { projectImage } from './images'
 import type { Project, BlogPost, CareerListing, Testimonial, Developer, TeamMember, CityStat } from '@/types'
 
 // Columns needed by the project detail page + metadata. Avoids select('*').
@@ -59,15 +60,27 @@ export const getProjectsForMenu = unstable_cache(
   { revalidate: 300, tags: ['projects'] },
 )
 
-// City cards ("Explore by City") with project counts.
+// City cards ("Explore by City") with project counts + a representative image.
 export const getCitiesWithCounts = unstable_cache(
   async (): Promise<CityStat[]> => {
-    const { data } = await supabase.from('projects').select('city').eq('is_active', true)
+    const { data } = await supabase
+      .from('projects')
+      .select('id, city, hero_image_url, gallery_urls')
+      .eq('is_active', true)
+      .order('is_featured', { ascending: false })
+      .order('created_at', { ascending: false })
+
     const counts = new Map<string, number>()
-    for (const r of (data ?? []) as { city: string | null }[]) {
-      if (r.city) counts.set(r.city, (counts.get(r.city) ?? 0) + 1)
+    const images = new Map<string, string>()
+    for (const r of (data ?? []) as { id: string; city: string | null; hero_image_url?: string | null; gallery_urls?: string[] | null }[]) {
+      if (!r.city) continue
+      counts.set(r.city, (counts.get(r.city) ?? 0) + 1)
+      // First project per city (already ordered: featured first) supplies the card image.
+      if (!images.has(r.city)) images.set(r.city, projectImage(r, 600))
     }
-    return [...counts.entries()].map(([city, count]) => ({ city, count })).sort((a, b) => b.count - a.count)
+    return [...counts.entries()]
+      .map(([city, count]) => ({ city, count, image: images.get(city)! }))
+      .sort((a, b) => b.count - a.count)
   },
   ['cities-with-counts'],
   { revalidate: 3600, tags: ['projects'] },
