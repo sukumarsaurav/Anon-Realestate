@@ -11,6 +11,7 @@ import HeroSearch from '@/components/home/HeroSearch'
 import PremiumProjects from '@/components/home/PremiumProjects'
 import ReelsSection from '@/components/home/ReelsSection'
 import TeamCarousel from '@/components/home/TeamCarousel'
+import BlogCard from '@/components/BlogCard'
 import ProjectCard from '@/components/ProjectCard'
 import LeadForm from '@/components/LeadForm'
 import Reveal from '@/components/Reveal'
@@ -266,11 +267,7 @@ export default async function HomePage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {posts.map((p) => (
-                <Link key={p.id} href={`/blog/${p.slug}`} className="card block p-6">
-                  <p className="text-xs font-semibold text-gold-700 uppercase tracking-wide mb-2">{p.category}</p>
-                  <h3 className="font-bold text-brand-900 mb-2 line-clamp-2">{p.title}</h3>
-                  {p.excerpt && <p className="text-sm text-gray-500 line-clamp-3">{p.excerpt}</p>}
-                </Link>
+                <BlogCard key={p.id} post={p} />
               ))}
             </div>
           </div>
