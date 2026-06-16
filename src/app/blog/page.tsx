@@ -64,7 +64,7 @@ export default async function BlogPage({ searchParams }: Props) {
           {/* Posts grid */}
           <div className="flex-1">
             {filtered.length === 0 ? (
-              <div className="bg-white rounded-2xl border border-gray-100 p-12 text-center text-gray-400">
+              <div className="bg-white rounded-2xl border border-gray-100 p-12 text-center text-gray-500">
                 No posts in this category yet.
               </div>
             ) : (

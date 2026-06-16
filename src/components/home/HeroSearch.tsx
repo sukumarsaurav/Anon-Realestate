@@ -41,7 +41,7 @@ export default function HeroSearch({ cities }: { cities: string[] }) {
           <p className="inline-block text-xs font-semibold tracking-widest text-gold-400 uppercase mb-4">
             Best Real Estate Consultant in India
           </p>
-          <h1 className="font-serif text-4xl md:text-6xl font-semibold leading-[1.08] tracking-tight">
+          <h1 className="font-serif text-display font-semibold">
             Find your next <span className="italic text-gold-400">premium property</span> with expert guidance.
           </h1>
           <p className="text-gray-300 text-lg mt-4 max-w-2xl">

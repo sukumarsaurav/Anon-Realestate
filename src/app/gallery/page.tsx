@@ -24,14 +24,14 @@ export default async function GalleryPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {projectsWithMedia.length === 0 ? (
-          <div className="text-center py-20 text-gray-400">Gallery photos coming soon.</div>
+          <div className="text-center py-20 text-gray-500">Gallery photos coming soon.</div>
         ) : (
           <div className="space-y-12">
             {projectsWithMedia.map((project) => (
               <div key={project.id}>
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-xl font-bold text-gray-900">{project.name}</h2>
-                  <span className="text-sm text-gray-400">{project.city} · {project.gallery_urls.length} photos</span>
+                  <span className="text-sm text-gray-500">{project.city} · {project.gallery_urls.length} photos</span>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                   {project.gallery_urls.map((url: string, i: number) => (

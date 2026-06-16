@@ -106,8 +106,8 @@ export default function Nav({ cities, projects, posts }: NavProps) {
                   <div className="grid grid-cols-12 gap-0">
                     {/* Cities */}
                     <div className="col-span-3 border-r border-gray-100 pr-2 max-h-[60vh] overflow-y-auto">
-                      <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide px-3 py-2">Select City</p>
-                      {cities.length === 0 && <p className="px-3 py-2 text-sm text-gray-400">No cities yet</p>}
+                      <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide px-3 py-2">Select City</p>
+                      {cities.length === 0 && <p className="px-3 py-2 text-sm text-gray-500">No cities yet</p>}
                       {cities.map((c) => (
                         <Link key={c.city} href={`/projects?city=${encodeURIComponent(c.city)}`}
                           onMouseEnter={() => setActiveCity(c.city)} onClick={() => setMenu(null)}
@@ -121,7 +121,7 @@ export default function Nav({ cities, projects, posts }: NavProps) {
                     </div>
                     {/* Property types */}
                     <div className="col-span-3 border-r border-gray-100 px-2">
-                      <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide px-3 py-2">Property Type</p>
+                      <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide px-3 py-2">Property Type</p>
                       <Link href="/projects" onClick={() => setMenu(null)} className="block px-3 py-2.5 rounded-lg text-sm bg-gold-50 text-gold-700 font-medium">All Types</Link>
                       {Object.entries(PROJECT_TYPE_LABELS).map(([v, l]) => (
                         <Link key={v} href={`/projects?type=${v}`} onClick={() => setMenu(null)}
@@ -140,7 +140,7 @@ export default function Nav({ cities, projects, posts }: NavProps) {
                         )}
                       </div>
                       <div className="space-y-2">
-                        {cityProjects.length === 0 && <p className="px-1 py-3 text-sm text-gray-400">No properties listed here yet.</p>}
+                        {cityProjects.length === 0 && <p className="px-1 py-3 text-sm text-gray-500">No properties listed here yet.</p>}
                         {cityProjects.map((p) => {
                           const img = projectImage(p)
                           return (
@@ -173,7 +173,7 @@ export default function Nav({ cities, projects, posts }: NavProps) {
               {menu === 'blog' && (
                 <MegaPanel>
                   {posts.length === 0 ? (
-                    <p className="px-2 py-6 text-sm text-gray-400">No articles published yet.</p>
+                    <p className="px-2 py-6 text-sm text-gray-500">No articles published yet.</p>
                   ) : (
                     <div className="grid grid-cols-12 gap-6">
                       {/* Featured */}
@@ -270,11 +270,11 @@ export default function Nav({ cities, projects, posts }: NavProps) {
               {mobileSection === 'projects' && (
                 <div className="pl-3 pb-1">
                   <Link href="/projects" onClick={() => setOpen(false)} className="block px-3 py-2 text-sm font-medium text-gold-700 hover:bg-cream rounded-lg">View all projects →</Link>
-                  {cities.length === 0 && <p className="px-3 py-2 text-sm text-gray-400">No cities yet</p>}
+                  {cities.length === 0 && <p className="px-3 py-2 text-sm text-gray-500">No cities yet</p>}
                   {cities.map((c) => (
                     <Link key={c.city} href={`/projects?city=${encodeURIComponent(c.city)}`} onClick={() => setOpen(false)}
                       className="flex items-center justify-between px-3 py-2 text-sm text-gray-600 hover:bg-cream rounded-lg">
-                      <span className="flex items-center gap-1.5"><MapPin size={13} className="text-gray-400" />{c.city}</span>
+                      <span className="flex items-center gap-1.5"><MapPin size={13} className="text-gray-500" />{c.city}</span>
                       <span className="text-xs px-1.5 py-0.5 rounded bg-gray-100 text-gray-500">{c.count}</span>
                     </Link>
                   ))}
@@ -294,7 +294,7 @@ export default function Nav({ cities, projects, posts }: NavProps) {
               {mobileSection === 'blog' && (
                 <div className="pl-3 pb-1">
                   <Link href="/blog" onClick={() => setOpen(false)} className="block px-3 py-2 text-sm font-medium text-gold-700 hover:bg-cream rounded-lg">View all articles →</Link>
-                  {posts.length === 0 && <p className="px-3 py-2 text-sm text-gray-400">No articles yet</p>}
+                  {posts.length === 0 && <p className="px-3 py-2 text-sm text-gray-500">No articles yet</p>}
                   {posts.slice(0, 4).map((p) => (
                     <Link key={p.id} href={`/blog/${p.slug}`} onClick={() => setOpen(false)}
                       className="block px-3 py-2 text-sm text-gray-600 hover:bg-cream rounded-lg line-clamp-1">{p.title}</Link>

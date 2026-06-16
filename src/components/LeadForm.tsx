@@ -95,7 +95,7 @@ export default function LeadForm({
 
       {!projectId && (
         <div>
-          <label htmlFor="lf-interest" className="block text-xs font-medium text-gray-600 mb-1">Project interest <span className="font-normal text-gray-400">(optional)</span></label>
+          <label htmlFor="lf-interest" className="block text-xs font-medium text-gray-600 mb-1">Project interest <span className="font-normal text-gray-500">(optional)</span></label>
           <select id="lf-interest" name="project_interest"
             className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-gold-400">
             <option value="">Any</option>
@@ -114,7 +114,7 @@ export default function LeadForm({
         {loading ? 'Submitting...' : 'Request Callback'}
       </button>
 
-      <p className="text-xs text-gray-400 text-center">
+      <p className="text-xs text-gray-500 text-center">
         By submitting, you agree to our <a href="/privacy-policy" className="underline">Privacy Policy</a>.
         No spam, ever.
       </p>

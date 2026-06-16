@@ -138,7 +138,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                 ].map(({ Icon, label, value }) => (
                   <div key={label} className="text-center p-4 bg-cream rounded-xl">
                     <Icon size={16} className="text-gold-700 mx-auto mb-1.5" />
-                    <p className="text-xs text-gray-400 mb-0.5">{label}</p>
+                    <p className="text-xs text-gray-500 mb-0.5">{label}</p>
                     <p className="font-bold text-brand-900 text-sm">{value}</p>
                   </div>
                 ))}
@@ -166,7 +166,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm min-w-[480px]">
                     <thead>
-                      <tr className="text-left text-xs uppercase tracking-wide text-gray-400 border-b border-gray-100">
+                      <tr className="text-left text-xs uppercase tracking-wide text-gray-500 border-b border-gray-100">
                         <th className="px-2 py-2 font-semibold">Unit</th>
                         <th className="px-2 py-2 font-semibold">Size</th>
                         <th className="px-2 py-2 font-semibold">Facing</th>
@@ -290,12 +290,12 @@ export default async function ProjectDetailPage({ params }: Props) {
                 <h2 className="font-bold text-brand-900 text-lg mb-3">RERA Details</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                   <div>
-                    <p className="text-gray-400 text-xs mb-1">RERA Number</p>
+                    <p className="text-gray-500 text-xs mb-1">RERA Number</p>
                     <p className="font-medium text-brand-900">{project.rera_number}</p>
                   </div>
                   {project.rera_registration_date && (
                     <div>
-                      <p className="text-gray-400 text-xs mb-1 flex items-center gap-1"><Calendar size={10} /> Registration Date</p>
+                      <p className="text-gray-500 text-xs mb-1 flex items-center gap-1"><Calendar size={10} /> Registration Date</p>
                       <p className="font-medium text-brand-900">{new Date(project.rera_registration_date).toLocaleDateString('en-IN')}</p>
                     </div>
                   )}

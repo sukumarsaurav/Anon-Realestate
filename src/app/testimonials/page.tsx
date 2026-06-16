@@ -24,7 +24,7 @@ export default async function TestimonialsPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {testimonials.length === 0 ? (
-          <p className="text-center text-gray-400 py-16">Testimonials coming soon.</p>
+          <p className="text-center text-gray-500 py-16">Testimonials coming soon.</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {testimonials.map((t) => (
@@ -36,7 +36,7 @@ export default async function TestimonialsPage() {
                     <span className="w-10 h-10 rounded-full bg-brand-900 overflow-hidden flex shrink-0"><Avatar name={t.client_name} src={t.photo_url} fontClass="text-xs" /></span>
                     <div>
                       <p className="font-semibold text-brand-900 text-sm">{t.client_name}</p>
-                      {t.project && <p className="text-xs text-gray-400">{t.project}</p>}
+                      {t.project && <p className="text-xs text-gray-500">{t.project}</p>}
                     </div>
                   </div>
                   <div className="flex">

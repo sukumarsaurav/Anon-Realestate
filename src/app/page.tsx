@@ -226,7 +226,7 @@ export default async function HomePage() {
       <section className="bg-brand-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid lg:grid-cols-2 gap-10 items-center">
           <div>
-            <h2 className="text-3xl md:text-[2.4rem] md:leading-[1.1] font-semibold">Find the Right Property with Expert Guidance</h2>
+            <h2 className="text-heading font-semibold">Find the Right Property with Expert Guidance</h2>
             <p className="text-gray-300 mt-4 max-w-xl">Free consultation, RERA-verified options, and honest advice tailored to your budget. Our advisor calls you back within 30 minutes.</p>
             <ul className="mt-6 space-y-2.5">
               {[

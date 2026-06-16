@@ -23,7 +23,7 @@ export default function FloatingActions() {
 
   const items = [
     { label: 'Enquire', href: '/contact', external: false, cls: 'bg-gold-500 text-brand-900 hover:bg-gold-600 hover:text-white', Icon: CalendarCheck },
-    { label: 'WhatsApp', href: `https://wa.me/${number}?text=${encodeURIComponent(message)}`, external: true, cls: 'bg-green-500 text-white hover:bg-green-600', Icon: MessageCircle },
+    { label: 'WhatsApp', href: `https://wa.me/${number}?text=${encodeURIComponent(message)}`, external: true, cls: 'bg-whatsapp text-white hover:bg-whatsapp-dark', Icon: MessageCircle },
     { label: 'Call', href: `tel:${PHONE_RAW}`, external: true, cls: 'bg-brand-900 text-white hover:bg-brand-700', Icon: Phone },
   ]
 

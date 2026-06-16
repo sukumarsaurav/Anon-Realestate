@@ -77,7 +77,7 @@ export default function ContactPage() {
               subtitle=""
             />
             <div className="mt-8 rounded-2xl overflow-hidden bg-gray-100 h-56 flex items-center justify-center">
-              <p className="text-gray-400 text-sm flex items-center gap-2">
+              <p className="text-gray-500 text-sm flex items-center gap-2">
                 <MapPin size={16} /> Google Maps embed — add your embed URL
               </p>
             </div>

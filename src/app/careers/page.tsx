@@ -114,7 +114,7 @@ export default function CareersPage({ listings = [] }: { listings?: CareerListin
           <div className="bg-white rounded-2xl border border-gray-100 p-10 text-center">
             <Briefcase size={36} className="text-gray-300 mx-auto mb-3" />
             <p className="font-semibold text-gray-700">No open positions right now</p>
-            <p className="text-sm text-gray-400 mt-1 mb-4">
+            <p className="text-sm text-gray-500 mt-1 mb-4">
               We&apos;re always looking for great talent. Send us your profile anyway!
             </p>
             <a href="mailto:careers@anonindia.com"
@@ -137,7 +137,7 @@ export default function CareersPage({ listings = [] }: { listings?: CareerListin
                       <span className="flex items-center gap-1"><Clock size={13} />{EMPLOYMENT_TYPE_LABELS[job.employment_type] ?? job.employment_type}</span>
                     </div>
                   </div>
-                  <ChevronDown size={18} className={`text-gray-400 mt-1 transition-transform shrink-0 ${expanded === job.id ? 'rotate-180' : ''}`} />
+                  <ChevronDown size={18} className={`text-gray-500 mt-1 transition-transform shrink-0 ${expanded === job.id ? 'rotate-180' : ''}`} />
                 </button>
 
                 {expanded === job.id && (

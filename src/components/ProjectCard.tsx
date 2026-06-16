@@ -75,7 +75,7 @@ export default function ProjectCard({ project }: Props) {
           </div>
           {project.bhk_config && (
             <span className="flex items-center gap-1 text-xs text-gray-500">
-              <BedDouble size={14} className="text-gray-400" />{project.bhk_config}
+              <BedDouble size={14} className="text-gray-500" />{project.bhk_config}
             </span>
           )}
         </div>
@@ -91,7 +91,7 @@ export default function ProjectCard({ project }: Props) {
             <Phone size={16} />
           </a>
           <a href={`https://wa.me/${PHONE_DIGITS}?text=${waMsg}`} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"
-            className="w-10 h-10 shrink-0 flex items-center justify-center rounded-xl bg-green-500 text-white hover:bg-green-600">
+            className="w-10 h-10 shrink-0 flex items-center justify-center rounded-xl bg-whatsapp text-white hover:bg-whatsapp-dark">
             <MessageCircle size={16} />
           </a>
         </div>

@@ -4,7 +4,8 @@
 
 @layer base {
   html { scroll-behavior: smooth; }
-  body { @apply text-gray-900 antialiased; }
+  /* 16px base with relaxed leading — comfortable editorial reading. */
+  body { @apply text-gray-900 antialiased text-base leading-relaxed; }
   /* Display serif for all headings — the editorial, premium look. */
   h1, h2, h3 { @apply font-serif; }
 }
@@ -21,10 +22,10 @@
     @apply inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-brand-900 text-brand-900 font-semibold rounded-xl hover:bg-brand-900 hover:text-white transition-colors;
   }
   .section-heading {
-    @apply font-serif text-3xl md:text-[2.6rem] md:leading-[1.1] font-semibold text-brand-900 tracking-tight;
+    @apply font-serif text-heading font-semibold text-brand-900;
   }
   .section-sub {
-    @apply text-lg text-gray-500 mt-3 max-w-2xl;
+    @apply text-lead text-gray-500 mt-3 max-w-2xl;
   }
   .card {
     @apply bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5;

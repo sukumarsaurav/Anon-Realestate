@@ -61,11 +61,11 @@ export default async function BlogPostPage({ params }: Props) {
         <div className="flex flex-col lg:flex-row gap-10">
           {/* Article */}
           <article className="flex-1 bg-white rounded-2xl border border-gray-100 p-8">
-            <Link href="/blog" className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-600 mb-6">
+            <Link href="/blog" className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-600 mb-6">
               <ArrowLeft size={14} /> Back to Blog
             </Link>
 
-            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400 mb-4">
+            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-4">
               {post.published_at && (
                 <span className="flex items-center gap-1">
                   <Calendar size={13} />{fmtDate(post.published_at)}

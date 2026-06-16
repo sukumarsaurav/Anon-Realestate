@@ -105,7 +105,7 @@ export default async function ProjectsPage({ searchParams }: Props) {
                   Apply Filters
                 </button>
                 {hasFilters && (
-                  <a href="/projects" className="block text-center text-sm text-gray-400 hover:text-gray-600">Clear all</a>
+                  <a href="/projects" className="block text-center text-sm text-gray-500 hover:text-gray-600">Clear all</a>
                 )}
               </form>
 
@@ -121,7 +121,7 @@ export default async function ProjectsPage({ searchParams }: Props) {
             <p className="text-sm text-gray-500 mb-5">{projects.length} project{projects.length !== 1 ? 's' : ''} found</p>
             {projects.length === 0 ? (
               <div className="bg-white rounded-2xl border border-gray-100 p-12 text-center">
-                <p className="text-gray-400">No projects match your filters. <a href="/projects" className="text-gold-700 underline">Clear filters</a></p>
+                <p className="text-gray-500">No projects match your filters. <a href="/projects" className="text-gold-700 underline">Clear filters</a></p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">

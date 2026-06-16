@@ -38,7 +38,7 @@ export default function PremiumProjects({ projects }: { projects: Project[] }) {
         </div>
 
         {filtered.length === 0 ? (
-          <p className="text-center text-gray-400 py-10">No properties in this category yet.</p>
+          <p className="text-center text-gray-500 py-10">No properties in this category yet.</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((p) => <ProjectCard key={p.id} project={p} />)}
