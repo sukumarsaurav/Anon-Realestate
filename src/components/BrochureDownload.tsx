@@ -43,7 +43,7 @@ export default function BrochureDownload({ projectId, projectName, brochureUrl }
 
   if (done) {
     return (
-      <div className="flex items-center gap-2 text-green-700 text-sm">
+      <div className="flex items-center gap-2 text-success-700 text-sm">
         <CheckCircle size={16} />
         <span>Brochure downloading...</span>
       </div>
@@ -66,7 +66,7 @@ export default function BrochureDownload({ projectId, projectName, brochureUrl }
         className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gold-400" />
       <input name="phone" type="tel" required placeholder="Phone Number"
         className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gold-400" />
-      {error && <p className="text-xs text-red-600">{error}</p>}
+      {error && <p className="text-xs text-danger-600">{error}</p>}
       <button type="submit" disabled={loading}
         className="flex items-center justify-center gap-2 w-full py-2.5 bg-gold-500 text-brand-900 text-sm font-semibold rounded-xl hover:bg-gold-600 hover:text-white disabled:opacity-50">
         <Download size={15} />

@@ -51,6 +51,11 @@ const config: Config = {
         cream: '#f8f5ef',
         // WhatsApp brand — kept distinct from semantic success-green.
         whatsapp: { DEFAULT: '#25d366', dark: '#1da851' },
+        // Semantic intent tokens (values mirror Tailwind green/amber/red so
+        // the rename is visually identical). Use these instead of raw colours.
+        success: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#22c55e', 600: '#16a34a', 700: '#15803d' },
+        warning: { 50: '#fffbeb', 100: '#fef3c7', 500: '#f59e0b', 600: '#d97706', 700: '#b45309' },
+        danger:  { 50: '#fef2f2', 100: '#fee2e2', 500: '#ef4444', 600: '#dc2626', 700: '#b91c1c' },
       },
       fontFamily: {
         sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],

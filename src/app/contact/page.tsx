@@ -29,17 +29,17 @@ export default function ContactPage() {
                 content: 'ANON INDIA Real Estate\n123, Sindhi Colony, Jaipur, Rajasthan 302001',
               },
               {
-                icon: Phone, label: 'Call Us', color: 'text-green-600', bg: 'bg-green-50',
+                icon: Phone, label: 'Call Us', color: 'text-success-600', bg: 'bg-success-50',
                 content: '+91 98765 43210\nMon–Sat, 9am–7pm',
                 href: 'tel:+919876543210',
               },
               {
-                icon: MessageCircle, label: 'WhatsApp', color: 'text-green-600', bg: 'bg-green-50',
+                icon: MessageCircle, label: 'WhatsApp', color: 'text-success-600', bg: 'bg-success-50',
                 content: 'Chat with us on WhatsApp for instant support',
                 href: `https://wa.me/${waNumber}?text=Hi, I have an enquiry about ANON INDIA properties.`,
               },
               {
-                icon: Mail, label: 'Email', color: 'text-amber-600', bg: 'bg-amber-50',
+                icon: Mail, label: 'Email', color: 'text-warning-600', bg: 'bg-warning-50',
                 content: 'info@anonindia.com\nReply within 2 business hours',
                 href: 'mailto:info@anonindia.com',
               },

@@ -12,8 +12,8 @@ interface Props {
 
 const STATUS_STYLE: Record<string, string> = {
   pre_launch:         'bg-gold-100 text-gold-700',
-  under_construction: 'bg-amber-100 text-amber-700',
-  ready_to_move:      'bg-green-100 text-green-700',
+  under_construction: 'bg-warning-100 text-warning-700',
+  ready_to_move:      'bg-success-100 text-success-700',
   sold_out:           'bg-gray-100 text-gray-500',
 }
 
@@ -63,7 +63,7 @@ export default function ProjectCard({ project }: Props) {
         </div>
 
         {project.rera_number && (
-          <span className="inline-flex items-center gap-1 text-[11px] font-medium text-green-700 bg-green-50 px-2 py-0.5 rounded-full mb-3">
+          <span className="inline-flex items-center gap-1 text-[11px] font-medium text-success-700 bg-success-50 px-2 py-0.5 rounded-full mb-3">
             <ShieldCheck size={11} /> RERA Verified
           </span>
         )}

@@ -58,7 +58,7 @@ export default function LeadForm({
   if (done) {
     return (
       <div className="flex flex-col items-center justify-center py-8 text-center">
-        <CheckCircle size={40} className="text-green-500 mb-3" />
+        <CheckCircle size={40} className="text-success-500 mb-3" />
         <p className="font-bold text-gray-900 text-lg">Thank you!</p>
         <p className="text-gray-500 text-sm mt-1">
           We&apos;ve received your details. Our advisor will call you shortly.
@@ -107,7 +107,7 @@ export default function LeadForm({
         </div>
       )}
 
-      {error && <p role="alert" className="text-sm text-red-600">{error}</p>}
+      {error && <p role="alert" className="text-sm text-danger-600">{error}</p>}
 
       <button type="submit" disabled={loading}
         className="w-full py-3.5 bg-gold-500 text-brand-900 font-semibold rounded-xl hover:bg-gold-600 hover:text-white transition-colors disabled:opacity-50 text-sm">

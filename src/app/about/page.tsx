@@ -42,8 +42,8 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 gap-4">
             {[
               { value: '15+', label: 'Years of Experience', icon: Award, bg: 'bg-gold-50', color: 'text-gold-700' },
-              { value: '50+', label: 'Projects Delivered', icon: Building2, bg: 'bg-green-50', color: 'text-green-600' },
-              { value: '1000+', label: 'Happy Families', icon: Users, bg: 'bg-amber-50', color: 'text-amber-600' },
+              { value: '50+', label: 'Projects Delivered', icon: Building2, bg: 'bg-success-50', color: 'text-success-600' },
+              { value: '1000+', label: 'Happy Families', icon: Users, bg: 'bg-warning-50', color: 'text-warning-600' },
               { value: '8', label: 'Cities Covered', icon: MapPin, bg: 'bg-purple-50', color: 'text-purple-600' },
             ].map(({ value, label, icon: Icon, bg, color }) => (
               <div key={label} className={`${bg} rounded-2xl p-6 text-center`}>

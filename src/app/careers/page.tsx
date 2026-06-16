@@ -37,7 +37,7 @@ function ApplicationForm({ listing, onClose }: { listing: CareerListing; onClose
   if (done) {
     return (
       <div className="py-8 text-center">
-        <CheckCircle size={36} className="text-green-500 mx-auto mb-3" />
+        <CheckCircle size={36} className="text-success-500 mx-auto mb-3" />
         <p className="font-bold text-gray-900">Application Submitted!</p>
         <p className="text-sm text-gray-500 mt-1">Our HR team will reach out within 3 business days.</p>
         <button onClick={onClose} className="mt-4 text-sm text-gold-700 underline">Close</button>
@@ -56,7 +56,7 @@ function ApplicationForm({ listing, onClose }: { listing: CareerListing; onClose
         className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gold-400" />
       <textarea name="cover_letter" rows={3} placeholder="Why do you want to join ANON INDIA?"
         className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gold-400" />
-      {error && <p className="text-xs text-red-600">{error}</p>}
+      {error && <p className="text-xs text-danger-600">{error}</p>}
       <div className="flex gap-2">
         <button type="button" onClick={onClose}
           className="px-4 py-2.5 border border-gray-300 text-gray-600 text-sm rounded-xl hover:bg-cream">

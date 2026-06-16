@@ -46,7 +46,7 @@ export default async function GalleryPage() {
                 {project.video_url && (
                   <div className="mt-4">
                     <a href={project.video_url} target="_blank" rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 bg-red-50 text-red-700 text-sm font-medium rounded-xl hover:bg-red-100">
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-danger-50 text-danger-700 text-sm font-medium rounded-xl hover:bg-danger-100">
                       ▶ Watch Video Tour
                     </a>
                   </div>
