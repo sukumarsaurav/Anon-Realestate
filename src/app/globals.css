@@ -11,12 +11,12 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  /* Display serif for all headings — the editorial, premium look.
-     Ligatures + contextual alternates give the serif its refined finish.
+  /* Manrope display for all headings — clean, modern, premium sans.
+     Tight tracking is handled by the type-scale tokens (display/heading/title).
      Extended to h4 so nav/blog card titles join the system. */
   h1, h2, h3, h4 {
-    @apply font-serif;
-    font-feature-settings: 'liga' 1, 'dlig' 1, 'calt' 1;
+    @apply font-display;
+    font-feature-settings: 'liga' 1, 'calt' 1;
   }
   /* Lining figures keep prices, stats and dates even and "engineered". */
   .tabular-nums-pro { font-variant-numeric: tabular-nums lining-nums; }
@@ -58,9 +58,9 @@
   .eyebrow {
     @apply text-xs font-semibold uppercase tracking-[0.2em] text-gold-700;
   }
-  /* Italic display accent (e.g. "Find the home that's already yours.") */
+  /* Gold display accent (e.g. "Find the home that's already yours.") */
   .accent-italic {
-    @apply font-serif italic text-gold-700;
+    @apply font-display font-bold text-gold-700;
   }
   .input {
     @apply w-full rounded-xl border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold-400 focus:border-transparent;

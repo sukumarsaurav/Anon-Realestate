@@ -59,8 +59,10 @@ const config: Config = {
       },
       fontFamily: {
         sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
-        serif: ['var(--font-display)', 'Georgia', 'serif'],
-        display: ['var(--font-display)', 'Georgia', 'serif'],
+        // Manrope display family. Key names kept ('serif'/'display') so existing
+        // font-serif/font-display utilities map straight onto the new heading font.
+        serif: ['var(--font-display)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-display)', 'system-ui', 'sans-serif'],
       },
       // Additive editorial type scale (named keys; Tailwind defaults stay intact).
       fontSize: {
