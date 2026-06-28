@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { getDevelopers, getTeamMembers } from '@/lib/queries'
 import Avatar from '@/components/Avatar'
+import PageHero from '@/components/PageHero'
+import Reveal from '@/components/Reveal'
 
 export const revalidate = 300
 
@@ -14,16 +16,16 @@ export default async function DevelopersPage() {
 
   return (
     <div className="min-h-screen bg-cream">
-      <div className="bg-brand-900 text-white py-14">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight mb-2">The ANON INDIA Group</h1>
-          <p className="text-gray-300">Real estate, construction &amp; interiors — engineered by Anon.</p>
-        </div>
-      </div>
+      <PageHero
+        eyebrow="The group"
+        title="The ANON INDIA Group"
+        subtitle="Real estate, construction & interiors — engineered by Anon."
+        image="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1920&q=80&auto=format&fit=crop"
+      />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-14">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section space-y-14">
         {/* Verticals */}
-        <section>
+        <Reveal as="section">
           <h2 className="section-heading mb-6">Our Verticals</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {verticals.map((d) => (
@@ -35,11 +37,11 @@ export default async function DevelopersPage() {
               </div>
             ))}
           </div>
-        </section>
+        </Reveal>
 
         {/* Team */}
         {team.length > 0 && (
-          <section>
+          <Reveal as="section" delay={120}>
             <h2 className="section-heading mb-6">Leadership &amp; Advisors</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
               {team.map((m) => (
@@ -52,7 +54,7 @@ export default async function DevelopersPage() {
                 </div>
               ))}
             </div>
-          </section>
+          </Reveal>
         )}
       </div>
     </div>

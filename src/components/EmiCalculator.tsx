@@ -42,7 +42,7 @@ export default function EmiCalculator({ defaultPrice = 2000000 }: Props) {
         <div className="w-8 h-8 bg-gold-50 rounded-lg flex items-center justify-center">
           <Calculator size={16} className="text-gold-700" />
         </div>
-        <h3 className="font-bold text-gray-900">EMI Calculator</h3>
+        <h3 className="font-semibold text-brand-900">EMI Calculator</h3>
       </div>
 
       <div className="space-y-5">
@@ -50,7 +50,7 @@ export default function EmiCalculator({ defaultPrice = 2000000 }: Props) {
         <div>
           <div className="flex justify-between text-sm mb-1.5">
             <label className="text-gray-600 font-medium">Property Price</label>
-            <span className="font-bold text-gray-900">{fmt(price)}</span>
+            <span className="font-semibold text-brand-900 tabular-nums-pro">{fmt(price)}</span>
           </div>
           <input type="range" min={500000} max={20000000} step={100000}
             value={price} onChange={(e) => setPrice(Number(e.target.value))}
@@ -64,7 +64,7 @@ export default function EmiCalculator({ defaultPrice = 2000000 }: Props) {
         <div>
           <div className="flex justify-between text-sm mb-1.5">
             <label className="text-gray-600 font-medium">Down Payment</label>
-            <span className="font-bold text-gray-900">{downPct}% ({fmt(price * downPct / 100)})</span>
+            <span className="font-semibold text-brand-900 tabular-nums-pro">{downPct}% ({fmt(price * downPct / 100)})</span>
           </div>
           <input type="range" min={5} max={50} step={5}
             value={downPct} onChange={(e) => setDownPct(Number(e.target.value))}
@@ -78,7 +78,7 @@ export default function EmiCalculator({ defaultPrice = 2000000 }: Props) {
         <div>
           <div className="flex justify-between text-sm mb-1.5">
             <label className="text-gray-600 font-medium">Interest Rate</label>
-            <span className="font-bold text-gray-900">{rate}% p.a.</span>
+            <span className="font-semibold text-brand-900 tabular-nums-pro">{rate}% p.a.</span>
           </div>
           <input type="range" min={6} max={15} step={0.25}
             value={rate} onChange={(e) => setRate(Number(e.target.value))}
@@ -92,7 +92,7 @@ export default function EmiCalculator({ defaultPrice = 2000000 }: Props) {
         <div>
           <div className="flex justify-between text-sm mb-1.5">
             <label className="text-gray-600 font-medium">Loan Tenure</label>
-            <span className="font-bold text-gray-900">{tenure} years</span>
+            <span className="font-semibold text-brand-900 tabular-nums-pro">{tenure} years</span>
           </div>
           <input type="range" min={1} max={30} step={1}
             value={tenure} onChange={(e) => setTenure(Number(e.target.value))}
@@ -106,21 +106,21 @@ export default function EmiCalculator({ defaultPrice = 2000000 }: Props) {
         <div className="bg-gold-50 rounded-xl p-4 space-y-2">
           <div className="text-center mb-2">
             <p className="text-xs text-gold-700 font-medium uppercase tracking-wide">Monthly EMI</p>
-            <p className="text-3xl font-bold text-gold-700">{fmt(emi)}</p>
+            <p className="font-serif text-3xl font-semibold text-gold-700 tabular-nums-pro">{fmt(emi)}</p>
           </div>
           <div className="grid grid-cols-2 gap-3 text-sm">
             <div className="bg-white rounded-lg p-3 text-center">
               <p className="text-xs text-gray-500">Loan Amount</p>
-              <p className="font-bold text-gray-900">{fmt(loanAmt)}</p>
+              <p className="font-semibold text-brand-900 tabular-nums-pro">{fmt(loanAmt)}</p>
             </div>
             <div className="bg-white rounded-lg p-3 text-center">
               <p className="text-xs text-gray-500">Total Interest</p>
-              <p className="font-bold text-gray-900">{fmt(totalInt)}</p>
+              <p className="font-semibold text-brand-900 tabular-nums-pro">{fmt(totalInt)}</p>
             </div>
           </div>
           <div className="bg-white rounded-lg p-3 text-center text-sm">
             <p className="text-xs text-gray-500">Total Payable</p>
-            <p className="font-bold text-gray-900">{fmt(totalAmt)}</p>
+            <p className="font-semibold text-brand-900 tabular-nums-pro">{fmt(totalAmt)}</p>
           </div>
         </div>
 

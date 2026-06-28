@@ -5,15 +5,30 @@
 @layer base {
   html { scroll-behavior: smooth; }
   /* 16px base with relaxed leading — comfortable editorial reading. */
-  body { @apply text-gray-900 antialiased text-base leading-relaxed; }
-  /* Display serif for all headings — the editorial, premium look. */
-  h1, h2, h3 { @apply font-serif; }
+  body {
+    @apply text-gray-600 antialiased text-base leading-relaxed;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  /* Display serif for all headings — the editorial, premium look.
+     Ligatures + contextual alternates give the serif its refined finish.
+     Extended to h4 so nav/blog card titles join the system. */
+  h1, h2, h3, h4 {
+    @apply font-serif;
+    font-feature-settings: 'liga' 1, 'dlig' 1, 'calt' 1;
+  }
+  /* Lining figures keep prices, stats and dates even and "engineered". */
+  .tabular-nums-pro { font-variant-numeric: tabular-nums lining-nums; }
+  /* Branded text selection — a small, premium signature. */
+  ::selection { background: theme('colors.gold.400'); color: theme('colors.brand.900'); }
 }
 
 @layer components {
-  /* Primary CTA — gold accent on the premium charcoal brand */
+  /* Primary CTA — gold accent on the premium charcoal brand.
+     Hover deepens the gold but keeps charcoal text (luxury, not template). */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-gold-500 text-brand-900 font-semibold rounded-xl hover:bg-gold-600 hover:text-white transition-colors;
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-gold-500 text-brand-900 font-semibold rounded-xl hover:bg-gold-600 transition-all hover:shadow-gold;
   }
   .btn-dark {
     @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand-900 text-white font-semibold rounded-xl hover:bg-brand-700 transition-colors;
@@ -27,8 +42,21 @@
   .section-sub {
     @apply text-lead text-gray-500 mt-3 max-w-2xl;
   }
+  /* Card-level heading — serif, title-scale, for cards and list items. */
+  .h-card {
+    @apply font-serif text-title font-semibold text-brand-900;
+  }
+  /* Block-level heading — serif, xl, for sidebars and section blocks. */
+  .h-block {
+    @apply font-serif text-xl font-semibold text-brand-900;
+  }
   .card {
-    @apply bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5;
+    @apply bg-white rounded-2xl border border-gray-100 shadow-soft overflow-hidden hover:shadow-lift hover:-translate-y-1 hover:border-gold-200;
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.4s ease;
+  }
+  /* Letter-spaced editorial kicker above section headings. */
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.2em] text-gold-700;
   }
   /* Italic display accent (e.g. "Find the home that's already yours.") */
   .accent-italic {
@@ -40,4 +68,8 @@
   .badge {
     @apply inline-block px-3 py-1 rounded-full text-xs font-semibold;
   }
+  /* Standardised section spacing — 3-step scale for vertical rhythm. */
+  .section         { @apply py-16 md:py-24; }
+  .section-compact { @apply py-12; }
+  .section-feature { @apply py-24 md:py-32; }
 }

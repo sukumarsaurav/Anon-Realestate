@@ -1,3 +1,4 @@
+import { cache } from 'react'
 import { unstable_cache } from 'next/cache'
 import { supabase } from './supabase'
 import { projectImage } from './images'
@@ -120,7 +121,9 @@ export const getAllProjects = unstable_cache(
   { revalidate: 300, tags: ['projects'] },
 )
 
-export async function getProjectBySlug(id: string): Promise<Project | null> {
+// Wrapped in React cache() so generateMetadata + the page body share a single
+// query per render instead of hitting Supabase twice for the same row.
+export const getProjectBySlug = cache(async (id: string): Promise<Project | null> => {
   const { data } = await supabase
     .from('projects')
     .select(`
@@ -131,7 +134,7 @@ export async function getProjectBySlug(id: string): Promise<Project | null> {
     .eq('is_active', true)
     .single()
   return data as Project | null
-}
+})
 
 // IDs for generateStaticParams — pre-render project detail pages at build time.
 export async function getAllProjectIds(): Promise<string[]> {
@@ -167,7 +170,9 @@ export const getPublishedBlogPosts = unstable_cache(
   { revalidate: 300, tags: ['blog'] },
 )
 
-export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
+// Wrapped in React cache() so generateMetadata + the page body share a single
+// query per render instead of hitting Supabase twice for the same row.
+export const getBlogPostBySlug = cache(async (slug: string): Promise<BlogPost | null> => {
   const { data } = await supabase
     .from('blog_posts')
     .select('*')
@@ -178,7 +183,7 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
   // Note: view counting happens client-side via /api/blog-view so that the
   // statically cached page still records a hit on every visit.
   return data as BlogPost | null
-}
+})
 
 export async function getActiveCareerListings(): Promise<CareerListing[]> {
   const { data } = await supabase

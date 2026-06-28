@@ -38,7 +38,7 @@ export default function HeroSearch({ cities }: { cities: string[] }) {
       <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-900/70 to-brand-900/25" />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
         <div className="max-w-3xl">
-          <p className="inline-block text-xs font-semibold tracking-widest text-gold-400 uppercase mb-4">
+          <p className="eyebrow text-gold-400 mb-4">
             Best Real Estate Consultant in India
           </p>
           <h1 className="font-serif text-display font-semibold">
@@ -49,7 +49,7 @@ export default function HeroSearch({ cities }: { cities: string[] }) {
           </p>
 
           {/* Search */}
-          <div className="mt-8 bg-white rounded-2xl p-3 sm:p-2.5 max-w-3xl shadow-xl">
+          <div className="mt-8 bg-white rounded-2xl p-3 sm:p-2.5 max-w-3xl shadow-lift">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               <label className="block">
                 <span className="flex items-center gap-1 px-1 mb-1 text-[11px] font-semibold uppercase tracking-wide text-gray-500">

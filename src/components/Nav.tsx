@@ -81,7 +81,7 @@ export default function Nav({ cities, projects, posts }: NavProps) {
   })
 
   return (
-    <header className={`sticky top-0 z-50 bg-white/90 backdrop-blur transition-shadow ${scrolled ? 'shadow-md border-b border-transparent' : 'border-b border-gray-100'}`}>
+    <header className={`sticky top-0 z-50 bg-white/90 backdrop-blur transition-shadow ${scrolled ? 'shadow-card border-b border-transparent' : 'border-b border-gray-100'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`flex items-center justify-between transition-[height] duration-300 ${scrolled ? 'h-14' : 'h-16'}`}>
           {/* Logo */}
@@ -185,7 +185,7 @@ export default function Nav({ cities, projects, posts }: NavProps) {
                             )}
                             <span className="absolute top-2 left-2 text-[10px] font-semibold uppercase tracking-wide bg-gold-500 text-brand-900 px-2 py-0.5 rounded">Featured</span>
                           </div>
-                          <h4 className="font-bold text-brand-900 leading-snug group-hover:text-gold-700 line-clamp-2">{featured.title}</h4>
+                          <h4 className="font-semibold text-brand-900 leading-snug group-hover:text-gold-700 line-clamp-2">{featured.title}</h4>
                           {featured.excerpt && <p className="text-sm text-gray-500 mt-1 line-clamp-2">{featured.excerpt}</p>}
                         </Link>
                       )}
@@ -227,7 +227,7 @@ export default function Nav({ cities, projects, posts }: NavProps) {
               </button>
               {menu === 'more' && (
                 <div className="absolute right-0 top-full pt-2 w-56">
-                  <div className="bg-white rounded-xl border border-gray-100 shadow-lg overflow-hidden py-1">
+                  <div className="bg-white rounded-xl border border-gray-100 shadow-card overflow-hidden py-1">
                     {moreLinks.map((l) => (
                       <Link key={l.href} href={l.href} onClick={() => setMenu(null)} className="block px-4 py-2.5 text-sm text-gray-600 hover:text-brand-900 hover:bg-cream">{l.label}</Link>
                     ))}
@@ -320,7 +320,7 @@ function MegaPanel({ children }: { children: React.ReactNode }) {
   return (
     <div className="absolute left-0 right-0 top-full pt-2 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-xl p-4">{children}</div>
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-card p-4">{children}</div>
       </div>
     </div>
   )

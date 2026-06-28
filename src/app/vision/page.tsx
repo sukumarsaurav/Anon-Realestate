@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import { Target, Compass, Heart, ShieldCheck } from 'lucide-react'
+import PageHero from '@/components/PageHero'
+import Reveal from '@/components/Reveal'
 
 export const metadata: Metadata = {
   title: 'Vision & Mission',
@@ -16,39 +18,39 @@ const values = [
 export default function VisionPage() {
   return (
     <div className="min-h-screen bg-cream">
-      <div className="bg-brand-900 text-white py-14">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight mb-2">Vision &amp; Mission</h1>
-          <p className="text-gray-300">Structures, spaces &amp; solutions — engineered by Anon.</p>
-        </div>
-      </div>
+      <PageHero
+        eyebrow="What drives us"
+        title="Vision & Mission"
+        subtitle="Structures, spaces & solutions — engineered by Anon."
+        image="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1920&q=80&auto=format&fit=crop"
+      />
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 section space-y-8">
+        <Reveal className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-white rounded-2xl border border-gray-100 p-7">
             <div className="w-11 h-11 rounded-xl bg-gold-50 flex items-center justify-center mb-4"><Compass size={20} className="text-gold-700" /></div>
-            <h2 className="font-bold text-brand-900 text-lg mb-2">Our Vision</h2>
+            <h2 className="h-card mb-2">Our Vision</h2>
             <p className="text-gray-600 leading-relaxed">To be India&apos;s most trusted real estate partner — making property ownership simple, transparent and rewarding for every family and investor.</p>
           </div>
           <div className="bg-white rounded-2xl border border-gray-100 p-7">
             <div className="w-11 h-11 rounded-xl bg-gold-50 flex items-center justify-center mb-4"><Target size={20} className="text-gold-700" /></div>
-            <h2 className="font-bold text-brand-900 text-lg mb-2">Our Mission</h2>
+            <h2 className="h-card mb-2">Our Mission</h2>
             <p className="text-gray-600 leading-relaxed">To deliver RERA-approved projects and end-to-end advisory — across real estate, construction and interiors — backed by genuine guidance and lifelong relationships.</p>
           </div>
-        </div>
+        </Reveal>
 
-        <div>
+        <Reveal delay={120}>
           <h2 className="section-heading mb-6">Our Values</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {values.map(({ Icon, t, s }) => (
-              <div key={t} className="bg-white rounded-2xl border border-gray-100 p-6">
+            {values.map(({ Icon, t, s }, i) => (
+              <Reveal key={t} delay={i * 80} className="bg-white rounded-2xl border border-gray-100 p-6">
                 <div className="w-10 h-10 rounded-xl bg-gold-50 flex items-center justify-center mb-3"><Icon size={18} className="text-gold-700" /></div>
                 <p className="font-semibold text-brand-900 mb-1">{t}</p>
                 <p className="text-sm text-gray-500">{s}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
-        </div>
+        </Reveal>
       </div>
     </div>
   )

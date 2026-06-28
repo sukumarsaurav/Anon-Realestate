@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { Star, Quote } from 'lucide-react'
 import { getActiveTestimonials } from '@/lib/queries'
 import Avatar from '@/components/Avatar'
+import PageHero from '@/components/PageHero'
+import Reveal from '@/components/Reveal'
 
 export const revalidate = 300
 
@@ -15,20 +17,20 @@ export default async function TestimonialsPage() {
 
   return (
     <div className="min-h-screen bg-cream">
-      <div className="bg-brand-900 text-white py-14">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight mb-2">Real Stories from Happy Homeowners</h1>
-          <p className="text-gray-300">Trusted by thousands of families and investors.</p>
-        </div>
-      </div>
+      <PageHero
+        eyebrow="Client stories"
+        title="Real Stories from Happy Homeowners"
+        subtitle="Trusted by thousands of families and investors."
+        image="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=80&auto=format&fit=crop"
+      />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section">
         {testimonials.length === 0 ? (
           <p className="text-center text-gray-500 py-16">Testimonials coming soon.</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {testimonials.map((t) => (
-              <div key={t.id} className="bg-white rounded-2xl border border-gray-100 p-6">
+            {testimonials.map((t, i) => (
+              <Reveal key={t.id} delay={(i % 3) * 80} className="bg-white rounded-2xl border border-gray-100 p-6">
                 <Quote size={22} className="text-gold-400 mb-3" />
                 <p className="text-gray-600 text-sm leading-relaxed mb-4">&ldquo;{t.content}&rdquo;</p>
                 <div className="flex items-center justify-between">
@@ -45,7 +47,7 @@ export default async function TestimonialsPage() {
                     ))}
                   </div>
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         )}

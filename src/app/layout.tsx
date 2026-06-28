@@ -50,6 +50,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         {/* Warm up the connection to Supabase (data + storage images) early. */}
         <link rel="preconnect" href={SUPABASE_ORIGIN} crossOrigin="anonymous" />
         <link rel="dns-prefetch" href={SUPABASE_ORIGIN} />
+        {/* Unsplash supplies fallback imagery on most pages — warm it up too. */}
+        <link rel="preconnect" href="https://images.unsplash.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
       </head>
       <body className="bg-white font-sans antialiased">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({

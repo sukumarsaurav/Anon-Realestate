@@ -79,7 +79,7 @@ export default async function BlogPostPage({ params }: Props) {
               ))}
             </div>
 
-            <h1 className="text-3xl font-bold text-gray-900 mb-6 leading-tight">{post.title}</h1>
+            <h1 className="font-serif text-3xl font-semibold text-brand-900 mb-6 leading-tight">{post.title}</h1>
 
             {post.excerpt && (
               <p className="text-lg text-gray-500 leading-relaxed mb-8 border-l-4 border-gold-500 pl-4">
@@ -94,7 +94,7 @@ export default async function BlogPostPage({ params }: Props) {
 
             {/* Bottom CTA */}
             <div className="mt-12 p-6 bg-gold-50 rounded-2xl border border-gold-100">
-              <h3 className="font-bold text-brand-900 mb-2">Interested in investing in real estate?</h3>
+              <h3 className="h-card mb-2">Interested in investing in real estate?</h3>
               <p className="text-sm text-gold-700 mb-4">Talk to our expert advisors for personalized guidance.</p>
               <LeadForm source={`blog_${post.slug}`} compact title="" subtitle="" />
             </div>
@@ -102,12 +102,12 @@ export default async function BlogPostPage({ params }: Props) {
             {/* Related posts */}
             {relatedPosts.length > 0 && (
               <div className="mt-10">
-                <h2 className="font-bold text-gray-900 mb-4">Related Articles</h2>
+                <h2 className="h-block mb-4">Related Articles</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   {relatedPosts.map((r) => (
                     <Link key={r.id} href={`/blog/${r.slug}`}
                       className="block p-4 bg-cream rounded-xl hover:bg-gold-50 transition-colors">
-                      <p className="text-sm font-medium text-gray-900 line-clamp-2 hover:text-gold-700">{r.title}</p>
+                      <p className="text-sm font-medium text-brand-900 line-clamp-2 hover:text-gold-700">{r.title}</p>
                     </Link>
                   ))}
                 </div>
@@ -118,7 +118,7 @@ export default async function BlogPostPage({ params }: Props) {
           {/* Sidebar */}
           <aside className="lg:w-64 shrink-0">
             <div className="bg-white rounded-2xl border border-gray-100 p-5 lg:sticky lg:top-24">
-              <h3 className="font-semibold text-gray-900 mb-4">Enquire Now</h3>
+              <h3 className="h-block mb-4">Enquire Now</h3>
               <LeadForm source={`blog_sidebar_${post.slug}`} compact title="" subtitle="" />
             </div>
           </aside>

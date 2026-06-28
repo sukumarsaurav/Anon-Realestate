@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import Reveal from '@/components/Reveal'
 import LeadForm from '@/components/LeadForm'
-import { Award, Users, Building2, MapPin, Shield } from 'lucide-react'
+import { Award, Users, Building2, MapPin, Shield, Search, Scale, Clock } from 'lucide-react'
+import PageHero from '@/components/PageHero'
 
 export const metadata: Metadata = {
   title: 'About Us',
@@ -12,21 +13,20 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-cream">
       {/* Hero */}
-      <div className="bg-brand-900 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">About ANON INDIA</h1>
-          <p className="text-gray-300 text-xl max-w-2xl">
-            Building trust, one plot at a time. Rajasthan&apos;s most transparent real estate developer since 2008.
-          </p>
-        </div>
-      </div>
+      <PageHero
+        size="tall"
+        eyebrow="Since 2008"
+        title="About ANON INDIA"
+        subtitle="Building trust, one plot at a time. Rajasthan's most transparent real estate developer since 2008."
+        image="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80&auto=format&fit=crop"
+      />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section space-y-16">
         {/* Story */}
-        <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <Reveal as="section" className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-            <p className="text-sm font-semibold text-gold-700 uppercase tracking-wide mb-3">Our Story</p>
-            <h2 className="text-3xl font-bold text-gray-900 mb-5">From a Vision to 1000+ Happy Families</h2>
+            <p className="eyebrow mb-3">Our Story</p>
+            <h2 className="section-heading mb-5">From a Vision to 1000+ Happy Families</h2>
             <div className="space-y-4 text-gray-600 leading-relaxed">
               <p>
                 ANON INDIA was founded with a simple belief: every Indian family deserves a piece of land they can call their own. We started with one project in Jaipur and have grown to deliver 50+ developments across Rajasthan.
@@ -44,44 +44,45 @@ export default function AboutPage() {
               { value: '15+', label: 'Years of Experience', icon: Award, bg: 'bg-gold-50', color: 'text-gold-700' },
               { value: '50+', label: 'Projects Delivered', icon: Building2, bg: 'bg-success-50', color: 'text-success-600' },
               { value: '1000+', label: 'Happy Families', icon: Users, bg: 'bg-warning-50', color: 'text-warning-600' },
-              { value: '8', label: 'Cities Covered', icon: MapPin, bg: 'bg-purple-50', color: 'text-purple-600' },
+              { value: '8', label: 'Cities Covered', icon: MapPin, bg: 'bg-brand-50', color: 'text-brand-600' },
             ].map(({ value, label, icon: Icon, bg, color }) => (
               <div key={label} className={`${bg} rounded-2xl p-6 text-center`}>
                 <Icon size={28} className={`${color} mx-auto mb-2`} />
-                <p className="text-3xl font-bold text-gray-900">{value}</p>
+                <p className="font-serif text-3xl font-semibold text-brand-900 tabular-nums-pro">{value}</p>
                 <p className="text-sm text-gray-600 mt-1">{label}</p>
               </div>
             ))}
           </div>
-        </section>
+        </Reveal>
 
         {/* Mission & Values */}
-        <section>
+        <Reveal as="section">
           <div className="text-center mb-10">
-            <p className="text-sm font-semibold text-gold-700 uppercase tracking-wide mb-2">Our Values</p>
-            <h2 className="text-3xl font-bold text-gray-900">What We Stand For</h2>
+            <p className="eyebrow mb-2">Our Values</p>
+            <h2 className="section-heading">What We Stand For</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { title: 'Transparency',   desc: 'Full cost disclosure, no hidden charges. We share every document you need before you decide.', icon: '🔍' },
-              { title: 'Legal Clarity',  desc: 'Every project has clear land title, encumbrance certificate, and RERA registration. No shortcuts.', icon: '⚖️' },
-              { title: 'Timely Delivery', desc: 'We respect your time and your money. On-time delivery is our core commitment, backed by RERA.', icon: '⏱️' },
-            ].map(({ title, desc, icon }, i) => (
-              <Reveal key={title} delay={i * 110} className="bg-white rounded-2xl border border-gray-100 p-7 text-center transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
-                <span className="text-4xl mb-4 block">{icon}</span>
-                <h3 className="font-bold text-gray-900 text-lg mb-3">{title}</h3>
+              { title: 'Transparency',   desc: 'Full cost disclosure, no hidden charges. We share every document you need before you decide.', Icon: Search },
+              { title: 'Legal Clarity',  desc: 'Every project has clear land title, encumbrance certificate, and RERA registration. No shortcuts.', Icon: Scale },
+              { title: 'Timely Delivery', desc: 'We respect your time and your money. On-time delivery is our core commitment, backed by RERA.', Icon: Clock },
+            ].map(({ title, desc, Icon }, i) => (
+              <Reveal key={title} delay={i * 110} className="bg-white rounded-2xl border border-gray-100 p-7 text-center transition-all duration-300 hover:shadow-card hover:-translate-y-0.5">
+                <div className="w-12 h-12 rounded-xl bg-gold-50 flex items-center justify-center mb-4 mx-auto"><Icon size={22} className="text-gold-700" /></div>
+                <h3 className="h-card mb-3">{title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">{desc}</p>
               </Reveal>
             ))}
           </div>
-        </section>
+        </Reveal>
 
         {/* RERA section */}
-        <section id="rera" className="bg-brand-900 text-white rounded-3xl p-10">
+        <Reveal>
+        <section id="rera" className="bg-brand-900 text-white rounded-2xl p-10">
           <div className="flex items-start gap-5">
             <Shield size={48} className="text-gold-400 shrink-0 mt-1" />
             <div>
-              <h2 className="text-2xl font-bold mb-3">RERA Registration Details</h2>
+              <h2 className="font-serif text-2xl font-semibold mb-3">RERA Registration Details</h2>
               <p className="text-gray-300 mb-6">
                 ANON INDIA is a fully RERA-registered developer under Rajasthan Real Estate Regulatory Authority. All our projects carry individual RERA project registrations, which you can verify on the RERA portal.
               </p>
@@ -101,17 +102,18 @@ export default function AboutPage() {
             </div>
           </div>
         </section>
+        </Reveal>
 
         {/* CTA */}
-        <section className="bg-white rounded-2xl border border-gray-100 p-8">
+        <Reveal as="section" className="bg-white rounded-2xl border border-gray-100 p-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-3">Ready to Invest with Confidence?</h2>
+              <h2 className="section-heading mb-3">Ready to Invest with Confidence?</h2>
               <p className="text-gray-500">Talk to our team. No pressure, just honest advice on the right investment for your goals.</p>
             </div>
             <LeadForm source="about_page" title="Talk to an Advisor" subtitle="Free 30-minute consultation." />
           </div>
-        </section>
+        </Reveal>
       </div>
     </div>
   )

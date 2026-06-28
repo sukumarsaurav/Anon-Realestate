@@ -28,8 +28,8 @@ export default function ReelsSection() {
         {/* Header */}
         <div className="flex items-end justify-between gap-4 mb-8">
           <div>
-            <p className="text-xs font-semibold tracking-[0.2em] text-gold-700 uppercase mb-2">On the Gram</p>
-            <h2 className="font-serif text-3xl md:text-[2.6rem] md:leading-[1.1] font-semibold text-brand-900 tracking-tight">
+            <p className="eyebrow mb-2">On the Gram</p>
+            <h2 className="section-heading">
               ANON INDIA in <span className="accent-italic">reels</span>.
             </h2>
           </div>
@@ -43,11 +43,11 @@ export default function ReelsSection() {
         <div className="relative">
           {/* Arrows */}
           <button onClick={() => scroll(-1)} aria-label="Previous"
-            className="hidden md:flex absolute -left-4 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white shadow-lg items-center justify-center text-brand-900 hover:bg-gold-500 transition-colors">
+            className="hidden md:flex absolute -left-4 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white shadow-card items-center justify-center text-brand-900 hover:bg-gold-500 transition-colors">
             <ArrowLeft size={18} />
           </button>
           <button onClick={() => scroll(1)} aria-label="Next"
-            className="hidden md:flex absolute -right-4 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white shadow-lg items-center justify-center text-brand-900 hover:bg-gold-500 transition-colors">
+            className="hidden md:flex absolute -right-4 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white shadow-card items-center justify-center text-brand-900 hover:bg-gold-500 transition-colors">
             <ArrowRight size={18} />
           </button>
 
@@ -57,7 +57,7 @@ export default function ReelsSection() {
                 className="group relative shrink-0 snap-start w-[260px] h-[420px] rounded-3xl overflow-hidden bg-brand-900">
                 <Image src={r.img} alt={r.caption} fill sizes="260px"
                   className="object-cover transition-transform duration-700 group-hover:scale-110" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-900/70 via-brand-900/10 to-transparent" />
                 {/* Play */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <span className="w-16 h-16 rounded-full bg-white/85 backdrop-blur flex items-center justify-center text-brand-900 transition-transform duration-300 group-hover:scale-110">

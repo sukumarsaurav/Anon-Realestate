@@ -79,6 +79,12 @@ const config: Config = {
         'fade-in': 'fade-in 0.8s ease forwards',
         'slow-zoom': 'slow-zoom 18s ease-in-out infinite alternate',
       },
+      boxShadow: {
+        'soft': '0 2px 8px -2px rgb(26 23 20 / 0.08)',
+        'card': '0 8px 30px -8px rgb(26 23 20 / 0.12)',
+        'lift': '0 20px 50px -12px rgb(26 23 20 / 0.22)',
+        'gold': '0 10px 30px -10px rgb(196 154 58 / 0.35)',
+      },
     },
   },
   plugins: [],

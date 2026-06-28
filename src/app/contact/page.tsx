@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import LeadForm from '@/components/LeadForm'
+import Reveal from '@/components/Reveal'
 import { MapPin, Phone, Mail, Clock, MessageCircle } from 'lucide-react'
+import PageHero from '@/components/PageHero'
 
 export const metadata: Metadata = {
   title: 'Contact Us',
@@ -12,17 +14,17 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-cream">
-      <div className="bg-brand-900 text-white py-14">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight mb-2">Contact Us</h1>
-          <p className="text-gray-300">Our advisors are available 9am–7pm, Monday to Saturday</p>
-        </div>
-      </div>
+      <PageHero
+        eyebrow="Get in touch"
+        title="Contact Us"
+        subtitle="Our advisors are available 9am–7pm, Monday to Saturday."
+        image="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80&auto=format&fit=crop"
+      />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Contact details */}
-          <div className="space-y-5">
+          <Reveal className="space-y-5">
             {[
               {
                 icon: MapPin, label: 'Office Address', color: 'text-gold-700', bg: 'bg-gold-50',
@@ -44,7 +46,7 @@ export default function ContactPage() {
                 href: 'mailto:info@anonindia.com',
               },
               {
-                icon: Clock, label: 'Business Hours', color: 'text-purple-600', bg: 'bg-purple-50',
+                icon: Clock, label: 'Business Hours', color: 'text-brand-600', bg: 'bg-brand-50',
                 content: 'Monday – Saturday\n9:00 AM – 7:00 PM IST\nSunday by appointment',
               },
             ].map(({ icon: Icon, label, color, bg, content, href }) => (
@@ -54,7 +56,7 @@ export default function ContactPage() {
                     <Icon size={18} className={color} />
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-900 text-sm mb-1">{label}</p>
+                    <p className="font-semibold text-brand-900 text-sm mb-1">{label}</p>
                     {href ? (
                       <a href={href} target={href.startsWith('http') ? '_blank' : undefined}
                         rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
@@ -66,11 +68,11 @@ export default function ContactPage() {
                 </div>
               </div>
             ))}
-          </div>
+          </Reveal>
 
           {/* Contact form */}
-          <div className="lg:col-span-2 bg-white rounded-2xl border border-gray-100 p-8">
-            <h2 className="text-xl font-bold text-gray-900 mb-6">Send Us a Message</h2>
+          <Reveal delay={120} className="lg:col-span-2 bg-white rounded-2xl border border-gray-100 p-8">
+            <h2 className="h-block mb-6">Send Us a Message</h2>
             <LeadForm
               source="contact_page"
               title=""
@@ -81,7 +83,7 @@ export default function ContactPage() {
                 <MapPin size={16} /> Google Maps embed — add your embed URL
               </p>
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </div>

@@ -33,12 +33,12 @@ export default function FloatingActions() {
       {open && items.map(({ label, href, external, cls, Icon }) =>
         external ? (
           <a key={label} href={href} target={href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer"
-            className={`flex items-center gap-2 pl-4 pr-3 py-2.5 rounded-full shadow-lg text-sm font-semibold transition-all animate-fade-up ${cls}`}>
+            className={`flex items-center gap-2 pl-4 pr-3 py-2.5 rounded-full shadow-card text-sm font-semibold transition-all animate-fade-up ${cls}`}>
             <span>{label}</span><Icon size={17} className="shrink-0" />
           </a>
         ) : (
           <Link key={label} href={href}
-            className={`flex items-center gap-2 pl-4 pr-3 py-2.5 rounded-full shadow-lg text-sm font-semibold transition-all animate-fade-up ${cls}`}>
+            className={`flex items-center gap-2 pl-4 pr-3 py-2.5 rounded-full shadow-card text-sm font-semibold transition-all animate-fade-up ${cls}`}>
             <span>{label}</span><Icon size={17} className="shrink-0" />
           </Link>
         ),
@@ -49,7 +49,7 @@ export default function FloatingActions() {
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? 'Close contact options' : 'Contact us'}
         aria-expanded={open}
-        className="w-14 h-14 rounded-full bg-brand-900 text-white shadow-xl flex items-center justify-center hover:bg-brand-700 transition-colors"
+        className="w-14 h-14 rounded-full bg-brand-900 text-white shadow-lift flex items-center justify-center hover:bg-brand-700 transition-colors"
       >
         {open ? <X size={22} /> : <MessageCircle size={22} />}
       </button>

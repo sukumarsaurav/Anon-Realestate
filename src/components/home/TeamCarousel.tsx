@@ -31,7 +31,7 @@ export default function TeamCarousel({ team }: { team: TeamMember[] }) {
               <div className="absolute inset-0">
                 <Avatar name={m.name} src={m.photo_url} fontClass="text-6xl" />
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-900/85 via-brand-900/15 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-5">
                 <p className="font-serif text-xl font-semibold text-gold-400 leading-tight drop-shadow">{m.name}</p>
                 {m.designation && <p className="text-sm text-gray-200 mt-0.5">{m.designation}</p>}
@@ -44,13 +44,13 @@ export default function TeamCarousel({ team }: { team: TeamMember[] }) {
         <button
           type="button" onClick={() => goTo(active - 1)} disabled={active === 0}
           aria-label="Previous advisor"
-          className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/95 shadow-lg flex items-center justify-center text-brand-900 hover:bg-white disabled:opacity-0 transition">
+          className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/95 shadow-card flex items-center justify-center text-brand-900 hover:bg-white disabled:opacity-0 transition">
           <ChevronLeft size={20} />
         </button>
         <button
           type="button" onClick={() => goTo(active + 1)} disabled={active >= team.length - 1}
           aria-label="Next advisor"
-          className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/95 shadow-lg flex items-center justify-center text-brand-900 hover:bg-white disabled:opacity-0 transition">
+          className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/95 shadow-card flex items-center justify-center text-brand-900 hover:bg-white disabled:opacity-0 transition">
           <ChevronRight size={20} />
         </button>
       </div>

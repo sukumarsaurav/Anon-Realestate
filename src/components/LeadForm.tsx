@@ -59,7 +59,7 @@ export default function LeadForm({
     return (
       <div className="flex flex-col items-center justify-center py-8 text-center">
         <CheckCircle size={40} className="text-success-500 mb-3" />
-        <p className="font-bold text-gray-900 text-lg">Thank you!</p>
+        <p className="font-serif font-semibold text-brand-900 text-lg">Thank you!</p>
         <p className="text-gray-500 text-sm mt-1">
           We&apos;ve received your details. Our advisor will call you shortly.
         </p>
@@ -71,7 +71,7 @@ export default function LeadForm({
     <form onSubmit={handleSubmit} className="space-y-3">
       {!compact && (
         <div className="mb-4">
-          <h3 className="font-bold text-gray-900 text-lg">{title}</h3>
+          <h3 className="h-block">{title}</h3>
           <p className="text-sm text-gray-500 mt-0.5">{subtitle}</p>
         </div>
       )}

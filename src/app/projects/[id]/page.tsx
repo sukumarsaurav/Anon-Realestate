@@ -10,6 +10,7 @@ import { PROJECT_STATUS_LABELS, PROJECT_TYPE_LABELS } from '@/types'
 import { formatINR } from '@/lib/format'
 import { projectImage, projectGallery } from '@/lib/images'
 import Breadcrumbs from '@/components/Breadcrumbs'
+import Reveal from '@/components/Reveal'
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://anonindia.com'
 import { MapPin, Calendar, Home, Info, BedDouble, Building2, IndianRupee, LayoutGrid, ShieldCheck, TrendingUp, Sparkles, Navigation, HelpCircle, ArrowRight } from 'lucide-react'
@@ -94,7 +95,7 @@ export default async function ProjectDetailPage({ params }: Props) {
               <span className="badge bg-gold-500 text-brand-900">{PROJECT_STATUS_LABELS[project.status] ?? project.status}</span>
               {project.website_category && <span className="badge bg-white/15 text-white capitalize">{project.website_category}</span>}
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-white">{project.name}</h1>
+            <h1 className="text-3xl md:text-4xl font-serif font-semibold text-white">{project.name}</h1>
             <div className="flex items-center gap-4 text-gray-200 mt-1 flex-wrap">
               <span className="flex items-center gap-1.5"><MapPin size={14} />{[project.locality, project.city].filter(Boolean).join(', ')}</span>
               {project.developer?.name && <span className="flex items-center gap-1.5"><Building2 size={14} />{project.developer.name}</span>}
@@ -151,7 +152,7 @@ export default async function ProjectDetailPage({ params }: Props) {
             {/* About */}
             {project.description && (
               <div className="bg-white rounded-2xl border border-gray-100 p-6">
-                <h2 className="font-bold text-brand-900 text-lg mb-3">About the Project</h2>
+                <h2 className="h-block mb-3">About the Project</h2>
                 <p className="text-gray-600 leading-relaxed">{project.description}</p>
               </div>
             )}
@@ -160,7 +161,7 @@ export default async function ProjectDetailPage({ params }: Props) {
             {availablePlots.length > 0 && (
               <div className="bg-white rounded-2xl border border-gray-100 p-6">
                 <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
-                  <h2 className="font-bold text-brand-900 text-lg flex items-center gap-2"><IndianRupee size={18} className="text-gold-700" /> Configurations &amp; Pricing</h2>
+                  <h2 className="h-block flex items-center gap-2"><IndianRupee size={18} className="text-gold-700" /> Configurations &amp; Pricing</h2>
                   {priceRange && <span className="text-sm font-semibold text-gold-700">{formatINR(priceRange.min)} – {formatINR(priceRange.max)}</span>}
                 </div>
                 <div className="overflow-x-auto">
@@ -192,7 +193,7 @@ export default async function ProjectDetailPage({ params }: Props) {
             {/* Floor plan / layout */}
             {project.layout_image_url && (
               <div className="bg-white rounded-2xl border border-gray-100 p-6">
-                <h2 className="font-bold text-brand-900 text-lg mb-4 flex items-center gap-2"><LayoutGrid size={18} className="text-gold-700" /> Master Plan / Layout</h2>
+                <h2 className="h-block mb-4 flex items-center gap-2"><LayoutGrid size={18} className="text-gold-700" /> Master Plan / Layout</h2>
                 <a href={project.layout_image_url} target="_blank" rel="noopener noreferrer" className="relative block h-72 rounded-xl overflow-hidden bg-cream">
                   <Image src={project.layout_image_url} alt={`${project.name} layout`} fill sizes="(max-width:1024px) 100vw, 66vw" className="object-contain" />
                 </a>
@@ -202,7 +203,7 @@ export default async function ProjectDetailPage({ params }: Props) {
             {/* Amenities */}
             {project.amenities && project.amenities.length > 0 && (
               <div className="bg-white rounded-2xl border border-gray-100 p-6">
-                <h2 className="font-bold text-brand-900 text-lg mb-4 flex items-center gap-2"><Sparkles size={18} className="text-gold-700" /> Amenities &amp; Features</h2>
+                <h2 className="h-block mb-4 flex items-center gap-2"><Sparkles size={18} className="text-gold-700" /> Amenities &amp; Features</h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
                   {project.amenities.map((a: string) => {
                     const Icon = amenityIcon(a)
@@ -222,7 +223,7 @@ export default async function ProjectDetailPage({ params }: Props) {
             {/* Why invest */}
             {investHighlights.length > 0 && (
               <div className="bg-white rounded-2xl border border-gray-100 p-6">
-                <h2 className="font-bold text-brand-900 text-lg mb-4 flex items-center gap-2"><TrendingUp size={18} className="text-gold-700" /> Why Invest in {project.name}</h2>
+                <h2 className="h-block mb-4 flex items-center gap-2"><TrendingUp size={18} className="text-gold-700" /> Why Invest in {project.name}</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {investHighlights.map(({ Icon, t, s }) => (
                     <div key={t} className="flex items-start gap-3 p-4 bg-cream rounded-xl">
@@ -240,7 +241,7 @@ export default async function ProjectDetailPage({ params }: Props) {
             {/* Location & connectivity */}
             {location && (
               <div className="bg-white rounded-2xl border border-gray-100 p-6">
-                <h2 className="font-bold text-brand-900 text-lg mb-3 flex items-center gap-2"><Navigation size={18} className="text-gold-700" /> Location &amp; Connectivity</h2>
+                <h2 className="h-block mb-3 flex items-center gap-2"><Navigation size={18} className="text-gold-700" /> Location &amp; Connectivity</h2>
                 <p className="text-gray-600 leading-relaxed mb-4">
                   {project.name} is situated in {location} — explore the neighbourhood and nearby connectivity on the map below.
                 </p>
@@ -273,7 +274,7 @@ export default async function ProjectDetailPage({ params }: Props) {
             {/* Gallery */}
             {gallery.length > 0 && (
               <div className="bg-white rounded-2xl border border-gray-100 p-6">
-                <h2 className="font-bold text-brand-900 text-lg mb-4">Gallery</h2>
+                <h2 className="h-block mb-4">Gallery</h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                   {gallery.slice(0, 9).map((url: string, i: number) => (
                     <a key={i} href={url} target="_blank" rel="noopener noreferrer" className="relative block h-32 rounded-xl overflow-hidden">
@@ -287,7 +288,7 @@ export default async function ProjectDetailPage({ params }: Props) {
             {/* RERA */}
             {project.rera_number && (
               <div className="bg-white rounded-2xl border border-gray-100 p-6">
-                <h2 className="font-bold text-brand-900 text-lg mb-3">RERA Details</h2>
+                <h2 className="h-block mb-3">RERA Details</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                   <div>
                     <p className="text-gray-500 text-xs mb-1">RERA Number</p>
@@ -306,11 +307,11 @@ export default async function ProjectDetailPage({ params }: Props) {
             {/* About the developer */}
             {project.developer?.name && (
               <div className="bg-white rounded-2xl border border-gray-100 p-6">
-                <h2 className="font-bold text-brand-900 text-lg mb-4">About the Developer</h2>
+                <h2 className="h-block mb-4">About the Developer</h2>
                 <div className="flex items-start gap-4">
                   <span className="w-12 h-12 rounded-xl bg-brand-900 flex items-center justify-center shrink-0"><Building2 size={22} className="text-gold-400" /></span>
                   <div>
-                    <p className="font-bold text-brand-900">{project.developer.name}</p>
+                    <p className="font-serif font-semibold text-brand-900">{project.developer.name}</p>
                     <p className="text-sm text-gray-600 mt-1 leading-relaxed">
                       {project.developer_about || `${project.developer.name} is among the trusted developers ANON INDIA partners with, delivering RERA-compliant, quality-led projects.`}
                     </p>
@@ -325,7 +326,7 @@ export default async function ProjectDetailPage({ params }: Props) {
             {/* FAQs */}
             {faqs.length > 0 && (
               <div className="bg-white rounded-2xl border border-gray-100 p-6">
-                <h2 className="font-bold text-brand-900 text-lg mb-4 flex items-center gap-2"><HelpCircle size={18} className="text-gold-700" /> Frequently Asked Questions</h2>
+                <h2 className="h-block mb-4 flex items-center gap-2"><HelpCircle size={18} className="text-gold-700" /> Frequently Asked Questions</h2>
                 <div className="divide-y divide-gray-100">
                   {faqs.map((f) => (
                     <details key={f.q} className="group py-3">

@@ -31,7 +31,7 @@ export default function BlogCard({ post }: Props) {
             <Calendar size={11} />{fmtDate(post.published_at)}
           </span>
         )}
-        <h3 className="font-bold text-gray-900 group-hover:text-gold-700 transition-colors mb-2 line-clamp-2">
+        <h3 className="h-card group-hover:text-gold-700 transition-colors mb-2 line-clamp-2">
           {post.title}
         </h3>
         {post.excerpt && (

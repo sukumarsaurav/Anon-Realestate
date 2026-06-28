@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import PageHero from '@/components/PageHero'
+import Reveal from '@/components/Reveal'
 
 export const metadata: Metadata = {
   title: 'Terms of Use',
@@ -8,15 +10,14 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <div className="min-h-screen bg-cream">
-      <div className="bg-brand-900 text-white py-14">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight mb-2">Terms of Use</h1>
-          <p className="text-gray-300">Last updated: January 2025</p>
-        </div>
-      </div>
+      <PageHero
+        eyebrow="Legal"
+        title="Terms of Use"
+        subtitle="Last updated: January 2025"
+      />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="bg-white rounded-2xl border border-gray-100 p-8 prose prose-gray max-w-none">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 section">
+        <Reveal className="bg-white rounded-2xl border border-gray-100 p-8 prose prose-gray max-w-none">
           <h2>1. Acceptance of Terms</h2>
           <p>By accessing and using this website, you accept and agree to be bound by these Terms of Use. If you do not agree, please do not use this website.</p>
 
@@ -43,7 +44,7 @@ export default function TermsPage() {
 
           <h2>9. Contact</h2>
           <p>For any questions: <a href="mailto:info@anonindia.com">info@anonindia.com</a></p>
-        </div>
+        </Reveal>
       </div>
     </div>
   )

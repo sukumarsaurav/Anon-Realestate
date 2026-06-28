@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Award } from 'lucide-react'
+import PageHero from '@/components/PageHero'
+import Reveal from '@/components/Reveal'
 
 export const metadata: Metadata = {
   title: 'Awards & Recognition',
@@ -17,31 +19,33 @@ const awards = [
 export default function AwardsPage() {
   return (
     <div className="min-h-screen bg-cream">
-      <div className="bg-brand-900 text-white py-14">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight mb-2">Awards &amp; Recognition</h1>
-          <p className="text-gray-300">Trust, earned one happy family at a time.</p>
-        </div>
-      </div>
+      <PageHero
+        eyebrow="Recognition"
+        title="Awards & Recognition"
+        subtitle="Trust, earned one happy family at a time."
+        image="https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=1920&q=80&auto=format&fit=crop"
+      />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 section">
         <div className="space-y-3">
-          {awards.map((a) => (
-            <div key={a.title} className="bg-white rounded-2xl border border-gray-100 p-5 flex items-start gap-4">
-              <div className="w-12 h-12 rounded-xl bg-gold-50 flex items-center justify-center shrink-0"><Award size={22} className="text-gold-700" /></div>
-              <div className="flex-1">
-                <div className="flex items-center gap-2">
-                  <p className="font-semibold text-brand-900">{a.title}</p>
-                  <span className="text-xs font-medium text-gold-700 bg-gold-50 px-2 py-0.5 rounded">{a.year}</span>
+          {awards.map((a, i) => (
+            <Reveal key={a.title} delay={i * 80}>
+              <div className="bg-white rounded-2xl border border-gray-100 p-5 flex items-start gap-4">
+                <div className="w-12 h-12 rounded-xl bg-gold-50 flex items-center justify-center shrink-0"><Award size={22} className="text-gold-700" /></div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <p className="font-semibold text-brand-900">{a.title}</p>
+                    <span className="text-xs font-medium text-gold-700 bg-gold-50 px-2 py-0.5 rounded">{a.year}</span>
+                  </div>
+                  <p className="text-sm text-gray-500 mt-0.5">{a.body}</p>
                 </div>
-                <p className="text-sm text-gray-500 mt-0.5">{a.body}</p>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
-        <div className="mt-10 text-center">
+        <Reveal delay={400} className="mt-10 text-center">
           <Link href="/contact" className="btn-primary">Work with an award-winning team</Link>
-        </div>
+        </Reveal>
       </div>
     </div>
   )

@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import { getAllProjects } from '@/lib/queries'
+import PageHero from '@/components/PageHero'
+import Reveal from '@/components/Reveal'
 
 export const revalidate = 300
 
@@ -15,28 +17,28 @@ export default async function GalleryPage() {
 
   return (
     <div className="min-h-screen bg-cream">
-      <div className="bg-brand-900 text-white py-14">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight mb-2">Gallery</h1>
-          <p className="text-gray-300">Photos and videos from our projects</p>
-        </div>
-      </div>
+      <PageHero
+        eyebrow="Our work"
+        title="Gallery"
+        subtitle="Photos and videos from our projects."
+        image="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1920&q=80&auto=format&fit=crop"
+      />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section">
         {projectsWithMedia.length === 0 ? (
           <div className="text-center py-20 text-gray-500">Gallery photos coming soon.</div>
         ) : (
           <div className="space-y-12">
-            {projectsWithMedia.map((project) => (
-              <div key={project.id}>
+            {projectsWithMedia.map((project, idx) => (
+              <Reveal key={project.id} delay={idx * 80}>
                 <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-xl font-bold text-gray-900">{project.name}</h2>
+                  <h2 className="h-block">{project.name}</h2>
                   <span className="text-sm text-gray-500">{project.city} · {project.gallery_urls.length} photos</span>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                   {project.gallery_urls.map((url: string, i: number) => (
                     <a key={i} href={url} target="_blank" rel="noopener noreferrer"
-                      className="group relative overflow-hidden rounded-xl bg-gray-100 aspect-square block">
+                      className="group relative overflow-hidden rounded-2xl bg-gray-100 aspect-square block">
                       <Image src={url} alt={`${project.name} photo ${i + 1}`} fill
                         sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                         className="object-cover group-hover:scale-105 transition-transform duration-300" />
@@ -51,7 +53,7 @@ export default async function GalleryPage() {
                     </a>
                   </div>
                 )}
-              </div>
+              </Reveal>
             ))}
           </div>
         )}

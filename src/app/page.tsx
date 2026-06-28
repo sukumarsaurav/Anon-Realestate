@@ -73,6 +73,7 @@ export default async function HomePage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-end justify-between mb-8">
               <div>
+                <p className="eyebrow mb-3">New launches</p>
                 <h2 className="section-heading">Popular New Launches</h2>
                 <p className="section-sub">Trending projects investors are booking right now.</p>
               </div>
@@ -95,6 +96,7 @@ export default async function HomePage() {
         <section className="bg-cream py-14">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <Reveal className="text-center mb-8">
+              <p className="eyebrow mb-3">The group</p>
               <h2 className="section-heading">The ANON INDIA Group</h2>
               <p className="section-sub mx-auto">Real estate, construction &amp; interiors — engineered by Anon.</p>
             </Reveal>
@@ -120,20 +122,21 @@ export default async function HomePage() {
         <section className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8">
+              <p className="eyebrow mb-3">Locations</p>
               <h2 className="section-heading">Explore by City</h2>
               <p className="section-sub mx-auto">Find projects in your preferred location.</p>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
               {cities.map((c) => (
                 <Link key={c.city} href={`/projects?city=${encodeURIComponent(c.city)}`}
-                  className="group relative h-44 rounded-2xl overflow-hidden ring-1 ring-black/5 shadow-sm">
+                  className="group relative h-44 rounded-2xl overflow-hidden ring-1 ring-black/5 shadow-soft">
                   <Image src={c.image} alt={`Real estate projects in ${c.city}`} fill
                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-110" />
                   {/* Bottom-up gradient so the label stays legible over any photo */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/80 via-brand-900/20 to-transparent" />
                   <div className="absolute inset-x-0 bottom-0 p-4 text-white">
-                    <p className="font-bold text-lg leading-tight drop-shadow-sm">{c.city}</p>
+                    <p className="font-serif font-semibold text-lg leading-tight drop-shadow-sm">{c.city}</p>
                     <p className="text-xs text-gray-200 flex items-center gap-1 mt-0.5">
                       View projects
                       <ArrowRight size={12} className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
@@ -151,6 +154,7 @@ export default async function HomePage() {
         <section className="bg-cream py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <Reveal className="text-center mb-8">
+              <p className="eyebrow mb-3">Our people</p>
               <h2 className="section-heading">Meet Your Property Advisors</h2>
               <p className="section-sub mx-auto">Experts who guide you from first call to final handover.</p>
             </Reveal>
@@ -164,6 +168,7 @@ export default async function HomePage() {
         <section className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8">
+              <p className="eyebrow mb-3">Testimonials</p>
               <h2 className="section-heading">Real Stories from Happy Homeowners</h2>
               <p className="section-sub mx-auto">Trusted by thousands of families and investors.</p>
             </div>
@@ -200,6 +205,7 @@ export default async function HomePage() {
       <section className="bg-cream py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
+            <p className="eyebrow mb-3">Why us</p>
             <h2 className="section-heading">Why Choose ANON INDIA</h2>
             <p className="section-sub mx-auto">A consultant that puts your interests first.</p>
           </div>
@@ -246,7 +252,7 @@ export default async function HomePage() {
               Browse all properties <ArrowRight size={15} />
             </Link>
           </div>
-          <div className="bg-white text-gray-900 rounded-2xl p-6 shadow-xl">
+          <div className="bg-white text-gray-900 rounded-2xl p-6 shadow-lift">
             <LeadForm source="home_cta" />
           </div>
         </div>
@@ -258,6 +264,7 @@ export default async function HomePage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-end justify-between mb-8">
               <div>
+                <p className="eyebrow mb-3">Journal</p>
                 <h2 className="section-heading">Property Guides &amp; Market Updates</h2>
                 <p className="section-sub">Expert advice to help you invest smarter.</p>
               </div>

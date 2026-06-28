@@ -45,7 +45,7 @@ export default function ProjectCard({ project }: Props) {
       {/* Content */}
       <div className="p-5 flex flex-col flex-1">
         <div className="flex items-center justify-between mb-1.5">
-          <span className="text-xs font-semibold text-gold-700 uppercase tracking-wide">
+          <span className="eyebrow">
             {PROJECT_TYPE_LABELS[project.type] ?? project.type}
           </span>
           {project.developer?.name && (
@@ -54,7 +54,7 @@ export default function ProjectCard({ project }: Props) {
         </div>
 
         <Link href={`/projects/${project.id}`}>
-          <h3 className="font-bold text-brand-900 text-lg group-hover:text-gold-700 transition-colors mb-1">{project.name}</h3>
+          <h3 className="font-serif font-semibold text-brand-900 text-lg group-hover:text-gold-700 transition-colors mb-1">{project.name}</h3>
         </Link>
 
         <div className="flex items-center gap-1.5 text-sm text-gray-500 mb-2">
@@ -71,7 +71,7 @@ export default function ProjectCard({ project }: Props) {
         <div className="flex items-center justify-between mb-4 mt-auto">
           <div>
             <p className="text-[11px] text-gray-500">Starting from</p>
-            <p className="text-xl font-bold text-brand-900 group-hover:text-gold-700 transition-colors leading-tight">{formatINR(project.starting_price)}</p>
+            <p className="text-xl font-bold text-brand-900 group-hover:text-gold-700 transition-colors leading-tight tabular-nums-pro">{formatINR(project.starting_price)}</p>
           </div>
           {project.bhk_config && (
             <span className="flex items-center gap-1 text-xs text-gray-500">

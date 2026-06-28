@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import PageHero from '@/components/PageHero'
+import Reveal from '@/components/Reveal'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
@@ -8,15 +10,14 @@ export const metadata: Metadata = {
 export default function PrivacyPolicyPage() {
   return (
     <div className="min-h-screen bg-cream">
-      <div className="bg-brand-900 text-white py-14">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight mb-2">Privacy Policy</h1>
-          <p className="text-gray-300">Last updated: January 2025</p>
-        </div>
-      </div>
+      <PageHero
+        eyebrow="Legal"
+        title="Privacy Policy"
+        subtitle="Last updated: January 2025"
+      />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="bg-white rounded-2xl border border-gray-100 p-8 prose prose-gray max-w-none">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 section">
+        <Reveal className="bg-white rounded-2xl border border-gray-100 p-8 prose prose-gray max-w-none">
           <h2>1. Information We Collect</h2>
           <p>We collect information you provide directly, including your name, phone number, email address, and any messages you send through our contact forms, lead forms, or brochure download gates.</p>
           <p>We may also collect technical data including IP address, browser type, device information, and pages visited, through cookies and analytics tools (Google Analytics, Meta Pixel).</p>
@@ -43,7 +44,7 @@ export default function PrivacyPolicyPage() {
 
           <h2>7. Contact</h2>
           <p>For privacy-related queries: <strong>privacy@anonindia.com</strong> | ANON INDIA Real Estate, Jaipur, Rajasthan.</p>
-        </div>
+        </Reveal>
       </div>
     </div>
   )
