@@ -5,7 +5,7 @@ import {
 } from 'lucide-react'
 import {
   getFeaturedProjects, getDevelopers, getTeamMembers, getCitiesWithCounts,
-  getActiveTestimonials, getProjectCities, getPublishedBlogPosts,
+  getActiveTestimonials, getPublishedBlogPosts,
 } from '@/lib/queries'
 import HeroSearch from '@/components/home/HeroSearch'
 import PremiumProjects from '@/components/home/PremiumProjects'
@@ -21,19 +21,18 @@ import Avatar from '@/components/Avatar'
 export const revalidate = 300
 
 export default async function HomePage() {
-  const [featured, developers, team, cities, testimonials, cityList, posts] = await Promise.all([
+  const [featured, developers, team, cities, testimonials, posts] = await Promise.all([
     getFeaturedProjects(),
     getDevelopers(),
     getTeamMembers(),
     getCitiesWithCounts(),
     getActiveTestimonials(),
-    getProjectCities(),
     getPublishedBlogPosts(3),
   ])
 
   return (
     <>
-      <HeroSearch cities={cityList} />
+      <HeroSearch />
 
       {/* Trust strip with animated counters */}
       <section className="bg-white border-b border-gray-100">

@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect, useRef } from 'react'
-import { Menu, X, Phone, ChevronDown, LogIn, ArrowRight, MapPin } from 'lucide-react'
+import { Menu, X, Phone, ChevronDown, ArrowRight, MapPin, Search } from 'lucide-react'
 import { PROJECT_TYPE_LABELS } from '@/types'
 import type { Project, BlogPost, CityStat } from '@/types'
 import { formatINR } from '@/lib/format'
@@ -237,13 +237,14 @@ export default function Nav({ cities, projects, posts }: NavProps) {
             </div>
           </nav>
 
-          {/* CTA */}
-          <div className="hidden lg:flex items-center gap-2.5">
-            <a href={`tel:${PHONE}`} className="flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-brand-900">
-              <Phone size={14} /><span>{PHONE}</span>
-            </a>
-            <a href={DASHBOARD_URL} className="flex items-center gap-1.5 px-4 py-2 border border-gray-200 text-brand-900 text-sm font-semibold rounded-xl hover:border-gold-400 transition-colors">
-              <LogIn size={14} /> Login
+          {/* CTA + Search */}
+          <div className="hidden lg:flex items-center gap-3">
+            <Link href="/projects" aria-label="Search properties"
+              className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 text-gray-600 hover:border-brand-900 hover:text-brand-900 transition-colors">
+              <Search size={18} />
+            </Link>
+            <a href={DASHBOARD_URL} className="px-6 py-2.5 bg-brand-900 text-white text-sm font-semibold rounded-full hover:bg-brand-700 transition-colors">
+              Login
             </a>
           </div>
 
