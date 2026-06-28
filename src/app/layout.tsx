@@ -67,7 +67,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         }) }} />
         <Nav cities={cities} projects={menuProjects} posts={blogPosts} />
         <main>{children}</main>
-        <Footer />
+        <Footer projects={menuProjects} />
         <FloatingActions />
       </body>
     </html>

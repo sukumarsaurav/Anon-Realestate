@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { MapPin, Phone, Mail, Facebook, Instagram, Linkedin, Youtube, Twitter } from 'lucide-react'
+import type { Project } from '@/types'
 
 const PHONE = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '+919876543210'
 
@@ -12,10 +13,63 @@ const socials = [
   { Icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
 ]
 
-export default function Footer() {
+interface FooterProps {
+  projects?: Project[]
+}
+
+export default function Footer({ projects = [] }: FooterProps) {
+  // Group projects by city, preserving insertion order (featured-first from query).
+  const byCity: Record<string, Project[]> = {}
+  for (const p of projects) {
+    if (!byCity[p.city]) byCity[p.city] = []
+    byCity[p.city].push(p)
+  }
+  const cities = Object.keys(byCity)
+
   return (
     <footer className="bg-brand-900 text-gray-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      {/* Gold dividing line — separates footer from the dark lead-capture section above */}
+      <div className="h-px bg-gradient-to-r from-transparent via-gold-500 to-transparent" />
+
+      {/* Properties by city */}
+      {cities.length > 0 && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-10">
+          <div className="mb-8">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500 mb-1">Our Portfolio</p>
+            <h2 className="text-white font-semibold text-lg">Properties by City</h2>
+          </div>
+          <div className={`grid grid-cols-2 sm:grid-cols-3 ${cities.length >= 4 ? 'lg:grid-cols-4' : ''} ${cities.length >= 5 ? 'xl:grid-cols-5' : ''} gap-x-8 gap-y-8`}>
+            {cities.map((city) => (
+              <div key={city}>
+                <p className="text-gold-400 font-semibold text-sm mb-3 flex items-center gap-1.5">
+                  <MapPin size={12} className="shrink-0" />
+                  {city}
+                </p>
+                <ul className="space-y-2">
+                  {byCity[city].map((p) => (
+                    <li key={p.id}>
+                      <Link
+                        href={`/projects/${p.id}`}
+                        className="text-gray-400 hover:text-white text-sm leading-snug transition-colors block"
+                      >
+                        {p.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Divider between property list and main footer columns */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="border-t border-white/10" />
+      </div>
+
+      {/* Main footer columns */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="lg:col-span-1">
