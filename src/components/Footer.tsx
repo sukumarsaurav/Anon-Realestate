@@ -38,27 +38,44 @@ export default function Footer({ projects = [] }: FooterProps) {
             <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500 mb-1">Our Portfolio</p>
             <h2 className="text-white font-semibold text-lg">Properties by City</h2>
           </div>
-          <div className={`grid grid-cols-2 sm:grid-cols-3 ${cities.length >= 4 ? 'lg:grid-cols-4' : ''} ${cities.length >= 5 ? 'xl:grid-cols-5' : ''} gap-x-8 gap-y-8`}>
-            {cities.map((city) => (
-              <div key={city}>
-                <p className="text-gold-400 font-semibold text-sm mb-3 flex items-center gap-1.5">
-                  <MapPin size={12} className="shrink-0" />
-                  {city}
-                </p>
-                <ul className="space-y-2">
-                  {byCity[city].map((p) => (
-                    <li key={p.id}>
-                      <Link
-                        href={`/projects/${p.id}`}
-                        className="text-gray-400 hover:text-white text-sm leading-snug transition-colors block"
-                      >
-                        {p.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+          <div className="columns-2 sm:columns-3 lg:columns-4 xl:columns-5 gap-x-8">
+            {cities.map((city) => {
+              const MAX_SHOWN = 4
+              const projects = byCity[city]
+              const visible = projects.slice(0, MAX_SHOWN)
+              const remaining = projects.length - MAX_SHOWN
+
+              return (
+                <div key={city} className="break-inside-avoid mb-6 border-l-2 border-gold-500/30 pl-4">
+                  <p className="text-gold-400 font-semibold text-sm mb-2 flex items-center gap-1.5">
+                    <MapPin size={12} className="shrink-0" />
+                    {city}
+                  </p>
+                  <ul className="space-y-1.5">
+                    {visible.map((p) => (
+                      <li key={p.id}>
+                        <Link
+                          href={`/projects/${p.id}`}
+                          className="text-gray-400 hover:text-white text-sm leading-snug transition-colors block"
+                        >
+                          {p.name}
+                        </Link>
+                      </li>
+                    ))}
+                    {remaining > 0 && (
+                      <li>
+                        <Link
+                          href={`/projects?city=${encodeURIComponent(city)}`}
+                          className="text-gold-500/70 hover:text-gold-400 text-xs transition-colors block mt-1"
+                        >
+                          +{remaining} more
+                        </Link>
+                      </li>
+                    )}
+                  </ul>
+                </div>
+              )
+            })}
           </div>
         </div>
       )}
