@@ -110,7 +110,7 @@ export default function LeadForm({
       {error && <p role="alert" className="text-sm text-danger-600">{error}</p>}
 
       <button type="submit" disabled={loading}
-        className="w-full py-3.5 bg-gold-500 text-brand-900 font-semibold rounded-xl hover:bg-gold-600 hover:text-white transition-colors disabled:opacity-50 text-sm">
+        className="w-full py-3.5 bg-gold-500 text-white font-semibold rounded-xl hover:bg-gold-600 disabled:opacity-50 text-sm">
         {loading ? 'Submitting...' : 'Request Callback'}
       </button>
 

@@ -183,7 +183,7 @@ export default function Nav({ cities, projects, posts }: NavProps) {
                             {featured.featured_image_url && (
                               <Image src={featured.featured_image_url} alt={featured.title} fill sizes="360px" className="object-cover group-hover:scale-105 transition-transform" />
                             )}
-                            <span className="absolute top-2 left-2 text-[10px] font-semibold uppercase tracking-wide bg-gold-500 text-brand-900 px-2 py-0.5 rounded">Featured</span>
+                            <span className="absolute top-2 left-2 text-[10px] font-semibold uppercase tracking-wide bg-gold-500 text-white px-2 py-0.5 rounded">Featured</span>
                           </div>
                           <h4 className="font-semibold text-brand-900 leading-snug group-hover:text-gold-700 line-clamp-2">{featured.title}</h4>
                           {featured.excerpt && <p className="text-sm text-gray-500 mt-1 line-clamp-2">{featured.excerpt}</p>}
@@ -307,7 +307,7 @@ export default function Nav({ cities, projects, posts }: NavProps) {
             {[...simpleLinks, ...moreLinks].map((l) => (
               <Link key={l.href} href={l.href} onClick={() => setOpen(false)} className="block px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-brand-900 hover:bg-cream rounded-xl">{l.label}</Link>
             ))}
-            <Link href="/contact" onClick={() => setOpen(false)} className="block mt-2 px-3 py-3 bg-gold-500 text-brand-900 text-sm font-semibold rounded-xl text-center">Free Consultation</Link>
+            <Link href="/contact" onClick={() => setOpen(false)} className="block mt-2 px-3 py-3 bg-gold-500 text-white text-sm font-semibold rounded-xl text-center">Free Consultation</Link>
             <a href={DASHBOARD_URL} className="block mt-1 px-3 py-3 border border-gray-200 text-brand-900 text-sm font-semibold rounded-xl text-center">Login</a>
           </div>
         </div>

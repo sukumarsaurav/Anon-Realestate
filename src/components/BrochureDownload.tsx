@@ -68,7 +68,7 @@ export default function BrochureDownload({ projectId, projectName, brochureUrl }
         className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gold-400" />
       {error && <p className="text-xs text-danger-600">{error}</p>}
       <button type="submit" disabled={loading}
-        className="flex items-center justify-center gap-2 w-full py-2.5 bg-gold-500 text-brand-900 text-sm font-semibold rounded-xl hover:bg-gold-600 hover:text-white disabled:opacity-50">
+        className="flex items-center justify-center gap-2 w-full py-2.5 bg-gold-500 text-white text-sm font-semibold rounded-xl hover:bg-gold-600 disabled:opacity-50">
         <Download size={15} />
         {loading ? 'Processing...' : 'Download Brochure'}
       </button>

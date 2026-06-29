@@ -12,8 +12,8 @@ import PremiumProjects from '@/components/home/PremiumProjects'
 import ReelsSection from '@/components/home/ReelsSection'
 import TeamCarousel from '@/components/home/TeamCarousel'
 import TestimonialMarquee from '@/components/home/TestimonialMarquee'
+import NewLaunches from '@/components/home/NewLaunches'
 import BlogCard from '@/components/BlogCard'
-import ProjectCard from '@/components/ProjectCard'
 import LeadForm from '@/components/LeadForm'
 import Reveal from '@/components/Reveal'
 import CountUp from '@/components/CountUp'
@@ -34,61 +34,10 @@ export default async function HomePage() {
     <>
       <HeroSearch />
 
-      {/* Trust strip with animated counters */}
-      <section className="bg-white border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {[
-              { Icon: Award, end: 15, suffix: '+', s: 'Years of expertise' },
-              { Icon: Users, end: 2500, suffix: '+', s: 'Happy investors' },
-              { Icon: MapPinned, end: 12, suffix: '+', s: 'Cities & projects' },
-            ].map(({ Icon, end, suffix, s }) => (
-              <div key={s} className="flex items-center gap-3 justify-center sm:justify-start">
-                <div className="w-12 h-12 rounded-xl bg-gold-50 flex items-center justify-center shrink-0">
-                  <Icon size={22} className="text-gold-700" />
-                </div>
-                <div>
-                  <p className="font-serif text-2xl font-semibold text-brand-900"><CountUp end={end} suffix={suffix} /></p>
-                  <p className="text-sm text-gray-500">{s}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-          {/* Credibility anchor — grounds the numbers in verifiable proof */}
-          <div className="mt-6 pt-6 border-t border-gray-100 flex flex-wrap items-center justify-center sm:justify-between gap-x-6 gap-y-2 text-sm text-gray-500">
-            <span className="flex items-center gap-2">
-              <ShieldCheck size={16} className="text-gold-700" /> RERA-compliant projects only
-            </span>
-            <Link href="/awards" className="inline-flex items-center gap-1 font-semibold text-gold-700 hover:text-brand-900 transition-colors">
-              See our awards &amp; recognition <ArrowRight size={14} />
-            </Link>
-          </div>
-        </div>
-      </section>
+
 
       {/* Popular new launches */}
-      {featured.length > 0 && (
-        <section className="py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-end justify-between mb-8">
-              <div>
-                <p className="eyebrow mb-3">New launches</p>
-                <h2 className="section-heading">Popular New Launches</h2>
-                <p className="section-sub">Trending projects investors are booking right now.</p>
-              </div>
-              <Link href="/projects" className="hidden sm:inline-flex items-center gap-1 text-sm font-semibold text-gold-700 hover:text-brand-900 transition-colors">
-                View all <ArrowRight size={15} />
-              </Link>
-            </div>
-            {/* Responsive grid on desktop; horizontal snap-scroll on mobile (no off-screen bleed). */}
-            <div className="flex gap-5 overflow-x-auto pb-4 snap-x sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:overflow-visible sm:pb-0">
-              {featured.slice(0, 4).map((p) => (
-                <div key={p.id} className="w-[280px] shrink-0 snap-start sm:w-auto h-full"><ProjectCard project={p} /></div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      {featured.length > 0 && <NewLaunches projects={featured} />}
 
       {/* Associated developers */}
       {developers.length > 0 && (

@@ -127,7 +127,7 @@ export default function EmiCalculator({ defaultPrice = 2000000 }: Props) {
         {/* CTA */}
         {!showCtA ? (
           <button onClick={handleCalc}
-            className="w-full py-3.5 bg-gold-500 text-brand-900 font-semibold rounded-xl hover:bg-gold-600 hover:text-white text-sm transition-colors">
+            className="w-full py-3.5 bg-gold-500 text-white font-semibold rounded-xl hover:bg-gold-600 text-sm transition-colors">
             Check Loan Eligibility
           </button>
         ) : (

@@ -22,16 +22,16 @@ const config: Config = {
         // Warm gold accent for CTAs / highlights. 200/300 give usable light-golds,
         // 800/900 give deep accents. Use 700+ for gold *text* on light surfaces.
         gold: {
-          50:  '#fbf6e9',
-          100: '#f5e9c4',
-          200: '#eedfa3',
-          300: '#e2cb7d',
-          400: '#d9b65b',
-          500: '#c49a3a',
-          600: '#a87e26',
-          700: '#86631c',
-          800: '#6b4f16',
-          900: '#4f3a10',
+          50:  '#f5f5f6', // Light gray container bg
+          100: '#e6e7e9', // Light gray background/pill
+          200: '#c9cbcf', // Medium light gray border
+          300: '#9b9ea4', // Neutral gray
+          400: '#ffffff', // High contrast white for dark surfaces
+          500: '#0a0b0d', // Primary monochrome black CTA bg
+          600: '#24272e', // Dark gray hover bg
+          700: '#0a0b0d', // Monochrome black text accent
+          800: '#0f1115', // Near black text
+          900: '#0a0b0d', // Monochrome black text
         },
         // Warm-neutral ramp — overrides Tailwind's cool default gray so all
         // neutrals share the warmth of cream/gold. Lightness tuned to preserve

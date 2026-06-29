@@ -21,14 +21,13 @@
   /* Lining figures keep prices, stats and dates even and "engineered". */
   .tabular-nums-pro { font-variant-numeric: tabular-nums lining-nums; }
   /* Branded text selection — a small, premium signature. */
-  ::selection { background: theme('colors.gold.400'); color: theme('colors.brand.900'); }
+  ::selection { background: theme('colors.brand.900'); color: theme('colors.white'); }
 }
 
 @layer components {
-  /* Primary CTA — gold accent on the premium charcoal brand.
-     Hover deepens the gold but keeps charcoal text (luxury, not template). */
+  /* Primary CTA — monochrome black button with white text. */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-gold-500 text-brand-900 font-semibold rounded-xl hover:bg-gold-600 hover:text-white transition-all hover:shadow-gold;
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-gold-500 text-white font-semibold rounded-xl hover:bg-gold-600 transition-all;
   }
   .btn-dark {
     @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand-900 text-white font-semibold rounded-xl hover:bg-brand-700 transition-colors;
