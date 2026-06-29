@@ -61,7 +61,7 @@ export default function ProjectCard({ project }: Props) {
         </div>
 
         <div className="flex items-center justify-between mb-3 mt-auto">
-          <p className="text-xl font-bold text-brand-900 group-hover:text-gold-700 transition-colors leading-tight tabular-nums-pro">{formatINR(project.starting_price)}</p>
+          <p className="text-xl font-bold text-gold-700 leading-tight tabular-nums-pro">{formatINR(project.starting_price)}</p>
           {project.rera_number && (
             <span className="inline-flex items-center gap-1 text-[11px] font-medium text-success-700 bg-success-50 px-2 py-0.5 rounded-full">
               <ShieldCheck size={11} /> RERA

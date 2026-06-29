@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import {
-  Award, Users, MapPinned, ShieldCheck, Headphones, Cpu, Star, ArrowRight, Quote,
+  Award, Users, MapPinned, ShieldCheck, Headphones, Cpu, ArrowRight,
 } from 'lucide-react'
 import {
   getFeaturedProjects, getDevelopers, getTeamMembers, getCitiesWithCounts,
@@ -11,12 +11,12 @@ import HeroSearch from '@/components/home/HeroSearch'
 import PremiumProjects from '@/components/home/PremiumProjects'
 import ReelsSection from '@/components/home/ReelsSection'
 import TeamCarousel from '@/components/home/TeamCarousel'
+import TestimonialMarquee from '@/components/home/TestimonialMarquee'
 import BlogCard from '@/components/BlogCard'
 import ProjectCard from '@/components/ProjectCard'
 import LeadForm from '@/components/LeadForm'
 import Reveal from '@/components/Reveal'
 import CountUp from '@/components/CountUp'
-import Avatar from '@/components/Avatar'
 
 export const revalidate = 300
 
@@ -164,36 +164,15 @@ export default async function HomePage() {
 
       {/* Testimonials */}
       {testimonials.length > 0 && (
-        <section className="py-16">
+        <section className="py-16 overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8">
               <p className="eyebrow mb-3">Testimonials</p>
               <h2 className="section-heading">Real Stories from Happy Homeowners</h2>
               <p className="section-sub mx-auto">Trusted by thousands of families and investors.</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {testimonials.slice(0, 6).map((t) => (
-                <div key={t.id} className="bg-white rounded-2xl border border-gray-100 p-6 flex flex-col">
-                  <Quote size={22} className="text-gold-400 mb-3" />
-                  <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-4">&ldquo;{t.content}&rdquo;</p>
-                  <div className="flex items-center justify-between mt-auto">
-                    <div className="flex items-center gap-3">
-                      <span className="w-10 h-10 rounded-full bg-brand-900 overflow-hidden flex shrink-0"><Avatar name={t.client_name} src={t.photo_url} fontClass="text-xs" /></span>
-                      <div>
-                        <p className="font-semibold text-brand-900 text-sm">{t.client_name}</p>
-                        {t.project && <p className="text-xs text-gray-500">{t.project}</p>}
-                      </div>
-                    </div>
-                    <div className="flex">
-                      {Array.from({ length: t.rating }).map((_, i) => (
-                        <Star key={i} size={13} className="text-gold-500 fill-gold-500" />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
+          <TestimonialMarquee testimonials={testimonials.slice(0, 8)} />
         </section>
       )}
 
@@ -232,7 +211,7 @@ export default async function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid lg:grid-cols-2 gap-10 items-center">
           <div>
             <h2 className="text-heading font-semibold">Find the Right Property with Expert Guidance</h2>
-            <p className="text-gray-300 mt-4 max-w-xl">Free consultation, RERA-verified options, and honest advice tailored to your budget. Our advisor calls you back within 30 minutes.</p>
+            <p className="text-gray-200 mt-4 max-w-xl">Free consultation, RERA-verified options, and honest advice tailored to your budget. Our advisor calls you back within 30 minutes.</p>
             <ul className="mt-6 space-y-2.5">
               {[
                 { Icon: ShieldCheck, t: 'RERA-verified projects only' },

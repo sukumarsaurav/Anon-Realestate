@@ -41,13 +41,13 @@ export default function AboutPage() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             {[
-              { value: '15+', label: 'Years of Experience', icon: Award, bg: 'bg-gold-50', color: 'text-gold-700' },
-              { value: '50+', label: 'Projects Delivered', icon: Building2, bg: 'bg-success-50', color: 'text-success-600' },
-              { value: '1000+', label: 'Happy Families', icon: Users, bg: 'bg-warning-50', color: 'text-warning-600' },
-              { value: '8', label: 'Cities Covered', icon: MapPin, bg: 'bg-brand-50', color: 'text-brand-600' },
-            ].map(({ value, label, icon: Icon, bg, color }) => (
-              <div key={label} className={`${bg} rounded-2xl p-6 text-center`}>
-                <Icon size={28} className={`${color} mx-auto mb-2`} />
+              { value: '15+', label: 'Years of Experience', icon: Award },
+              { value: '50+', label: 'Projects Delivered', icon: Building2 },
+              { value: '1000+', label: 'Happy Families', icon: Users },
+              { value: '8', label: 'Cities Covered', icon: MapPin },
+            ].map(({ value, label, icon: Icon }) => (
+              <div key={label} className="bg-gold-50 rounded-2xl p-6 text-center">
+                <Icon size={28} className="text-gold-700 mx-auto mb-2" />
                 <p className="font-serif text-3xl font-semibold text-brand-900 tabular-nums-pro">{value}</p>
                 <p className="text-sm text-gray-600 mt-1">{label}</p>
               </div>
@@ -70,7 +70,7 @@ export default function AboutPage() {
               <Reveal key={title} delay={i * 110} className="bg-white rounded-2xl border border-gray-100 p-7 text-center transition-all duration-300 hover:shadow-card hover:-translate-y-0.5">
                 <div className="w-12 h-12 rounded-xl bg-gold-50 flex items-center justify-center mb-4 mx-auto"><Icon size={22} className="text-gold-700" /></div>
                 <h3 className="h-card mb-3">{title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{desc}</p>
+                <p className="text-gray-600 text-sm leading-relaxed">{desc}</p>
               </Reveal>
             ))}
           </div>
@@ -83,7 +83,7 @@ export default function AboutPage() {
             <Shield size={48} className="text-gold-400 shrink-0 mt-1" />
             <div>
               <h2 className="font-serif text-2xl font-semibold mb-3">RERA Registration Details</h2>
-              <p className="text-gray-300 mb-6">
+              <p className="text-gray-200 mb-6">
                 ANON INDIA is a fully RERA-registered developer under Rajasthan Real Estate Regulatory Authority. All our projects carry individual RERA project registrations, which you can verify on the RERA portal.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">

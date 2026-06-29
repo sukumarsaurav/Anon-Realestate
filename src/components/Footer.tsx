@@ -27,7 +27,7 @@ export default function Footer({ projects = [] }: FooterProps) {
   const cities = Object.keys(byCity)
 
   return (
-    <footer className="bg-brand-900 text-gray-300">
+    <footer className="bg-brand-900 text-gray-200">
       {/* Gold dividing line — separates footer from the dark lead-capture section above */}
       <div className="h-px bg-gradient-to-r from-transparent via-gold-500 to-transparent" />
 
@@ -35,7 +35,7 @@ export default function Footer({ projects = [] }: FooterProps) {
       {cities.length > 0 && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-10">
           <div className="mb-8">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500 mb-1">Our Portfolio</p>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-400 mb-1">Our Portfolio</p>
             <h2 className="text-white font-semibold text-lg">Properties by City</h2>
           </div>
           <div className="columns-2 sm:columns-3 lg:columns-4 xl:columns-5 gap-x-8">
@@ -66,7 +66,7 @@ export default function Footer({ projects = [] }: FooterProps) {
                       <li>
                         <Link
                           href={`/projects?city=${encodeURIComponent(city)}`}
-                          className="text-gold-500/70 hover:text-gold-400 text-xs transition-colors block mt-1"
+                          className="text-gold-400/70 hover:text-gold-400 text-xs transition-colors block mt-1"
                         >
                           +{remaining} more
                         </Link>
@@ -166,7 +166,7 @@ export default function Footer({ projects = [] }: FooterProps) {
             <form className="flex gap-2">
               <input type="email" required placeholder="Your email"
                 className="flex-1 min-w-0 rounded-lg bg-white/5 border border-white/10 px-3 py-2.5 text-sm text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gold-400" />
-              <button type="submit" className="px-4 py-2.5 bg-gold-500 text-brand-900 text-sm font-semibold rounded-lg hover:bg-gold-600 transition-colors">
+              <button type="submit" className="px-4 py-2.5 bg-gold-500 text-brand-900 text-sm font-semibold rounded-lg hover:bg-gold-600 hover:text-white transition-colors">
                 Subscribe
               </button>
             </form>

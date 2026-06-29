@@ -48,7 +48,7 @@ const config: Config = {
           800: '#292621',
           900: '#1a1714',
         },
-        cream: '#f8f5ef',
+        cream: { DEFAULT: '#f8f5ef', dark: '#f0ece4' },
         // WhatsApp brand — kept distinct from semantic success-green.
         whatsapp: { DEFAULT: '#25d366', dark: '#1da851' },
         // Semantic intent tokens (values mirror Tailwind green/amber/red so

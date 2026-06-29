@@ -59,7 +59,7 @@ function ApplicationForm({ listing, onClose }: { listing: CareerListing; onClose
           Cancel
         </button>
         <button type="submit" disabled={loading}
-          className="flex-1 py-2.5 bg-gold-500 text-brand-900 text-sm font-semibold rounded-xl hover:bg-gold-600 disabled:opacity-50">
+          className="flex-1 py-2.5 bg-gold-500 text-brand-900 text-sm font-semibold rounded-xl hover:bg-gold-600 hover:text-white disabled:opacity-50">
           {loading ? 'Submitting...' : 'Submit Application'}
         </button>
       </div>
@@ -82,7 +82,7 @@ export default function CareerListings({ listings }: { listings: CareerListing[]
           We&apos;re always looking for great talent. Send us your profile anyway!
         </p>
         <a href="mailto:careers@anonindia.com"
-          className="inline-block px-6 py-3 bg-gold-500 text-brand-900 font-semibold rounded-xl hover:bg-gold-600 text-sm">
+          className="inline-block px-6 py-3 bg-gold-500 text-brand-900 font-semibold rounded-xl hover:bg-gold-600 hover:text-white text-sm">
           Send Your CV
         </a>
       </div>
@@ -121,7 +121,7 @@ export default function CareerListings({ listings }: { listings: CareerListing[]
                 <ApplicationForm listing={job} onClose={() => setApplying(null)} />
               ) : (
                 <button onClick={() => setApplying(job.id)}
-                  className="mt-4 px-6 py-2.5 bg-gold-500 text-brand-900 text-sm font-semibold rounded-xl hover:bg-gold-600">
+                  className="mt-4 px-6 py-2.5 bg-gold-500 text-brand-900 text-sm font-semibold rounded-xl hover:bg-gold-600 hover:text-white">
                   Apply Now
                 </button>
               )}

@@ -243,7 +243,7 @@ export default function Nav({ cities, projects, posts }: NavProps) {
               className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 text-gray-600 hover:border-brand-900 hover:text-brand-900 transition-colors">
               <Search size={18} />
             </Link>
-            <a href={DASHBOARD_URL} className="px-6 py-2.5 bg-brand-900 text-white text-sm font-semibold rounded-full hover:bg-brand-700 transition-colors">
+            <a href={DASHBOARD_URL} className="px-6 py-2.5 bg-brand-900 text-white text-sm font-semibold rounded-xl hover:bg-brand-700 transition-colors">
               Login
             </a>
           </div>

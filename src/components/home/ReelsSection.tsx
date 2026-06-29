@@ -23,7 +23,7 @@ export default function ReelsSection() {
   }
 
   return (
-    <section className="bg-gold-50/60 py-16 overflow-hidden">
+    <section className="bg-cream py-16 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="flex items-end justify-between gap-4 mb-8">

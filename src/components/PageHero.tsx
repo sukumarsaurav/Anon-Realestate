@@ -80,7 +80,7 @@ export default function PageHero({
           />
           {subtitle && (
             <p
-              className="motion-safe:animate-fade-up text-lead text-gray-300 mt-6"
+              className="motion-safe:animate-fade-up text-lead text-gray-200 mt-6"
               style={{ animationDelay: '220ms' }}
             >
               {subtitle}
