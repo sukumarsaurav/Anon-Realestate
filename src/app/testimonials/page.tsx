@@ -16,7 +16,7 @@ export default async function TestimonialsPage() {
   const testimonials = await getActiveTestimonials()
 
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen bg-white">
       <PageHero
         eyebrow="Client stories"
         title="Real Stories from Happy Homeowners"

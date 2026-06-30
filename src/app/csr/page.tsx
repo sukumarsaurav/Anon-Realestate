@@ -17,7 +17,7 @@ const initiatives = [
 
 export default function CSRPage() {
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen bg-white">
       <PageHero
         eyebrow="Giving back"
         title="Corporate Social Responsibility"
@@ -25,14 +25,14 @@ export default function CSRPage() {
         image="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1920&q=80&auto=format&fit=crop"
       />
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 section space-y-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section space-y-8">
         <Reveal>
           <p className="text-gray-600 leading-relaxed text-lg">
             At ANON INDIA, growth and responsibility go together. A part of everything we build goes back into the
             communities around our projects — through education, sustainability and welfare initiatives.
           </p>
         </Reveal>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {initiatives.map(({ Icon, t, s }, i) => (
             <Reveal key={t} delay={i * 90} className="bg-white rounded-2xl border border-gray-100 p-6">
               <div className="w-11 h-11 rounded-xl bg-gold-50 flex items-center justify-center mb-4"><Icon size={20} className="text-gold-700" /></div>

@@ -17,7 +17,7 @@ const values = [
 
 export default function VisionPage() {
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen bg-white">
       <PageHero
         eyebrow="What drives us"
         title="Vision & Mission"
@@ -25,7 +25,7 @@ export default function VisionPage() {
         image="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1920&q=80&auto=format&fit=crop"
       />
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 section space-y-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section space-y-8">
         <Reveal className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-white rounded-2xl border border-gray-100 p-7">
             <div className="w-11 h-11 rounded-xl bg-gold-50 flex items-center justify-center mb-4"><Compass size={20} className="text-gold-700" /></div>

@@ -30,7 +30,7 @@ export default function BlogBrowser({ posts }: { posts: BlogPost[] }) {
 
   const tabCls = (active: boolean) =>
     `block w-full text-left px-3 py-2 rounded-xl text-sm ${
-      active ? 'bg-gold-50 text-gold-700 font-medium' : 'text-gray-600 hover:bg-cream'
+      active ? 'bg-gold-50 text-gold-700 font-medium' : 'text-gray-600 hover:bg-white'
     }`
 
   return (

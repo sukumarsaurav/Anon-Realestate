@@ -18,7 +18,7 @@ const awards = [
 
 export default function AwardsPage() {
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen bg-white">
       <PageHero
         eyebrow="Recognition"
         title="Awards & Recognition"
@@ -26,8 +26,8 @@ export default function AwardsPage() {
         image="https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=1920&q=80&auto=format&fit=crop"
       />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 section">
-        <div className="space-y-3">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {awards.map((a, i) => (
             <Reveal key={a.title} delay={i * 80}>
               <div className="bg-white rounded-2xl border border-gray-100 p-5 flex items-start gap-4">

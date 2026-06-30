@@ -47,7 +47,7 @@ export default async function BlogPostPage({ params }: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen bg-white">
       {/* Counts a view per visit — the page itself is statically cached. */}
       <BlogViewTracker postId={post.id} />
       {post.featured_image_url && (
@@ -106,7 +106,7 @@ export default async function BlogPostPage({ params }: Props) {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   {relatedPosts.map((r) => (
                     <Link key={r.id} href={`/blog/${r.slug}`}
-                      className="block p-4 bg-cream rounded-xl hover:bg-gold-50 transition-colors">
+                      className="block p-4 bg-white rounded-xl hover:bg-gold-50 transition-colors">
                       <p className="text-sm font-medium text-brand-900 line-clamp-2 hover:text-gold-700">{r.title}</p>
                     </Link>
                   ))}

@@ -55,7 +55,7 @@ function ApplicationForm({ listing, onClose }: { listing: CareerListing; onClose
       {error && <p className="text-xs text-danger-600">{error}</p>}
       <div className="flex gap-2">
         <button type="button" onClick={onClose}
-          className="px-4 py-2.5 border border-gray-300 text-gray-600 text-sm rounded-xl hover:bg-cream">
+          className="px-4 py-2.5 border border-gray-300 text-gray-600 text-sm rounded-xl hover:bg-white">
           Cancel
         </button>
         <button type="submit" disabled={loading}

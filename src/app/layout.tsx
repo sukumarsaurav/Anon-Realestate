@@ -34,6 +34,19 @@ export const metadata: Metadata = {
   },
   twitter:  { card: 'summary_large_image' },
   robots:   { index: true, follow: true },
+  icons: {
+    icon: [
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-48x48.png', sizes: '48x48', type: 'image/png' },
+      { url: '/favicon-64x64.png', sizes: '64x64', type: 'image/png' },
+      { url: '/favicon-128x128.png', sizes: '128x128', type: 'image/png' },
+      { url: '/favicon-192x192.png', sizes: '192x192', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/favicon-180x180.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

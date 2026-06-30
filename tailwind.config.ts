@@ -5,54 +5,43 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Charcoal/near-black primary, derived from the B&W ANON INDIA logo.
-        // 300/400 fill the gap between 200 and 500 for mid-tone chrome.
         brand: {
-          50:  '#f5f5f6',
-          100: '#e6e7e9',
-          200: '#c9cbcf',
-          300: '#9b9ea4',
-          400: '#6c6f76',
-          500: '#3a3d44',
-          600: '#24272e',
-          700: '#15171c',
-          800: '#0f1115',
-          900: '#0a0b0d',
+          50:  '#f0f5ff',
+          100: '#e5edff',
+          200: '#cddbfe',
+          300: '#a4bdfd',
+          400: '#7597fa',
+          500: '#4d6cf5',
+          600: '#324ce6',
+          700: '#2639cc',
+          800: '#2332a6',
+          900: '#164488', // User's requested blue
         },
-        // Warm gold accent for CTAs / highlights. 200/300 give usable light-golds,
-        // 800/900 give deep accents. Use 700+ for gold *text* on light surfaces.
         gold: {
-          50:  '#f5f5f6', // Light gray container bg
-          100: '#e6e7e9', // Light gray background/pill
-          200: '#c9cbcf', // Medium light gray border
-          300: '#9b9ea4', // Neutral gray
-          400: '#ffffff', // High contrast white for dark surfaces
-          500: '#0a0b0d', // Primary monochrome black CTA bg
-          600: '#24272e', // Dark gray hover bg
-          700: '#0a0b0d', // Monochrome black text accent
-          800: '#0f1115', // Near black text
-          900: '#0a0b0d', // Monochrome black text
+          50:  '#fdfce8',
+          100: '#fcf8c3',
+          200: '#f9f08a',
+          300: '#f5e24c',
+          400: '#ebd025',
+          500: '#bab447', // User's requested yellow
+          600: '#a39818',
+          700: '#827410',
+          800: '#6d5e13',
+          900: '#5e4f16',
         },
-        // Warm-neutral ramp — overrides Tailwind's cool default gray so all
-        // neutrals share the warmth of cream/gold. Lightness tuned to preserve
-        // contrast (500 passes AA on white; 400 is for borders/large/UI only).
         gray: {
-          50:  '#faf8f5',
-          100: '#f2efe9',
-          200: '#e6e2da',
-          300: '#d2cdc3',
-          400: '#a39d92',
-          500: '#736d63',
-          600: '#565049',
-          700: '#423d37',
-          800: '#292621',
-          900: '#1a1714',
+          50:  '#f9fafb',
+          100: '#f3f4f6',
+          200: '#e5e7eb',
+          300: '#d1d5db',
+          400: '#9ca3af',
+          500: '#6b7280',
+          600: '#4b5563',
+          700: '#374151',
+          800: '#1f2937',
+          900: '#111827',
         },
-        cream: { DEFAULT: '#f8f5ef', dark: '#f0ece4' },
-        // WhatsApp brand — kept distinct from semantic success-green.
         whatsapp: { DEFAULT: '#25d366', dark: '#1da851' },
-        // Semantic intent tokens (values mirror Tailwind green/amber/red so
-        // the rename is visually identical). Use these instead of raw colours.
         success: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#22c55e', 600: '#16a34a', 700: '#15803d' },
         warning: { 50: '#fffbeb', 100: '#fef3c7', 500: '#f59e0b', 600: '#d97706', 700: '#b45309' },
         danger:  { 50: '#fef2f2', 100: '#fee2e2', 500: '#ef4444', 600: '#dc2626', 700: '#b91c1c' },

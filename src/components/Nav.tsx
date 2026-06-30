@@ -86,7 +86,7 @@ export default function Nav({ cities, projects, posts }: NavProps) {
         <div className={`flex items-center justify-between transition-[height] duration-300 ${scrolled ? 'h-14' : 'h-16'}`}>
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5">
-            <Image src="/logo.svg" alt="ANON INDIA" width={40} height={40} className="rounded-full" priority />
+            <Image src="/logo-symbol-black.png" alt="ANON INDIA" width={40} height={40} className="object-contain" priority />
             <div className="leading-none">
               <p className="font-bold text-brand-900 text-sm tracking-wide">ANON INDIA</p>
               <p className="text-[10px] text-gray-500">Structures · Spaces · Solutions</p>
@@ -98,7 +98,7 @@ export default function Nav({ cities, projects, posts }: NavProps) {
             {/* Projects mega */}
             <div className="static" {...menuHandlers('projects')}>
               <button aria-haspopup="true" aria-expanded={menu === 'projects'}
-                className="flex items-center gap-1 px-3.5 py-2 text-sm font-medium text-gray-600 hover:text-brand-900 hover:bg-cream rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-400">
+                className="flex items-center gap-1 px-3.5 py-2 text-sm font-medium text-gray-600 hover:text-brand-900 hover:bg-white rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-400">
                 Projects <ChevronDown size={14} className={menu === 'projects' ? 'rotate-180 transition-transform' : 'transition-transform'} />
               </button>
               {menu === 'projects' && (
@@ -112,7 +112,7 @@ export default function Nav({ cities, projects, posts }: NavProps) {
                         <Link key={c.city} href={`/projects?city=${encodeURIComponent(c.city)}`}
                           onMouseEnter={() => setActiveCity(c.city)} onClick={() => setMenu(null)}
                           className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-sm transition-colors ${
-                            activeCity === c.city ? 'bg-brand-900 text-white' : 'text-gray-700 hover:bg-cream'
+                            activeCity === c.city ? 'bg-brand-900 text-white' : 'text-gray-700 hover:bg-white'
                           }`}>
                           <span>{c.city}</span>
                           <span className={`text-xs px-1.5 py-0.5 rounded ${activeCity === c.city ? 'bg-white/20' : 'bg-gray-100 text-gray-500'}`}>{c.count}</span>
@@ -125,7 +125,7 @@ export default function Nav({ cities, projects, posts }: NavProps) {
                       <Link href="/projects" onClick={() => setMenu(null)} className="block px-3 py-2.5 rounded-lg text-sm bg-gold-50 text-gold-700 font-medium">All Types</Link>
                       {Object.entries(PROJECT_TYPE_LABELS).map(([v, l]) => (
                         <Link key={v} href={`/projects?type=${v}`} onClick={() => setMenu(null)}
-                          className="block px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-cream">{l}</Link>
+                          className="block px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-white">{l}</Link>
                       ))}
                     </div>
                     {/* Property preview */}
@@ -145,7 +145,7 @@ export default function Nav({ cities, projects, posts }: NavProps) {
                           const img = projectImage(p)
                           return (
                             <Link key={p.id} href={`/projects/${p.id}`} onClick={() => setMenu(null)}
-                              className="flex items-center gap-3 p-2 rounded-xl hover:bg-cream transition-colors">
+                              className="flex items-center gap-3 p-2 rounded-xl hover:bg-white transition-colors">
                               <div className="relative w-20 h-16 rounded-lg bg-gray-100 overflow-hidden shrink-0">
                                 <Image src={img} alt={p.name} fill sizes="80px" className="object-cover" />
                               </div>
@@ -167,7 +167,7 @@ export default function Nav({ cities, projects, posts }: NavProps) {
             {/* Blog mega */}
             <div className="static" {...menuHandlers('blog')}>
               <button aria-haspopup="true" aria-expanded={menu === 'blog'}
-                className="flex items-center gap-1 px-3.5 py-2 text-sm font-medium text-gray-600 hover:text-brand-900 hover:bg-cream rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-400">
+                className="flex items-center gap-1 px-3.5 py-2 text-sm font-medium text-gray-600 hover:text-brand-900 hover:bg-white rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-400">
                 Blog <ChevronDown size={14} className={menu === 'blog' ? 'rotate-180 transition-transform' : 'transition-transform'} />
               </button>
               {menu === 'blog' && (
@@ -197,7 +197,7 @@ export default function Nav({ cities, projects, posts }: NavProps) {
                         </div>
                         <div className="space-y-2">
                           {moreArticles.map((a) => (
-                            <Link key={a.id} href={`/blog/${a.slug}`} onClick={() => setMenu(null)} className="flex items-center gap-3 p-2 rounded-xl hover:bg-cream group">
+                            <Link key={a.id} href={`/blog/${a.slug}`} onClick={() => setMenu(null)} className="flex items-center gap-3 p-2 rounded-xl hover:bg-white group">
                               <div className="relative w-20 h-16 rounded-lg bg-gray-100 overflow-hidden shrink-0">
                                 {a.featured_image_url && <Image src={a.featured_image_url} alt={a.title} fill sizes="80px" className="object-cover" />}
                               </div>
@@ -216,20 +216,20 @@ export default function Nav({ cities, projects, posts }: NavProps) {
             </div>
 
             {simpleLinks.map((l) => (
-              <Link key={l.href} href={l.href} className="px-3.5 py-2 text-sm font-medium text-gray-600 hover:text-brand-900 hover:bg-cream rounded-lg transition-colors">{l.label}</Link>
+              <Link key={l.href} href={l.href} className="px-3.5 py-2 text-sm font-medium text-gray-600 hover:text-brand-900 hover:bg-white rounded-lg transition-colors">{l.label}</Link>
             ))}
 
             {/* More dropdown */}
             <div className="relative" {...menuHandlers('more')}>
               <button aria-haspopup="true" aria-expanded={menu === 'more'}
-                className="flex items-center gap-1 px-3.5 py-2 text-sm font-medium text-gray-600 hover:text-brand-900 hover:bg-cream rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-400">
+                className="flex items-center gap-1 px-3.5 py-2 text-sm font-medium text-gray-600 hover:text-brand-900 hover:bg-white rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-400">
                 More <ChevronDown size={14} className={menu === 'more' ? 'rotate-180 transition-transform' : 'transition-transform'} />
               </button>
               {menu === 'more' && (
                 <div className="absolute right-0 top-full pt-2 w-56">
                   <div className="bg-white rounded-xl border border-gray-100 shadow-card overflow-hidden py-1">
                     {moreLinks.map((l) => (
-                      <Link key={l.href} href={l.href} onClick={() => setMenu(null)} className="block px-4 py-2.5 text-sm text-gray-600 hover:text-brand-900 hover:bg-cream">{l.label}</Link>
+                      <Link key={l.href} href={l.href} onClick={() => setMenu(null)} className="block px-4 py-2.5 text-sm text-gray-600 hover:text-brand-900 hover:bg-white">{l.label}</Link>
                     ))}
                   </div>
                 </div>
@@ -264,17 +264,17 @@ export default function Nav({ cities, projects, posts }: NavProps) {
               <button
                 onClick={() => setMobileSection((s) => (s === 'projects' ? null : 'projects'))}
                 aria-expanded={mobileSection === 'projects'}
-                className="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-cream rounded-xl">
+                className="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-white rounded-xl">
                 Projects
                 <ChevronDown size={16} className={`transition-transform ${mobileSection === 'projects' ? 'rotate-180' : ''}`} />
               </button>
               {mobileSection === 'projects' && (
                 <div className="pl-3 pb-1">
-                  <Link href="/projects" onClick={() => setOpen(false)} className="block px-3 py-2 text-sm font-medium text-gold-700 hover:bg-cream rounded-lg">View all projects →</Link>
+                  <Link href="/projects" onClick={() => setOpen(false)} className="block px-3 py-2 text-sm font-medium text-gold-700 hover:bg-white rounded-lg">View all projects →</Link>
                   {cities.length === 0 && <p className="px-3 py-2 text-sm text-gray-500">No cities yet</p>}
                   {cities.map((c) => (
                     <Link key={c.city} href={`/projects?city=${encodeURIComponent(c.city)}`} onClick={() => setOpen(false)}
-                      className="flex items-center justify-between px-3 py-2 text-sm text-gray-600 hover:bg-cream rounded-lg">
+                      className="flex items-center justify-between px-3 py-2 text-sm text-gray-600 hover:bg-white rounded-lg">
                       <span className="flex items-center gap-1.5"><MapPin size={13} className="text-gray-500" />{c.city}</span>
                       <span className="text-xs px-1.5 py-0.5 rounded bg-gray-100 text-gray-500">{c.count}</span>
                     </Link>
@@ -288,24 +288,24 @@ export default function Nav({ cities, projects, posts }: NavProps) {
               <button
                 onClick={() => setMobileSection((s) => (s === 'blog' ? null : 'blog'))}
                 aria-expanded={mobileSection === 'blog'}
-                className="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-cream rounded-xl">
+                className="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-white rounded-xl">
                 Blog
                 <ChevronDown size={16} className={`transition-transform ${mobileSection === 'blog' ? 'rotate-180' : ''}`} />
               </button>
               {mobileSection === 'blog' && (
                 <div className="pl-3 pb-1">
-                  <Link href="/blog" onClick={() => setOpen(false)} className="block px-3 py-2 text-sm font-medium text-gold-700 hover:bg-cream rounded-lg">View all articles →</Link>
+                  <Link href="/blog" onClick={() => setOpen(false)} className="block px-3 py-2 text-sm font-medium text-gold-700 hover:bg-white rounded-lg">View all articles →</Link>
                   {posts.length === 0 && <p className="px-3 py-2 text-sm text-gray-500">No articles yet</p>}
                   {posts.slice(0, 4).map((p) => (
                     <Link key={p.id} href={`/blog/${p.slug}`} onClick={() => setOpen(false)}
-                      className="block px-3 py-2 text-sm text-gray-600 hover:bg-cream rounded-lg line-clamp-1">{p.title}</Link>
+                      className="block px-3 py-2 text-sm text-gray-600 hover:bg-white rounded-lg line-clamp-1">{p.title}</Link>
                   ))}
                 </div>
               )}
             </div>
 
             {[...simpleLinks, ...moreLinks].map((l) => (
-              <Link key={l.href} href={l.href} onClick={() => setOpen(false)} className="block px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-brand-900 hover:bg-cream rounded-xl">{l.label}</Link>
+              <Link key={l.href} href={l.href} onClick={() => setOpen(false)} className="block px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-brand-900 hover:bg-white rounded-xl">{l.label}</Link>
             ))}
             <Link href="/contact" onClick={() => setOpen(false)} className="block mt-2 px-3 py-3 bg-gold-500 text-white text-sm font-semibold rounded-xl text-center">Free Consultation</Link>
             <a href={DASHBOARD_URL} className="block mt-1 px-3 py-3 border border-gray-200 text-brand-900 text-sm font-semibold rounded-xl text-center">Login</a>

@@ -91,7 +91,7 @@ export default function Footer({ projects = [] }: FooterProps) {
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-2.5 mb-4">
-              <Image src="/logo.svg" alt="ANON INDIA" width={40} height={40} className="rounded-full bg-white" />
+              <Image src="/logo-symbol-white.png" alt="ANON INDIA" width={40} height={40} className="object-contain" />
               <div className="leading-none">
                 <p className="font-bold text-white text-sm tracking-wide">ANON INDIA</p>
                 <p className="text-[10px] text-gray-400">Structures · Spaces · Solutions</p>

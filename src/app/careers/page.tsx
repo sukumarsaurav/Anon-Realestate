@@ -25,7 +25,7 @@ export default async function CareersPage() {
   const listings = await getActiveCareerListings()
 
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen bg-white">
       <PageHero
         eyebrow="Join the team"
         title="Careers at ANON INDIA"
@@ -33,11 +33,11 @@ export default async function CareersPage() {
         image="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1920&q=80&auto=format&fit=crop"
       />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 section">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section">
         {/* Why join */}
         <Reveal className="bg-white rounded-2xl border border-gray-100 p-8 mb-8">
           <h2 className="h-block mb-5">Why Work With Us?</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {PERKS.map(({ Icon, label, desc }) => (
               <div key={label} className="p-4">
                 <div className="w-10 h-10 rounded-xl bg-gold-50 flex items-center justify-center mb-3"><Icon size={18} className="text-gold-700" /></div>

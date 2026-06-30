@@ -16,7 +16,7 @@ export default async function GalleryPage() {
   const projectsWithMedia = projects.filter((p) => p.gallery_urls?.length > 0)
 
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen bg-white">
       <PageHero
         eyebrow="Our work"
         title="Gallery"

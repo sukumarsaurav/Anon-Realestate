@@ -17,7 +17,7 @@ export default async function BlogPage() {
   const posts = await getPublishedBlogPosts(24)
 
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen bg-white">
       <PageHero
         eyebrow="Insights and guides"
         title="Real Estate Blog"

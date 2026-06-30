@@ -18,7 +18,7 @@ export default async function ProjectsPage() {
   const [projects, cities] = await Promise.all([getAllProjects(), getProjectCities()])
 
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen bg-white">
       {/* Hero */}
       <PageHero
         eyebrow="Our portfolio"

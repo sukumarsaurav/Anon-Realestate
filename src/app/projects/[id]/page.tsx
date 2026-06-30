@@ -84,7 +84,7 @@ export default async function ProjectDetailPage({ params }: Props) {
     : null
 
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen bg-white">
       {/* ───────── Structured Data ───────── */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         '@context': 'https://schema.org',
@@ -163,7 +163,7 @@ export default async function ProjectDetailPage({ params }: Props) {
             </div>
 
             {/* Hero Price */}
-            <div className="bg-cream rounded-xl p-4 mb-5">
+            <div className="bg-white rounded-xl p-4 mb-5">
               <p className="text-xs text-gray-500 mb-1">Starting from</p>
               <p className="font-serif text-2xl lg:text-3xl font-semibold text-brand-900 tabular-nums-pro">{formatINR(project.starting_price)}</p>
               {project.price_per_sqft && (
@@ -202,7 +202,7 @@ export default async function ProjectDetailPage({ params }: Props) {
               ...(project.rera_number ? [{ Icon: ShieldCheck, label: 'RERA', value: 'Registered ✓' }] : []),
             ].map(({ Icon, label, value }) => (
               <div key={label} className="flex items-center gap-2.5 min-w-0">
-                <span className="w-9 h-9 rounded-lg bg-cream flex items-center justify-center shrink-0">
+                <span className="w-9 h-9 rounded-lg bg-white flex items-center justify-center shrink-0">
                   <Icon size={16} className="text-gold-700" />
                 </span>
                 <div className="min-w-0">
@@ -235,7 +235,7 @@ export default async function ProjectDetailPage({ params }: Props) {
             {/* ──── 2. Why Invest (cream background) ──── */}
             {investHighlights.length > 0 && (
               <Reveal>
-                <div className="bg-cream rounded-2xl p-6 lg:p-8">
+                <div className="bg-white rounded-2xl p-6 lg:p-8">
                   <h2 className="h-block mb-5 flex items-center gap-2"><TrendingUp size={18} className="text-gold-700" /> Why Invest in {project.name}</h2>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {investHighlights.map(({ Icon, t, s }) => (
@@ -272,7 +272,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                       </thead>
                       <tbody>
                         {availablePlots.slice(0, 8).map((p) => (
-                          <tr key={p.id} className="border-b border-gray-50 last:border-0 hover:bg-cream/50 transition-colors">
+                          <tr key={p.id} className="border-b border-gray-50 last:border-0 hover:bg-gray-50 transition-colors">
                             <td className="px-3 py-3.5 font-medium text-brand-900">{[p.type, p.plot_number].filter(Boolean).join(' ') || 'Unit'}</td>
                             <td className="px-3 py-3.5 text-gray-600">{p.size_sqft ? `${p.size_sqft.toLocaleString('en-IN')} sq.ft` : `${p.size_sqyd} sq.yd`}</td>
                             <td className="px-3 py-3.5 text-gray-600">{p.facing || '—'}</td>
@@ -292,7 +292,7 @@ export default async function ProjectDetailPage({ params }: Props) {
               <Reveal>
                 <div className="bg-white rounded-2xl border border-gray-100 shadow-soft p-6 lg:p-8">
                   <h2 className="h-block mb-5 flex items-center gap-2"><LayoutGrid size={18} className="text-gold-700" /> Master Plan / Layout</h2>
-                  <a href={project.layout_image_url} target="_blank" rel="noopener noreferrer" className="relative block h-72 md:h-80 rounded-xl overflow-hidden bg-cream hover:opacity-90 transition-opacity">
+                  <a href={project.layout_image_url} target="_blank" rel="noopener noreferrer" className="relative block h-72 md:h-80 rounded-xl overflow-hidden bg-white hover:opacity-90 transition-opacity">
                     <Image src={project.layout_image_url} alt={`${project.name} layout`} fill sizes="(max-width:1024px) 100vw, 66vw" className="object-contain" />
                   </a>
                 </div>
@@ -302,7 +302,7 @@ export default async function ProjectDetailPage({ params }: Props) {
             {/* ──── 5. Amenities (cream background) ──── */}
             {project.amenities && project.amenities.length > 0 && (
               <Reveal>
-                <div className="bg-cream rounded-2xl p-6 lg:p-8">
+                <div className="bg-white rounded-2xl p-6 lg:p-8">
                   <h2 className="h-block mb-5 flex items-center gap-2"><Sparkles size={18} className="text-gold-700" /> Amenities &amp; Features</h2>
                   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
                     {project.amenities.map((a: string) => {
@@ -355,7 +355,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                   {project.connectivity && project.connectivity.length > 0 && (
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-5">
                       {project.connectivity.map((c) => (
-                        <div key={c.place} className="flex items-center justify-between gap-3 px-4 py-3 bg-cream rounded-xl text-sm">
+                        <div key={c.place} className="flex items-center justify-between gap-3 px-4 py-3 bg-white rounded-xl text-sm">
                           <span className="flex items-center gap-2 text-gray-700"><MapPin size={14} className="text-gold-700 shrink-0" />{c.place}</span>
                           <span className="font-semibold text-brand-900 shrink-0">{c.distance}</span>
                         </div>

@@ -41,7 +41,7 @@ export default async function HomePage() {
 
       {/* Associated developers */}
       {developers.length > 0 && (
-        <section className="bg-cream py-14">
+        <section className="bg-white py-14">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <Reveal className="text-center mb-8">
               <p className="eyebrow mb-3">The group</p>
@@ -99,7 +99,7 @@ export default async function HomePage() {
 
       {/* Team */}
       {team.length > 0 && (
-        <section className="bg-cream py-16">
+        <section className="bg-white py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <Reveal className="text-center mb-8">
               <p className="eyebrow mb-3">Our people</p>
@@ -129,7 +129,7 @@ export default async function HomePage() {
       <ReelsSection />
 
       {/* Why choose us */}
-      <section className="bg-cream py-16">
+      <section className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <p className="eyebrow mb-3">Why us</p>

@@ -76,7 +76,7 @@ export default function ProjectCard({ project }: Props) {
             View Details
           </Link>
           <a href={`tel:${PHONE_RAW}`} aria-label="Call"
-            className="w-11 h-11 shrink-0 flex items-center justify-center rounded-xl border border-gray-200 text-brand-900 hover:bg-cream">
+            className="w-11 h-11 shrink-0 flex items-center justify-center rounded-xl border border-gray-200 text-brand-900 hover:bg-white">
             <Phone size={16} />
           </a>
           <a href={`https://wa.me/${PHONE_DIGITS}?text=${waMsg}`} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"

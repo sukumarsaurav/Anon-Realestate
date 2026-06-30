@@ -15,7 +15,7 @@ export default async function DevelopersPage() {
   const [verticals, team] = await Promise.all([getDevelopers(), getTeamMembers()])
 
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen bg-white">
       <PageHero
         eyebrow="The group"
         title="The ANON INDIA Group"

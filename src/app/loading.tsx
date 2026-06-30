@@ -2,7 +2,7 @@
 // (e.g. a not-yet-generated detail page or a filtered listing).
 export default function Loading() {
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen bg-white">
       <div className="bg-brand-900 py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="h-9 w-56 rounded-lg bg-white/20 animate-pulse" />

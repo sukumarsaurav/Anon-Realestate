@@ -17,7 +17,7 @@ const events = [
 
 export default function EventsPage() {
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen bg-white">
       <PageHero
         eyebrow="What's on"
         title="Events"
@@ -25,8 +25,8 @@ export default function EventsPage() {
         image="https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=1920&q=80&auto=format&fit=crop"
       />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 section">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {events.map((e, i) => (
             <Reveal key={e.title} delay={i * 90} className="bg-white rounded-2xl border border-gray-100 p-6">
               <div className="w-11 h-11 rounded-xl bg-gold-50 flex items-center justify-center mb-4"><CalendarDays size={20} className="text-gold-700" /></div>
