@@ -6,16 +6,16 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          50:  '#f0f5ff',
-          100: '#e5edff',
-          200: '#cddbfe',
-          300: '#a4bdfd',
-          400: '#7597fa',
-          500: '#4d6cf5',
-          600: '#324ce6',
-          700: '#2639cc',
-          800: '#2332a6',
-          900: '#164488', // User's requested blue
+          50:  '#eeeef8',
+          100: '#d5d5ee',
+          200: '#b3b3df',
+          300: '#8e8ecd',
+          400: '#6a6abb',
+          500: '#4a4aa6',
+          600: '#363692',
+          700: '#2a2a7e',
+          800: '#212176',
+          900: '#191970', // Midnight Blue
         },
         gold: {
           50:  '#fdfce8',
