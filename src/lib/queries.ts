@@ -17,34 +17,46 @@ const PROJECT_CARD_COLUMNS =
   'id, name, type, city, locality, status, gallery_urls, hero_image_url, starting_price, price_per_sqft, ' +
   'bhk_config, website_category, is_featured, rera_number, expected_completion_date, developer:developers(name)'
 
-export async function getFeaturedProjects(): Promise<Project[]> {
-  const { data } = await supabase
-    .from('projects')
-    .select(PROJECT_CARD_COLUMNS)
-    .eq('is_active', true)
-    .eq('is_featured', true)
-    .order('created_at', { ascending: false })
-    .limit(8)
-  return (data ?? []) as unknown as Project[]
-}
+export const getFeaturedProjects = unstable_cache(
+  async (): Promise<Project[]> => {
+    const { data } = await supabase
+      .from('projects')
+      .select(PROJECT_CARD_COLUMNS)
+      .eq('is_active', true)
+      .eq('is_featured', true)
+      .order('created_at', { ascending: false })
+      .limit(8)
+    return (data ?? []) as unknown as Project[]
+  },
+  ['featured-projects'],
+  { revalidate: 300, tags: ['projects'] }
+)
 
-export async function getDevelopers(): Promise<Developer[]> {
-  const { data } = await supabase
-    .from('developers')
-    .select('id, name, logo_url, website_url, sort_order')
-    .eq('is_active', true)
-    .order('sort_order')
-  return (data ?? []) as Developer[]
-}
+export const getDevelopers = unstable_cache(
+  async (): Promise<Developer[]> => {
+    const { data } = await supabase
+      .from('developers')
+      .select('id, name, logo_url, website_url, sort_order')
+      .eq('is_active', true)
+      .order('sort_order')
+    return (data ?? []) as Developer[]
+  },
+  ['developers-list'],
+  { revalidate: 3600, tags: ['projects'] }
+)
 
-export async function getTeamMembers(): Promise<TeamMember[]> {
-  const { data } = await supabase
-    .from('team_members')
-    .select('id, name, designation, level, photo_url, sort_order')
-    .eq('is_public', true)
-    .order('sort_order')
-  return (data ?? []) as TeamMember[]
-}
+export const getTeamMembers = unstable_cache(
+  async (): Promise<TeamMember[]> => {
+    const { data } = await supabase
+      .from('team_members')
+      .select('id, name, designation, level, photo_url, sort_order')
+      .eq('is_public', true)
+      .order('sort_order')
+    return (data ?? []) as TeamMember[]
+  },
+  ['team-members-list'],
+  { revalidate: 3600, tags: ['site-settings'] }
+)
 
 // Compact project list for the Projects mega-menu (grouped by city client-side).
 export const getProjectsForMenu = unstable_cache(
@@ -65,27 +77,50 @@ export const getProjectsForMenu = unstable_cache(
 // City cards ("Explore by City") with project counts + a representative image.
 export const getCitiesWithCounts = unstable_cache(
   async (): Promise<CityStat[]> => {
-    const { data } = await supabase
-      .from('projects')
-      .select('id, city, hero_image_url, gallery_urls')
-      .eq('is_active', true)
-      .order('is_featured', { ascending: false })
-      .order('created_at', { ascending: false })
+    const [{ data: projects }, { data: settings }] = await Promise.all([
+      supabase
+        .from('projects')
+        .select('id, city, hero_image_url, gallery_urls')
+        .eq('is_active', true)
+        .order('is_featured', { ascending: false })
+        .order('created_at', { ascending: false }),
+      supabase
+        .from('site_settings')
+        .select('city_images')
+        .eq('id', 1)
+        .maybeSingle()
+    ])
+
+    // Build city images map from settings
+    const cityImagesMap = new Map<string, string>()
+    if (settings?.city_images && Array.isArray(settings.city_images)) {
+      for (const item of settings.city_images) {
+        if (item.city && item.image_url) {
+          cityImagesMap.set(item.city.trim().toLowerCase(), item.image_url)
+        }
+      }
+    }
 
     const counts = new Map<string, number>()
     const images = new Map<string, string>()
-    for (const r of (data ?? []) as { id: string; city: string | null; hero_image_url?: string | null; gallery_urls?: string[] | null }[]) {
+    for (const r of (projects ?? []) as { id: string; city: string | null; hero_image_url?: string | null; gallery_urls?: string[] | null }[]) {
       if (!r.city) continue
-      counts.set(r.city, (counts.get(r.city) ?? 0) + 1)
-      // First project per city (already ordered: featured first) supplies the card image.
-      if (!images.has(r.city)) images.set(r.city, projectImage(r, 600))
+      const cityKey = r.city.trim()
+      const cityLower = cityKey.toLowerCase()
+      counts.set(cityKey, (counts.get(cityKey) ?? 0) + 1)
+      
+      if (!images.has(cityKey)) {
+        // Use custom image from settings if configured, otherwise fallback to project hero image
+        const customImg = cityImagesMap.get(cityLower)
+        images.set(cityKey, customImg || projectImage(r, 600))
+      }
     }
     return [...counts.entries()]
       .map(([city, count]) => ({ city, count, image: images.get(city)! }))
       .sort((a, b) => b.count - a.count)
   },
   ['cities-with-counts'],
-  { revalidate: 3600, tags: ['projects'] },
+  { revalidate: 3600, tags: ['projects', 'site-settings'] },
 )
 
 // Cached so the dynamic /projects page (it reads searchParams) doesn't re-query
@@ -185,24 +220,88 @@ export const getBlogPostBySlug = cache(async (slug: string): Promise<BlogPost | 
   return data as BlogPost | null
 })
 
-export async function getActiveCareerListings(): Promise<CareerListing[]> {
-  const { data } = await supabase
-    .from('career_listings')
-    .select('*')
-    .eq('is_active', true)
-    .order('created_at', { ascending: false })
-  return (data ?? []) as CareerListing[]
+export const getActiveCareerListings = unstable_cache(
+  async (): Promise<CareerListing[]> => {
+    const { data } = await supabase
+      .from('career_listings')
+      .select('*')
+      .eq('is_active', true)
+      .order('created_at', { ascending: false })
+    return (data ?? []) as CareerListing[]
+  },
+  ['active-career-listings'],
+  { revalidate: 300, tags: ['careers'] }
+)
+
+export const getActiveTestimonials = unstable_cache(
+  async (): Promise<Testimonial[]> => {
+    const { data } = await supabase
+      .from('testimonials')
+      .select('*')
+      .eq('is_active', true)
+      .order('sort_order')
+      .limit(12)
+    return (data ?? []) as Testimonial[]
+  },
+  ['testimonials-list'],
+  { revalidate: 300, tags: ['testimonials'] }
+)
+
+export interface SiteSettings {
+  site_name: string
+  default_title_template: string
+  default_meta_description: string | null
+  default_og_image_url: string | null
+  ga_measurement_id: string | null
+  meta_pixel_id: string | null
+  whatsapp_number: string | null
+  contact_email: string | null
+  contact_phone: string | null
+  org_schema: Record<string, unknown>
+  address: string | null
+  facebook_url: string | null
+  instagram_url: string | null
+  twitter_url: string | null
+  youtube_url: string | null
+  linkedin_url: string | null
+  rera_registrations: string[] | null
+  instagram_reels: { image_url: string; caption: string }[] | null
+  why_choose_us: { icon: string; title: string; description: string }[] | null
+  lead_capture_bullets: string[] | null
+  team_levels: string[] | null
+  city_images: { city: string; image_url: string }[] | null
+  theme_name: string | null
 }
 
-export async function getActiveTestimonials(): Promise<Testimonial[]> {
-  const { data } = await supabase
-    .from('testimonials')
-    .select('*')
-    .eq('is_active', true)
-    .order('sort_order')
-    .limit(8)
-  return (data ?? []) as Testimonial[]
+// Global site settings (singleton row) — drives layout.tsx metadata/JSON-LD
+// so it's editable from /admin/settings instead of hardcoded.
+export const getSiteSettings = unstable_cache(
+  async (): Promise<SiteSettings | null> => {
+    const { data } = await supabase.from('site_settings').select('*').eq('id', 1).single()
+    return data as SiteSettings | null
+  },
+  ['site-settings'],
+  { revalidate: 3600, tags: ['site-settings'] },
+)
+
+export interface PageContent {
+  slug: string
+  hero_eyebrow: string | null
+  hero_title: string | null
+  hero_subtitle: string | null
+  hero_image_url: string | null
+  blocks: Record<string, unknown>
+  meta_title: string | null
+  meta_description: string | null
 }
+
+// CMS-editable content for static marketing pages (about, vision, csr, …).
+// Wrapped in React cache() since a page's body + generateMetadata both call
+// this once per render.
+export const getPageContent = cache(async (slug: string): Promise<PageContent | null> => {
+  const { data } = await supabase.from('pages').select('*').eq('slug', slug).maybeSingle()
+  return data as PageContent | null
+})
 
 // The filter dropdown rarely changes — cache for an hour so each /projects
 // render doesn't re-scan the table just to build the city list.

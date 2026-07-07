@@ -23,3 +23,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# one-time data migration artifacts — contain real lead PII (phone/email)
+# copied from the old project; never commit these.
+/scripts/migration-data.sql
+/scripts/migration-parts/

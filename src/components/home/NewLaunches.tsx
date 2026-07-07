@@ -16,11 +16,47 @@ interface Props {
 export default function NewLaunches({ projects }: Props) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [showModal, setShowModal] = useState(false)
+  const [isPaused, setIsPaused] = useState(false)
   const carouselRef = useRef<HTMLDivElement>(null)
+  const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const isUserScrolling = useRef(false)
+
+  // Auto-rotation: cycle every 4 seconds, pause on hover or modal
+  useEffect(() => {
+    if (projects.length <= 1) return
+
+    const startAutoPlay = () => {
+      if (autoPlayRef.current) clearInterval(autoPlayRef.current)
+      autoPlayRef.current = setInterval(() => {
+        if (!isPaused && !showModal) {
+          setActiveIndex((prev) => {
+            const next = (prev + 1) % projects.length
+            // Scroll to the new card
+            if (carouselRef.current) {
+              const card = carouselRef.current.children[next] as HTMLElement
+              if (card) {
+                isUserScrolling.current = false
+                carouselRef.current.scrollTo({
+                  left: card.offsetLeft - 16,
+                  behavior: 'smooth',
+                })
+              }
+            }
+            return next
+          })
+        }
+      }, 4000)
+    }
+
+    startAutoPlay()
+    return () => {
+      if (autoPlayRef.current) clearInterval(autoPlayRef.current)
+    }
+  }, [isPaused, showModal, projects.length])
 
   // Sync index from manual scrolling
   const handleScroll = () => {
-    if (!carouselRef.current) return
+    if (!carouselRef.current || !isUserScrolling.current) return
     const scrollLeft = carouselRef.current.scrollLeft
     const card = carouselRef.current.firstElementChild as HTMLElement
     if (!card) return
@@ -35,20 +71,48 @@ export default function NewLaunches({ projects }: Props) {
     if (!carouselRef.current) return
     const card = carouselRef.current.children[index] as HTMLElement
     if (card) {
+      isUserScrolling.current = false
       carouselRef.current.scrollTo({
         left: card.offsetLeft - 16, // offset padding
         behavior: 'smooth',
       })
       setActiveIndex(index)
+      // Reset auto-play timer on manual interaction
+      if (autoPlayRef.current) clearInterval(autoPlayRef.current)
+      autoPlayRef.current = setInterval(() => {
+        if (!isPaused && !showModal) {
+          setActiveIndex((prev) => {
+            const next = (prev + 1) % projects.length
+            if (carouselRef.current) {
+              const nextCard = carouselRef.current.children[next] as HTMLElement
+              if (nextCard) {
+                isUserScrolling.current = false
+                carouselRef.current.scrollTo({
+                  left: nextCard.offsetLeft - 16,
+                  behavior: 'smooth',
+                })
+              }
+            }
+            return next
+          })
+        }
+      }, 4000)
     }
   }
 
   const handlePrev = () => {
-    scrollToCard(Math.max(0, activeIndex - 1))
+    const prev = activeIndex === 0 ? projects.length - 1 : activeIndex - 1
+    scrollToCard(prev)
   }
 
   const handleNext = () => {
-    scrollToCard(Math.min(projects.length - 1, activeIndex + 1))
+    const next = (activeIndex + 1) % projects.length
+    scrollToCard(next)
+  }
+
+  // Track user-initiated scrolls (touch/wheel)
+  const handlePointerDown = () => {
+    isUserScrolling.current = true
   }
 
   // Parse BHK configurations into clean tags
@@ -62,7 +126,11 @@ export default function NewLaunches({ projects }: Props) {
   }
 
   return (
-    <section className="py-16 md:py-24 overflow-hidden bg-white">
+    <section
+      className="py-16 md:py-24 overflow-hidden bg-white"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header Layout */}
@@ -101,7 +169,7 @@ export default function NewLaunches({ projects }: Props) {
                   <button
                     key={p.id}
                     onClick={() => scrollToCard(idx)}
-                    className="flex flex-col items-center shrink-0 focus:outline-none"
+                    className="flex flex-col items-center shrink-0 focus:outline-none group/thumb"
                   >
                     <div
                       className={`relative w-16 h-12 rounded-lg overflow-hidden border-2 transition-all duration-300 ${
@@ -117,6 +185,17 @@ export default function NewLaunches({ projects }: Props) {
                         sizes="64px"
                         className="object-cover"
                       />
+                      {/* Auto-rotation progress bar */}
+                      {isActive && (
+                        <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-black/10">
+                          <div
+                            className="h-full bg-gold-500 rounded-full"
+                            style={{
+                              animation: isPaused || showModal ? 'none' : 'progressFill 4s linear infinite',
+                            }}
+                          />
+                        </div>
+                      )}
                     </div>
                     <span
                       className={`text-[10px] font-semibold mt-1.5 max-w-[70px] truncate text-center block transition-colors ${
@@ -156,6 +235,8 @@ export default function NewLaunches({ projects }: Props) {
           <div
             ref={carouselRef}
             onScroll={handleScroll}
+            onPointerDown={handlePointerDown}
+            onTouchStart={handlePointerDown}
             className="flex gap-5 overflow-x-auto pb-6 snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
           >
             {projects.map((p) => {
@@ -170,26 +251,28 @@ export default function NewLaunches({ projects }: Props) {
               return (
                 <div
                   key={p.id}
-                  className="w-[88vw] sm:w-[65vw] lg:w-[calc(50%-10px)] shrink-0 snap-start relative aspect-[4/3] rounded-3xl overflow-hidden border border-gray-150 shadow-soft group"
+                  className="w-[88vw] sm:w-[65vw] lg:w-[calc(50%-10px)] shrink-0 snap-start relative flex flex-col sm:block aspect-auto sm:aspect-[4/3] rounded-3xl overflow-hidden border border-gray-150 shadow-soft group bg-white"
                 >
-                  {/* Full image */}
-                  <Image
-                    src={img}
-                    alt={p.name}
-                    fill
-                    sizes="(max-width: 768px) 90vw, 50vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  {/* Backdrop overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/60 via-brand-900/10 to-transparent" />
+                  {/* Image Container */}
+                  <div className="relative w-full h-[240px] sm:h-full sm:absolute sm:inset-0 shrink-0">
+                    <Image
+                      src={img}
+                      alt={p.name}
+                      fill
+                      sizes="(max-width: 768px) 90vw, 50vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    {/* Backdrop overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent sm:from-brand-900/60 sm:via-brand-900/10 sm:to-transparent" />
 
-                  {/* Top-Left Red Launch Badge */}
-                  <span className="absolute top-4 left-4 z-10 bg-red-600 text-white text-[11px] font-bold tracking-wider uppercase px-3 py-1.5 rounded-lg shadow-sm border border-red-500">
-                    New Launch
-                  </span>
+                    {/* Top-Left Red Launch Badge */}
+                    <span className="absolute top-4 left-4 z-10 bg-red-600 text-white text-[11px] font-bold tracking-wider uppercase px-3 py-1.5 rounded-lg shadow-sm border border-red-500">
+                      New Launch
+                    </span>
+                  </div>
 
-                  {/* Overlapping Info Box */}
-                  <div className="absolute bottom-5 left-5 w-[calc(100%-40px)] sm:w-[480px] bg-white/95 backdrop-blur-md rounded-3xl p-5 shadow-card border border-gray-100 flex flex-col justify-between z-10">
+                  {/* Info Box */}
+                  <div className="relative sm:absolute sm:bottom-5 sm:left-5 w-full sm:w-[400px] bg-white sm:bg-white/95 sm:backdrop-blur-md sm:rounded-3xl p-5 sm:shadow-card flex flex-col justify-between z-10 border-t sm:border border-gray-100">
                     <div>
                       <h3 className="font-serif font-bold text-brand-900 text-lg sm:text-xl line-clamp-1">
                         {p.name}

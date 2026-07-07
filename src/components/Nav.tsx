@@ -3,13 +3,12 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect, useRef } from 'react'
-import { Menu, X, Phone, ChevronDown, ArrowRight, MapPin, Search } from 'lucide-react'
+import { Menu, X, Phone, ChevronDown, ArrowRight, MapPin } from 'lucide-react'
 import { PROJECT_TYPE_LABELS } from '@/types'
 import type { Project, BlogPost, CityStat } from '@/types'
 import { formatINR } from '@/lib/format'
 import { projectImage } from '@/lib/images'
 
-const DASHBOARD_URL = process.env.NEXT_PUBLIC_DASHBOARD_URL ?? 'https://dashboard.anonindia.com'
 const PHONE = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '+919876543210'
 
 const simpleLinks = [
@@ -86,7 +85,7 @@ export default function Nav({ cities, projects, posts }: NavProps) {
         <div className={`flex items-center justify-between transition-[height] duration-300 ${scrolled ? 'h-14' : 'h-16'}`}>
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5">
-            <Image src="/logo-symbol-black.png" alt="ANON INDIA" width={40} height={40} className="object-contain" priority />
+            <Image src="/logo-symbol-black.png" alt="ANON INDIA" width={40} height={40} className="size-10 object-contain" priority />
             <div className="leading-none">
               <p className="font-bold text-brand-900 text-sm tracking-wide">ANON INDIA</p>
               <p className="text-[10px] text-gray-500">Structures · Spaces · Solutions</p>
@@ -237,17 +236,6 @@ export default function Nav({ cities, projects, posts }: NavProps) {
             </div>
           </nav>
 
-          {/* CTA + Search */}
-          <div className="hidden lg:flex items-center gap-3">
-            <Link href="/projects" aria-label="Search properties"
-              className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 text-gray-600 hover:border-brand-900 hover:text-brand-900 transition-colors">
-              <Search size={18} />
-            </Link>
-            <a href={DASHBOARD_URL} className="px-6 py-2.5 bg-brand-900 text-white text-sm font-semibold rounded-xl hover:bg-brand-700 transition-colors">
-              Login
-            </a>
-          </div>
-
           {/* Mobile toggle */}
           <button onClick={() => setOpen((v) => !v)} className="lg:hidden p-2 text-gray-500">
             {open ? <X size={22} /> : <Menu size={22} />}
@@ -308,7 +296,6 @@ export default function Nav({ cities, projects, posts }: NavProps) {
               <Link key={l.href} href={l.href} onClick={() => setOpen(false)} className="block px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-brand-900 hover:bg-white rounded-xl">{l.label}</Link>
             ))}
             <Link href="/contact" onClick={() => setOpen(false)} className="block mt-2 px-3 py-3 bg-gold-500 text-white text-sm font-semibold rounded-xl text-center">Free Consultation</Link>
-            <a href={DASHBOARD_URL} className="block mt-1 px-3 py-3 border border-gray-200 text-brand-900 text-sm font-semibold rounded-xl text-center">Login</a>
           </div>
         </div>
       )}

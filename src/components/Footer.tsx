@@ -2,22 +2,30 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { MapPin, Phone, Mail, Facebook, Instagram, Linkedin, Youtube, Twitter } from 'lucide-react'
 import type { Project } from '@/types'
+import type { SiteSettings } from '@/lib/queries'
 
 const PHONE = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '+919876543210'
 
-const socials = [
-  { Icon: Facebook, href: 'https://facebook.com', label: 'Facebook' },
-  { Icon: Instagram, href: 'https://instagram.com', label: 'Instagram' },
-  { Icon: Twitter, href: 'https://twitter.com', label: 'X' },
-  { Icon: Youtube, href: 'https://youtube.com', label: 'YouTube' },
-  { Icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-]
-
 interface FooterProps {
   projects?: Project[]
+  settings?: SiteSettings | null
 }
 
-export default function Footer({ projects = [] }: FooterProps) {
+export default function Footer({ projects = [], settings }: FooterProps) {
+  const socials = [
+    { Icon: Facebook, href: settings?.facebook_url ?? 'https://facebook.com', label: 'Facebook' },
+    { Icon: Instagram, href: settings?.instagram_url ?? 'https://instagram.com', label: 'Instagram' },
+    { Icon: Twitter, href: settings?.twitter_url ?? 'https://twitter.com', label: 'X' },
+    { Icon: Youtube, href: settings?.youtube_url ?? 'https://youtube.com', label: 'YouTube' },
+    { Icon: Linkedin, href: settings?.linkedin_url ?? 'https://linkedin.com', label: 'LinkedIn' },
+  ]
+
+  const reraList = settings?.rera_registrations ?? [
+    "Rajasthan — RAJ/P/XXXX/XXXX",
+    "UP — UPRERAAGTXXXXX",
+    "Haryana — RC/HARERA/XXXX"
+  ]
+
   // Group projects by city, preserving insertion order (featured-first from query).
   const byCity: Record<string, Project[]> = {}
   for (const p of projects) {
@@ -91,7 +99,7 @@ export default function Footer({ projects = [] }: FooterProps) {
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-2.5 mb-4">
-              <Image src="/logo-symbol-white.png" alt="ANON INDIA" width={40} height={40} className="object-contain" />
+              <Image src="/logo-symbol-white.png" alt="ANON INDIA" width={40} height={40} className="size-10 object-contain" />
               <div className="leading-none">
                 <p className="font-bold text-white text-sm tracking-wide">ANON INDIA</p>
                 <p className="text-[10px] text-gray-400">Structures · Spaces · Solutions</p>
@@ -103,15 +111,15 @@ export default function Footer({ projects = [] }: FooterProps) {
             <div className="space-y-2 text-sm">
               <div className="flex items-start gap-2">
                 <MapPin size={14} className="text-gold-400 mt-0.5 shrink-0" />
-                <span>Jaipur, Rajasthan, India</span>
+                <span>{settings?.address ?? 'Jaipur, Rajasthan, India'}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone size={14} className="text-gold-400 shrink-0" />
-                <a href={`tel:${PHONE}`} className="hover:text-white">{PHONE}</a>
+                <a href={`tel:${settings?.contact_phone ?? PHONE}`} className="hover:text-white">{settings?.contact_phone ?? PHONE}</a>
               </div>
               <div className="flex items-center gap-2">
                 <Mail size={14} className="text-gold-400 shrink-0" />
-                <a href="mailto:info@anonindia.com" className="hover:text-white">info@anonindia.com</a>
+                <a href={`mailto:${settings?.contact_email ?? 'info@anonindia.com'}`} className="hover:text-white">{settings?.contact_email ?? 'info@anonindia.com'}</a>
               </div>
             </div>
             <div className="flex items-center gap-2 mt-5">
@@ -178,9 +186,9 @@ export default function Footer({ projects = [] }: FooterProps) {
         <div className="border-t border-white/10 mt-12 pt-8 space-y-3">
           <div className="flex flex-wrap gap-x-6 gap-y-1 text-[11px] text-gray-500">
             <span className="font-semibold text-gray-400">RERA Registered:</span>
-            <span>Rajasthan — RAJ/P/XXXX/XXXX</span>
-            <span>UP — UPRERAAGTXXXXX</span>
-            <span>Haryana — RC/HARERA/XXXX</span>
+            {reraList.map((val) => (
+              <span key={val}>{val}</span>
+            ))}
           </div>
           <div className="flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-gray-500">
             <p>© {new Date().getFullYear()} ANON INDIA. All rights reserved.</p>

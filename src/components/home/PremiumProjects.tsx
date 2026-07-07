@@ -1,8 +1,14 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
 import type { Project } from '@/types'
 import ProjectCard from '@/components/ProjectCard'
+
+// Matches lg:grid-cols-3 below so the preview reliably forms a single row
+// on desktop — "See all" links out to the full listing for the rest.
+const VISIBLE_COUNT = 3
 
 const TABS = [
   { value: 'all', label: 'All Properties' },
@@ -14,6 +20,7 @@ const TABS = [
 export default function PremiumProjects({ projects }: { projects: Project[] }) {
   const [tab, setTab] = useState('all')
   const filtered = tab === 'all' ? projects : projects.filter((p) => p.website_category === tab)
+  const visible = filtered.slice(0, VISIBLE_COUNT)
 
   return (
     <section className="bg-white py-16">
@@ -37,13 +44,22 @@ export default function PremiumProjects({ projects }: { projects: Project[] }) {
           ))}
         </div>
 
-        {filtered.length === 0 ? (
+        {visible.length === 0 ? (
           <p className="text-center text-gray-500 py-10">No properties in this category yet.</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map((p) => <ProjectCard key={p.id} project={p} />)}
+            {visible.map((p) => <ProjectCard key={p.id} project={p} />)}
           </div>
         )}
+
+        <div className="text-center mt-10">
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-1.5 px-6 py-2.5 rounded-xl border border-brand-900 text-brand-900 text-sm font-semibold hover:bg-brand-900 hover:text-white transition-colors"
+          >
+            See All Properties <ArrowRight size={15} />
+          </Link>
+        </div>
       </div>
     </section>
   )

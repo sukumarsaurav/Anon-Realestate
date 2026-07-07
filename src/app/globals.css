@@ -3,6 +3,32 @@
 @tailwind utilities;
 
 @layer base {
+  /* Default (Obsidian Gold) brand/gold scale, as "R G B" triplets for
+     Tailwind's rgb(var(--x) / <alpha-value>) pattern — see tailwind.config.ts.
+     The active theme (src/lib/themes.ts) overrides these via a <style> tag
+     injected in the root layouts, based on site_settings.theme_name. */
+  :root {
+    --brand-50: 245 247 250;
+    --brand-100: 228 232 240;
+    --brand-200: 197 206 221;
+    --brand-300: 159 174 199;
+    --brand-400: 118 140 176;
+    --brand-500: 84 107 148;
+    --brand-600: 65 83 116;
+    --brand-700: 50 64 90;
+    --brand-800: 35 44 63;
+    --brand-900: 15 18 27;
+    --gold-50: 253 251 247;
+    --gold-100: 247 241 227;
+    --gold-200: 237 220 185;
+    --gold-300: 224 195 143;
+    --gold-400: 209 168 102;
+    --gold-500: 196 154 58;
+    --gold-600: 179 136 47;
+    --gold-700: 163 120 39;
+    --gold-800: 140 99 30;
+    --gold-900: 110 75 20;
+  }
   html { scroll-behavior: smooth; }
   /* 16px base with relaxed leading — comfortable editorial reading. */
   body {
@@ -21,7 +47,7 @@
   /* Lining figures keep prices, stats and dates even and "engineered". */
   .tabular-nums-pro { font-variant-numeric: tabular-nums lining-nums; }
   /* Branded text selection — a small, premium signature. */
-  ::selection { background: theme('colors.brand.900'); color: theme('colors.white'); }
+  ::selection { background: rgb(var(--brand-900)); color: theme('colors.white'); }
 }
 
 @layer components {
@@ -82,6 +108,10 @@
   0%   { transform: translateX(-50%); }
   100% { transform: translateX(0); }
 }
+@keyframes progressFill {
+  0%   { width: 0%; }
+  100% { width: 100%; }
+}
 
 .animate-marquee-left {
   animation: marquee-left 35s linear infinite;
@@ -97,5 +127,25 @@
 .testimonial-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 30px rgb(26 23 20 / 0.08);
-  border-color: theme('colors.gold.200');
+  border-color: rgb(var(--gold-200));
+}
+
+/* Premium gradient mask to fade testimonials at content margins */
+.testimonials-mask {
+  mask-image: linear-gradient(to right, transparent, black 24px, black calc(100% - 24px), transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 24px, black calc(100% - 24px), transparent);
+}
+
+@media (min-width: 640px) {
+  .testimonials-mask {
+    mask-image: linear-gradient(to right, transparent, black 64px, black calc(100% - 64px), transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 64px, black calc(100% - 64px), transparent);
+  }
+}
+
+@media (min-width: 1024px) {
+  .testimonials-mask {
+    mask-image: linear-gradient(to right, transparent, black 100px, black calc(100% - 100px), transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 100px, black calc(100% - 100px), transparent);
+  }
 }

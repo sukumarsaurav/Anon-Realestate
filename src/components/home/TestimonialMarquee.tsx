@@ -74,18 +74,22 @@ export default function TestimonialMarquee({
 }: {
   testimonials: Testimonial[]
 }) {
-  // Split into two rows — at minimum we need 3 per row for a good visual
-  const mid = Math.ceil(testimonials.length / 2)
-  const row1 = testimonials.slice(0, mid)
-  const row2 = testimonials.slice(mid)
+  // Split into three rows — at minimum we need a few per row for a good visual
+  const perRow = Math.ceil(testimonials.length / 3)
+  const row1 = testimonials.slice(0, perRow)
+  const row2 = testimonials.slice(perRow, perRow * 2)
+  const row3 = testimonials.slice(perRow * 2)
 
   // If we have fewer than 2 total, fall back to nothing
   if (testimonials.length < 2) return null
 
   return (
-    <div className="flex flex-col gap-6">
-      <MarqueeRow items={row1} direction="left" />
-      {row2.length > 0 && <MarqueeRow items={row2} direction="right" />}
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden testimonials-mask">
+      <div className="flex flex-col gap-6">
+        <MarqueeRow items={row1} direction="left" />
+        {row2.length > 0 && <MarqueeRow items={row2} direction="right" />}
+        {row3.length > 0 && <MarqueeRow items={row3} direction="left" />}
+      </div>
     </div>
   )
 }

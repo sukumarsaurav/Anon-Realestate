@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 /** Real photo when available, else an honest initials monogram (no stock faces). */
 export default function Avatar({
   name,
@@ -9,8 +11,17 @@ export default function Avatar({
   fontClass?: string
 }) {
   if (src) {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img src={src} alt={name} className="w-full h-full object-cover" />
+    return (
+      <div className="relative w-full h-full">
+        <Image
+          src={src}
+          alt={name}
+          fill
+          sizes="(max-width: 768px) 80px, 120px"
+          className="object-cover"
+        />
+      </div>
+    )
   }
   const initials = name.trim().split(/\s+/).map((w) => w[0]).slice(0, 2).join('').toUpperCase()
   return (
