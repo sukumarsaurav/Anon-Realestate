@@ -43,7 +43,7 @@ export default function PrivacyPolicyPage() {
           <p>You have the right to access, correct, or delete your personal data. To exercise these rights, email us at <a href="mailto:privacy@anonindia.com">privacy@anonindia.com</a>.</p>
 
           <h2>7. Contact</h2>
-          <p>For privacy-related queries: <strong>privacy@anonindia.com</strong> | ANON INDIA Real Estate, Jaipur, Rajasthan.</p>
+          <p>For privacy-related queries: <strong>privacy@anonindia.com</strong> | ANON INDIA Real Estate, D&amp;E - 245 A, Golden I, Tech Zone IV, Noida Extension - 201308.</p>
         </Reveal>
       </div>
     </div>

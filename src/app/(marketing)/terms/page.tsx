@@ -40,7 +40,7 @@ export default function TermsPage() {
           <p>This website may contain links to third-party sites (e.g. RERA portal, Google Maps). We are not responsible for the content or privacy practices of those sites.</p>
 
           <h2>8. Governing Law</h2>
-          <p>These terms are governed by the laws of India. Any disputes shall be subject to the jurisdiction of courts in Jaipur, Rajasthan.</p>
+          <p>These terms are governed by the laws of India. Any disputes shall be subject to the jurisdiction of courts in Gautam Buddh Nagar, Uttar Pradesh.</p>
 
           <h2>9. Contact</h2>
           <p>For any questions: <a href="mailto:info@anonindia.com">info@anonindia.com</a></p>

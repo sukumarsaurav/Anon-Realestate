@@ -153,7 +153,8 @@ export default async function AdminSettingsPage() {
             label="Instagram Reels Section"
             fields={[
               { key: 'image_url', placeholder: 'Reel cover image URL', type: 'upload' },
-              { key: 'caption', placeholder: 'Reel caption text' }
+              { key: 'caption', placeholder: 'Reel caption text' },
+              { key: 'link', placeholder: 'Reel URL (instagram.com/reel/...)' }
             ]}
             defaultValues={(settings?.instagram_reels as Record<string, string>[]) ?? []}
           />

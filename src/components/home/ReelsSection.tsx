@@ -16,7 +16,7 @@ const FALLBACK_REELS = [
 const FALLBACK_INSTAGRAM_URL = 'https://instagram.com'
 
 interface ReelsSectionProps {
-  reels?: { image_url: string; caption: string }[] | null
+  reels?: { image_url: string; caption: string; link?: string }[] | null
   instagramUrl?: string | null
 }
 
@@ -61,7 +61,7 @@ export default function ReelsSection({ reels, instagramUrl }: ReelsSectionProps)
 
           <div ref={trackRef} className="flex gap-5 overflow-x-auto pb-4 snap-x scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
             {reelsList.map((r, index) => (
-              <a key={index} href={instaUrl} target="_blank" rel="noopener noreferrer"
+              <a key={index} href={r.link || instaUrl} target="_blank" rel="noopener noreferrer"
                 className="group relative shrink-0 snap-start w-[260px] h-[420px] rounded-3xl overflow-hidden bg-brand-900">
                 <Image src={r.image_url} alt={r.caption} fill sizes="260px"
                   className="object-cover transition-transform duration-700 group-hover:scale-110" />

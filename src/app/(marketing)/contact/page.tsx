@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 }
 
 export default function ContactPage() {
-  const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, '') ?? '919876543210'
+  const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, '') ?? '917065056999'
 
   return (
     <div className="min-h-screen bg-white">
@@ -28,12 +28,12 @@ export default function ContactPage() {
             {[
               {
                 icon: MapPin, label: 'Office Address',
-                content: 'ANON INDIA Real Estate\n123, Sindhi Colony, Jaipur, Rajasthan 302001',
+                content: 'ANON INDIA Real Estate\nD&E - 245 A, Golden I, Tech Zone IV\nNoida Extension - 201308',
               },
               {
                 icon: Phone, label: 'Call Us',
-                content: '+91 98765 43210\nMon–Sat, 9am–7pm',
-                href: 'tel:+919876543210',
+                content: '+91 70650 56999\nMon–Sat, 9am–7pm',
+                href: 'tel:+917065056999',
               },
               {
                 icon: MessageCircle, label: 'WhatsApp',

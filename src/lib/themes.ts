@@ -49,6 +49,12 @@ export const THEME_PRESETS: ThemePreset[] = [
     brand: scaleToRgb({ '50': '#f9f6f7', '100': '#f1e9ea', '200': '#e2cace', '300': '#d2a8af', '400': '#c0818b', '500': '#ad5261', '600': '#91414e', '700': '#76323d', '800': '#56242d', '900': '#36171c' }),
     gold: scaleToRgb({ '50': '#f9f8f6', '100': '#f2efe8', '200': '#e5dcc8', '300': '#d6c7a3', '400': '#c8b07a', '500': '#b89647', '600': '#997c38', '700': '#7e652a', '800': '#5b491f', '900': '#392e13' }),
   },
+  {
+    id: 'navy-amber',
+    label: 'Navy Amber',
+    brand: scaleToRgb({ '50': '#f0f5fc', '100': '#d9e8f7', '200': '#b3d1f0', '300': '#87bbe6', '400': '#5a9fdb', '500': '#3884ce', '600': '#2b6bb5', '700': '#1f539a', '800': '#143a7d', '900': '#082567' }),
+    gold: scaleToRgb({ '50': '#fffbf0', '100': '#fff4d6', '200': '#ffebad', '300': '#ffe082', '400': '#ffd757', '500': '#ffcd38', '600': '#ffc107', '700': '#e6ae00', '800': '#cc9900', '900': '#997700' }),
+  },
 ]
 
 export const DEFAULT_THEME_ID = 'obsidian-gold'

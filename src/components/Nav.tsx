@@ -85,7 +85,7 @@ export default function Nav({ cities, projects, posts }: NavProps) {
         <div className={`flex items-center justify-between transition-[height] duration-300 ${scrolled ? 'h-14' : 'h-16'}`}>
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5">
-            <Image src="/logo-symbol-black.png" alt="ANON INDIA" width={40} height={40} className="size-10 object-contain" priority />
+            <Image src="/favicon-128x128.png" alt="ANON INDIA" width={40} height={40} className="size-10 object-contain" priority />
             <div className="leading-none">
               <p className="font-bold text-brand-900 text-sm tracking-wide">ANON INDIA</p>
               <p className="text-[10px] text-gray-500">Structures · Spaces · Solutions</p>

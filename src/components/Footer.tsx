@@ -20,11 +20,7 @@ export default function Footer({ projects = [], settings }: FooterProps) {
     { Icon: Linkedin, href: settings?.linkedin_url ?? 'https://linkedin.com', label: 'LinkedIn' },
   ]
 
-  const reraList = settings?.rera_registrations ?? [
-    "Rajasthan — RAJ/P/XXXX/XXXX",
-    "UP — UPRERAAGTXXXXX",
-    "Haryana — RC/HARERA/XXXX"
-  ]
+  const reraList = settings?.rera_registrations ?? []
 
   // Group projects by city, preserving insertion order (featured-first from query).
   const byCity: Record<string, Project[]> = {}
@@ -184,12 +180,14 @@ export default function Footer({ projects = [], settings }: FooterProps) {
 
         {/* RERA + copyright */}
         <div className="border-t border-white/10 mt-12 pt-8 space-y-3">
-          <div className="flex flex-wrap gap-x-6 gap-y-1 text-[11px] text-gray-500">
-            <span className="font-semibold text-gray-400">RERA Registered:</span>
-            {reraList.map((val) => (
-              <span key={val}>{val}</span>
-            ))}
-          </div>
+          {reraList.length > 0 && (
+            <div className="flex flex-wrap gap-x-6 gap-y-1 text-[11px] text-gray-500">
+              <span className="font-semibold text-gray-400">RERA Registered:</span>
+              {reraList.map((val) => (
+                <span key={val}>{val}</span>
+              ))}
+            </div>
+          )}
           <div className="flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-gray-500">
             <p>© {new Date().getFullYear()} ANON INDIA. All rights reserved.</p>
             <p>Structures, Spaces &amp; Solutions — Engineered by Anon</p>

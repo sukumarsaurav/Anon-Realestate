@@ -498,7 +498,7 @@ export default async function ProjectDetailPage({ params }: Props) {
               <div className="bg-brand-900 rounded-2xl p-5 text-center">
                 <p className="text-sm text-gray-300 mb-2">Need help deciding?</p>
                 <p className="font-serif font-semibold text-white text-lg mb-3">Talk to an Advisor</p>
-                <a href="tel:+919876543210" className="inline-flex items-center justify-center gap-2 w-full py-3 bg-gold-500 text-white font-semibold rounded-xl hover:bg-gold-600 transition-colors text-sm">
+                <a href="tel:+917065056999" className="inline-flex items-center justify-center gap-2 w-full py-3 bg-gold-500 text-white font-semibold rounded-xl hover:bg-gold-600 transition-colors text-sm">
                   <Phone size={16} /> Call Now
                 </a>
               </div>

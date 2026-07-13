@@ -265,7 +265,7 @@ export interface SiteSettings {
   youtube_url: string | null
   linkedin_url: string | null
   rera_registrations: string[] | null
-  instagram_reels: { image_url: string; caption: string }[] | null
+  instagram_reels: { image_url: string; caption: string; link?: string }[] | null
   why_choose_us: { icon: string; title: string; description: string }[] | null
   lead_capture_bullets: string[] | null
   team_levels: string[] | null
