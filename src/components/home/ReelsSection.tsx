@@ -4,7 +4,7 @@ import { useRef } from 'react'
 import Image from 'next/image'
 import { Play, ArrowLeft, ArrowRight, Film } from 'lucide-react'
 
-const FALLBACK_REELS = [
+const FALLBACK_REELS: { image_url: string; caption: string; link?: string }[] = [
   { image_url: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600', caption: 'Anon Greens — site visit' },
   { image_url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600', caption: 'Jaipur project tour' },
   { image_url: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600', caption: 'Inside a premium 3BHK' },
