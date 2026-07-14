@@ -6,7 +6,7 @@ import { Play, ArrowLeft, ArrowRight, Film } from 'lucide-react'
 
 const FALLBACK_REELS: { image_url: string; caption: string; link?: string }[] = [
   { image_url: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600', caption: 'Anon Greens — site visit' },
-  { image_url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600', caption: 'Jaipur project tour' },
+  { image_url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600', caption: 'Noida project tour' },
   { image_url: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600', caption: 'Inside a premium 3BHK' },
   { image_url: 'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=600', caption: 'Plot handover day' },
   { image_url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600', caption: 'Township aerial tour' },

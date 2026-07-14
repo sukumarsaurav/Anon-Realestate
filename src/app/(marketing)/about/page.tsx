@@ -18,8 +18,8 @@ type AboutBlocks = {
 
 const FALLBACK: AboutBlocks = {
   story: [
-    "ANON INDIA was founded with a simple belief: every Indian family deserves a piece of land they can call their own. We started with one project in Jaipur and have grown to deliver 50+ developments across Rajasthan.",
-    "Our commitment to transparency, legal clarity, and on-time delivery has made us one of Rajasthan's most trusted real estate brands. Every project we undertake carries the promise of clear titles, RERA compliance, and complete documentation.",
+    "ANON INDIA was founded with a simple belief: every Indian family deserves a piece of land they can call their own. We started with one project in Noida and have grown to deliver 50+ developments across Noida & NCR.",
+    "Our commitment to transparency, legal clarity, and on-time delivery has made us one of NCR's most trusted real estate brands. Every project we undertake carries the promise of clear titles, RERA compliance, and complete documentation.",
     "Today, with over 1000 happy families and 15 years of experience, we continue to open new investment opportunities in emerging corridors across the state.",
   ],
   stats: [
@@ -34,10 +34,10 @@ const FALLBACK: AboutBlocks = {
     { title: 'Timely Delivery', desc: 'We respect your time and your money. On-time delivery is our core commitment, backed by RERA.', icon: 'Clock' },
   ],
   rera: {
-    developer_rera_id: 'RAJ/RERA/DEVELOPER/XXXX/XXXX',
+    developer_rera_id: 'UPRERA/DEVELOPER/XXXX/XXXX',
     registered_since: '2017 (RERA Implementation)',
-    authority: 'Rajasthan Real Estate Regulatory Authority',
-    verification_portal: 'rera.rajasthan.gov.in',
+    authority: 'Uttar Pradesh Real Estate Regulatory Authority',
+    verification_portal: 'up-rera.in',
   },
 }
 
@@ -45,7 +45,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const page = await getPageContent('about')
   return {
     title: page?.meta_title ?? 'About Us',
-    description: page?.meta_description ?? "Learn about ANON INDIA — Rajasthan's trusted real estate developer. Our story, mission, values, and RERA registration details.",
+    description: page?.meta_description ?? "Learn about ANON INDIA — Noida & NCR's trusted real estate developer. Our story, mission, values, and RERA registration details.",
   }
 }
 
@@ -60,7 +60,7 @@ export default async function AboutPage() {
         size="tall"
         eyebrow={page?.hero_eyebrow ?? 'Since 2008'}
         title={page?.hero_title ?? 'About ANON INDIA'}
-        subtitle={page?.hero_subtitle ?? "Building trust, one plot at a time. Rajasthan's most transparent real estate developer since 2008."}
+        subtitle={page?.hero_subtitle ?? "Building trust, one plot at a time. Noida & NCR's most transparent real estate developer since 2008."}
         image={page?.hero_image_url ?? 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80&auto=format&fit=crop'}
       />
 
@@ -116,7 +116,7 @@ export default async function AboutPage() {
             <div>
               <h2 className="font-serif text-2xl font-semibold mb-3">RERA Registration Details</h2>
               <p className="text-gray-200 mb-6">
-                ANON INDIA is a fully RERA-registered developer under Rajasthan Real Estate Regulatory Authority. All our projects carry individual RERA project registrations, which you can verify on the RERA portal.
+                ANON INDIA is a fully RERA-registered developer under the Uttar Pradesh Real Estate Regulatory Authority. All our projects carry individual RERA project registrations, which you can verify on the RERA portal.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {[

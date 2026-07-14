@@ -9,7 +9,7 @@ import type { Project, BlogPost, CityStat } from '@/types'
 import { formatINR } from '@/lib/format'
 import { projectImage } from '@/lib/images'
 
-const PHONE = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '+919876543210'
+const PHONE = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '+917065056999'
 
 const simpleLinks = [
   { label: 'About', href: '/about' },
@@ -84,12 +84,8 @@ export default function Nav({ cities, projects, posts }: NavProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`flex items-center justify-between transition-[height] duration-300 ${scrolled ? 'h-14' : 'h-16'}`}>
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5">
-            <Image src="/favicon-128x128.png" alt="ANON INDIA" width={40} height={40} className="size-10 object-contain" priority />
-            <div className="leading-none">
-              <p className="font-bold text-brand-900 text-sm tracking-wide">ANON INDIA</p>
-              <p className="text-[10px] text-gray-500">Structures · Spaces · Solutions</p>
-            </div>
+          <Link href="/" className="flex items-center">
+            <Image src="/logo-anon.png" alt="ANON INDIA" width={237} height={48} className="h-11 w-auto object-contain shrink-0" priority />
           </Link>
 
           {/* Desktop nav */}

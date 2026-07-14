@@ -5,7 +5,7 @@ import { MessageCircle } from 'lucide-react'
 
 export default function WhatsAppButton() {
   const pathname = usePathname()
-  const number   = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, '') ?? '919876543210'
+  const number   = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, '') ?? '917065056999'
 
   const isProject = pathname.startsWith('/projects/')
   const projectSlug = isProject ? pathname.split('/').pop() : null

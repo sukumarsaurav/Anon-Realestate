@@ -28,7 +28,7 @@ export default function TermsPage() {
           <p>Nothing on this website constitutes a legal offer or binding contract. A formal booking agreement, cost sheet, and sale deed are the only legally binding documents. All enquiries are non-binding expressions of interest.</p>
 
           <h2>4. RERA Compliance</h2>
-          <p>All project information is as per RERA filings. For the latest registered details, please refer to the Rajasthan RERA portal at rera.rajasthan.gov.in.</p>
+          <p>All project information is as per RERA filings. For the latest registered details, please refer to the UP RERA portal at up-rera.in.</p>
 
           <h2>5. Intellectual Property</h2>
           <p>All logos, images, text, and branding on this website are the property of ANON INDIA Real Estate. Reproduction without written permission is prohibited.</p>

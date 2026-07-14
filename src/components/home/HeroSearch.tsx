@@ -22,7 +22,7 @@ export default function HeroSearch() {
 
       <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-end pt-32 pb-20">
         <div className="max-w-3xl motion-safe:animate-fade-up">
-          <p className="eyebrow text-gold-400 mb-5">Premium Real Estate · Rajasthan</p>
+          <p className="eyebrow text-gold-400 mb-5">Premium Real Estate · Noida & NCR</p>
           <h1 className="font-display font-extrabold leading-[0.98] tracking-[-0.035em] text-[clamp(2.75rem,7vw,5.25rem)]">
             Find your next <span className="text-gold-400">premium property.</span>
           </h1>

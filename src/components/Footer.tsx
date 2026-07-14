@@ -4,7 +4,7 @@ import { MapPin, Phone, Mail, Facebook, Instagram, Linkedin, Youtube, Twitter } 
 import type { Project } from '@/types'
 import type { SiteSettings } from '@/lib/queries'
 
-const PHONE = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '+919876543210'
+const PHONE = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '+917065056999'
 
 interface FooterProps {
   projects?: Project[]
@@ -107,7 +107,7 @@ export default function Footer({ projects = [], settings }: FooterProps) {
             <div className="space-y-2 text-sm">
               <div className="flex items-start gap-2">
                 <MapPin size={14} className="text-gold-400 mt-0.5 shrink-0" />
-                <span>{settings?.address ?? 'Jaipur, Rajasthan, India'}</span>
+                <span>{settings?.address ?? 'D&E - 245 A, Golden I, Tech Zone IV, Noida Extension - 201308'}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone size={14} className="text-gold-400 shrink-0" />

@@ -5,12 +5,12 @@ import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { MessageCircle, Phone, CalendarCheck, Plus, X } from 'lucide-react'
 
-const PHONE_RAW = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '+919876543210'
+const PHONE_RAW = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '+917065056999'
 
 export default function FloatingActions() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
-  const number = PHONE_RAW.replace(/\D/g, '') || '919876543210'
+  const number = PHONE_RAW.replace(/\D/g, '') || '917065056999'
 
   // Hide on the public album share pages.
   if (pathname.startsWith('/share')) return null

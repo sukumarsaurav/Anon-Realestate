@@ -9,7 +9,7 @@ export const revalidate = 300
 
 export const metadata: Metadata = {
   title: 'Careers',
-  description: "Join ANON INDIA — Rajasthan's fastest-growing real estate team. Explore open positions and apply online.",
+  description: "Join ANON INDIA — Noida & NCR's fastest-growing real estate team. Explore open positions and apply online.",
 }
 
 const PERKS = [
@@ -18,7 +18,7 @@ const PERKS = [
   { Icon: Target, label: 'Real Ownership', desc: 'Your work directly impacts the business' },
   { Icon: Users, label: 'Team Culture', desc: 'Supportive, honest, and collaborative' },
   { Icon: ShieldCheck, label: 'Employee Benefits', desc: 'Health insurance, leaves, and more' },
-  { Icon: Building2, label: 'Great Location', desc: 'Central Jaipur office with amenities' },
+  { Icon: Building2, label: 'Great Location', desc: 'Noida Extension office with amenities' },
 ]
 
 export default async function CareersPage() {
@@ -29,7 +29,7 @@ export default async function CareersPage() {
       <PageHero
         eyebrow="Join the team"
         title="Careers at ANON INDIA"
-        subtitle="Join Rajasthan's fastest growing real estate team."
+        subtitle="Join Noida & NCR's fastest growing real estate team."
         image="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1920&q=80&auto=format&fit=crop"
       />
 

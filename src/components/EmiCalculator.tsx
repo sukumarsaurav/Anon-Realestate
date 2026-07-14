@@ -29,7 +29,7 @@ export default function EmiCalculator({ defaultPrice = 2000000 }: Props) {
   const emi        = calcEmi(loanAmt, rate, tenure)
   const totalAmt   = emi * tenure * 12
   const totalInt   = totalAmt - loanAmt
-  const waNumber   = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, '') ?? '919876543210'
+  const waNumber   = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, '') ?? '917065056999'
   const waMsg      = `Hi, I calculated EMI of ${fmt(emi)}/mo for a property worth ${fmt(price)}. Can you help with home loan?`
 
   function handleCalc() {

@@ -15,7 +15,7 @@ const serif = Fraunces({ subsets: ['latin'], variable: '--font-serif', display: 
 
 // Fallbacks used only if the site_settings row is ever missing.
 const FALLBACK_SITE_NAME = 'ANON INDIA'
-const FALLBACK_SITE_DESC = 'Premium plotted developments and real estate projects in Rajasthan. RERA approved. Trusted by 1000+ happy families.'
+const FALLBACK_SITE_DESC = 'Premium plotted developments and real estate projects across Noida & NCR. RERA approved. Trusted by 1000+ happy families.'
 
 // Derived from the public Supabase URL so preconnect always matches the project.
 const SUPABASE_ORIGIN = (() => {
@@ -35,7 +35,7 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://anonindia.com'),
     title:       { default: `${siteName} — Premium Real Estate`, template: settings?.default_title_template ?? `%s | ${siteName}` },
     description,
-    keywords:    ['plots Jaipur', 'real estate Rajasthan', 'RERA approved plots', 'plotted development Jaipur'],
+    keywords:    ['plots Noida', 'real estate NCR', 'RERA approved plots', 'plotted development Noida Extension'],
     openGraph: {
       type:        'website',
       siteName,
@@ -124,9 +124,16 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           name: siteName,
           description,
           url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://anonindia.com',
-          telephone: settings?.whatsapp_number ?? process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '+919876543210',
+          telephone: settings?.whatsapp_number ?? process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '+917065056999',
           areaServed: 'IN',
-          address: { '@type': 'PostalAddress', addressRegion: 'Rajasthan', addressCountry: 'IN' },
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: 'D&E - 245 A, Golden I, Tech Zone IV',
+            addressLocality: 'Noida Extension',
+            postalCode: '201308',
+            addressRegion: 'Uttar Pradesh',
+            addressCountry: 'IN',
+          },
         }) }} />
         <Nav cities={cities} projects={menuProjects} posts={blogPosts} />
         <main>{children}</main>

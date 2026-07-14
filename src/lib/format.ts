@@ -12,5 +12,5 @@ export function formatINR(amount: number | null | undefined): string {
   return `₹${amount.toLocaleString('en-IN')}`
 }
 
-export const PHONE_RAW = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '+919876543210'
-export const PHONE_DIGITS = PHONE_RAW.replace(/\D/g, '') || '919876543210'
+export const PHONE_RAW = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '+917065056999'
+export const PHONE_DIGITS = PHONE_RAW.replace(/\D/g, '') || '917065056999'

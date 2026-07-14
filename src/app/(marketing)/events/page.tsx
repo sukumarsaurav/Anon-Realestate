@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 }
 
 const events = [
-  { title: 'Weekend Site Visit Drive', when: 'Every Saturday & Sunday', where: 'All Jaipur projects', body: 'Guided, no-pressure site visits with a dedicated advisor. Book your slot.' },
-  { title: 'Property Investment Meet', when: 'Monthly', where: 'ANON INDIA, Jaipur', body: 'Market insights and curated opportunities for serious investors.' },
+  { title: 'Weekend Site Visit Drive', when: 'Every Saturday & Sunday', where: 'All Noida projects', body: 'Guided, no-pressure site visits with a dedicated advisor. Book your slot.' },
+  { title: 'Property Investment Meet', when: 'Monthly', where: 'ANON INDIA, Noida', body: 'Market insights and curated opportunities for serious investors.' },
   { title: 'New Launch Preview', when: 'On announcement', where: 'Project site', body: 'Early-bird pricing and first pick of inventory for registered buyers.' },
 ]
 
