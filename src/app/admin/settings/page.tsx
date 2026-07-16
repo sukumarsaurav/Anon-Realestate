@@ -148,15 +148,11 @@ export default async function AdminSettingsPage() {
             defaultValues={(settings?.why_choose_us as Record<string, string>[]) ?? []}
           />
 
-          <ObjectListRepeater
+          <StringListRepeater
             name="instagram_reels_json"
             label="Instagram Reels Section"
-            fields={[
-              { key: 'image_url', placeholder: 'Reel cover image URL', type: 'upload' },
-              { key: 'caption', placeholder: 'Reel caption text' },
-              { key: 'link', placeholder: 'Reel URL (instagram.com/reel/...)' }
-            ]}
-            defaultValues={(settings?.instagram_reels as Record<string, string>[]) ?? []}
+            defaultValues={(settings?.instagram_reels as string[]) ?? []}
+            placeholder="Reel URL (e.g. https://www.instagram.com/reel/DZ5jbaqyyIj/)"
           />
 
           <ObjectListRepeater

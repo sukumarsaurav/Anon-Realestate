@@ -10,6 +10,7 @@ import {
 import HeroSearch from '@/components/home/HeroSearch'
 import PremiumProjects from '@/components/home/PremiumProjects'
 import ReelsSection from '@/components/home/ReelsSection'
+import AwardsSection from '@/components/home/AwardsSection'
 import TeamCarousel from '@/components/home/TeamCarousel'
 import TestimonialMarquee from '@/components/home/TestimonialMarquee'
 import NewLaunches from '@/components/home/NewLaunches'
@@ -159,6 +160,9 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Awards & Accolades */}
+      <AwardsSection />
 
       {/* Lead capture band */}
       <section className="bg-brand-900 text-white">
