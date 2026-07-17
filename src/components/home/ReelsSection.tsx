@@ -17,7 +17,8 @@ function extractReelId(url: string): string | null {
 const FALLBACK_INSTAGRAM_URL = 'https://instagram.com'
 
 interface ReelsSectionProps {
-  reels?: string[] | null
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  reels?: (string | Record<string, unknown>)[] | null
   instagramUrl?: string | null
 }
 
@@ -39,8 +40,15 @@ export default function ReelsSection({ reels, instagramUrl }: ReelsSectionProps)
 
   const instaUrl = instagramUrl || FALLBACK_INSTAGRAM_URL
 
-  // Filter to valid reel URLs only
+  // Normalize: handle both new string[] format and legacy object[] format
+  // (Next.js unstable_cache may serve stale data in the old format)
   const reelIds = (reels ?? [])
+    .map((entry) => {
+      if (typeof entry === 'string') return entry
+      // Legacy format: { image_url, caption, link }
+      if (entry && typeof entry === 'object' && 'link' in entry) return (entry as { link?: string }).link ?? ''
+      return ''
+    })
     .map((url) => ({ url, id: extractReelId(url) }))
     .filter((r): r is { url: string; id: string } => r.id !== null)
 
