@@ -230,6 +230,8 @@ export default function Nav({ cities, projects, posts }: NavProps) {
                 </div>
               )}
             </div>
+
+            <a href="https://anonindia.org/login" className="ml-1 px-3.5 py-2 text-sm font-medium text-gray-600 hover:text-brand-900 hover:bg-white rounded-lg transition-colors">Login</a>
           </nav>
 
           {/* Mobile toggle */}
@@ -291,6 +293,7 @@ export default function Nav({ cities, projects, posts }: NavProps) {
             {[...simpleLinks, ...moreLinks].map((l) => (
               <Link key={l.href} href={l.href} onClick={() => setOpen(false)} className="block px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-brand-900 hover:bg-white rounded-xl">{l.label}</Link>
             ))}
+            <a href="https://anonindia.org/login" className="block px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-brand-900 hover:bg-white rounded-xl">Login</a>
             <Link href="/contact" onClick={() => setOpen(false)} className="block mt-2 px-3 py-3 bg-gold-500 text-white text-sm font-semibold rounded-xl text-center">Free Consultation</Link>
           </div>
         </div>
