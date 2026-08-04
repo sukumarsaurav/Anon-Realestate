@@ -136,7 +136,7 @@ export default async function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <p className="eyebrow mb-3">Why us</p>
-            <h2 className="section-heading">Why Choose {settings?.site_name ?? 'ANON INDIA'}</h2>
+            <h2 className="section-heading">Why {settings?.site_name ?? 'ANON INDIA'}</h2>
             <p className="section-sub mx-auto">A consultant that puts your interests first.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
