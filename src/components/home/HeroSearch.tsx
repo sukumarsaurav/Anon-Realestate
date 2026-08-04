@@ -27,7 +27,7 @@ export default function HeroSearch() {
             Find your next <span className="text-gold-400">Premium Property.</span>
           </h1>
           <p className="text-gray-200 text-lg leading-relaxed mt-7 max-w-xl">
-            RERA-approved projects, Transparent pricing, and end-to-end advisory — structures, spaces &amp; solutions engineered by Anon.
+            RERA-approved projects, Transparent Pricing, and end-to-end advisory — structures, spaces &amp; solutions engineered by Anon.
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-3">
@@ -43,7 +43,7 @@ export default function HeroSearch() {
           {/* Trust line */}
           <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-gray-300">
             <span className="flex items-center gap-1.5"><ShieldCheck size={15} className="text-gold-400" /> RERA Approved</span>
-            <span className="flex items-center gap-1.5"><Star size={15} className="text-gold-400 fill-gold-400" /> Transparent pricing</span>
+            <span className="flex items-center gap-1.5"><Star size={15} className="text-gold-400 fill-gold-400" /> Transparent Pricing</span>
             <span className="flex items-center gap-1.5"><Users size={15} className="text-gold-400" /> End-to-end advisory</span>
           </div>
         </div>
