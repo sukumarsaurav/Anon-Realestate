@@ -344,6 +344,37 @@ export default async function ProjectDetailPage({ params }: Props) {
               </Reveal>
             )}
 
+            {/* ──── 7b. Project Video ──── */}
+            {(project.video_url || project.virtual_tour_url) && (
+              <Reveal>
+                <div>
+                  <h2 className="h-block mb-5">Project Video</h2>
+                  {project.video_url ? (
+                    <div className="relative rounded-2xl overflow-hidden shadow-soft bg-black aspect-video">
+                      <video
+                        src={project.video_url}
+                        poster={heroImg}
+                        controls
+                        playsInline
+                        preload="metadata"
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                  ) : project.virtual_tour_url ? (
+                    <div className="relative rounded-2xl overflow-hidden shadow-soft aspect-video">
+                      <iframe
+                        title={`Virtual tour of ${project.name}`}
+                        src={project.virtual_tour_url}
+                        loading="lazy"
+                        allow="fullscreen"
+                        className="absolute inset-0 w-full h-full"
+                      />
+                    </div>
+                  ) : null}
+                </div>
+              </Reveal>
+            )}
+
             {/* ──── 8. Location & Connectivity ──── */}
             {location && (
               <Reveal>

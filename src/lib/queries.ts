@@ -6,7 +6,7 @@ import type { Project, BlogPost, CareerListing, Testimonial, Developer, TeamMemb
 
 // Columns needed by the project detail page + metadata. Avoids select('*').
 const PROJECT_DETAIL_COLUMNS =
-  'id, name, type, city, locality, status, description, gallery_urls, video_url, brochure_url, ' +
+  'id, name, type, city, locality, status, description, gallery_urls, video_url, virtual_tour_url, brochure_url, ' +
   'rera_number, rera_registration_date, total_units, expected_completion_date, amenities, google_maps_pin, ' +
   'layout_image_url, starting_price, price_per_sqft, bhk_config, website_category, hero_image_url, ' +
   'developer_about, usp, connectivity, faqs, ' +
