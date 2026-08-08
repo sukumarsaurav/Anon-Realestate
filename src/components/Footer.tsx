@@ -133,8 +133,8 @@ export default function Footer({ projects = [], settings }: FooterProps) {
             <p className="font-semibold text-white mb-4">Quick Links</p>
             <ul className="space-y-2 text-sm">
               {[
-                ['Projects', '/projects'],
                 ['About Us', '/about'],
+                ['Projects', '/projects'],
                 ['ANON Group', '/developers'],
                 ['Testimonials', '/testimonials'],
                 ['Careers', '/careers'],

@@ -1,18 +1,21 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Reveal from '@/components/Reveal'
 import LeadForm from '@/components/LeadForm'
-import { Award, Users, Building2, MapPin, Shield, Search, Scale, Clock, type LucideIcon } from 'lucide-react'
+import { Award, Users, Building2, MapPin, Shield, Search, Scale, Clock, Plane, Waypoints, Globe2, Handshake, type LucideIcon } from 'lucide-react'
 import PageHero from '@/components/PageHero'
 import { getPageContent } from '@/lib/queries'
 
 // Fixed lookup so CMS-stored icon keys can never reference a nonexistent
 // component — only these names are ever rendered.
-const ICONS: Record<string, LucideIcon> = { Award, Users, Building2, MapPin, Search, Scale, Clock }
+const ICONS: Record<string, LucideIcon> = { Award, Users, Building2, MapPin, Search, Scale, Clock, Plane, Waypoints, Globe2, Handshake }
 
 type AboutBlocks = {
   story: string[]
   stats: { value: string; label: string; icon: string }[]
   values: { title: string; desc: string; icon: string }[]
+  construction: { region: string; icon: string; items: string[] }[]
+  brands: { name: string; logo_url?: string | null }[]
   rera: { developer_rera_id: string; registered_since: string; authority: string; verification_portal: string }
 }
 
@@ -20,10 +23,10 @@ const FALLBACK: AboutBlocks = {
   story: [
     "ANON INDIA was founded with a simple belief: every Indian family deserves a piece of land they can call their own. We started with one project in Noida and have grown to deliver 50+ developments across Noida & NCR.",
     "Our commitment to transparency, legal clarity, and on-time delivery has made us one of NCR's most trusted real estate brands. Every project we undertake carries the promise of clear titles, RERA compliance, and complete documentation.",
-    "Today, with over 1000 happy families and 15 years of experience, we continue to open new investment opportunities in emerging corridors across the state.",
+    "Today, with over 1000 happy families and 17 years of experience, we continue to open new investment opportunities in emerging corridors across the state.",
   ],
   stats: [
-    { value: '15+', label: 'Years of Experience', icon: 'Award' },
+    { value: '17+', label: 'Years of Experience', icon: 'Award' },
     { value: '50+', label: 'Projects Delivered', icon: 'Building2' },
     { value: '1000+', label: 'Happy Families', icon: 'Users' },
     { value: '8', label: 'Cities Covered', icon: 'MapPin' },
@@ -32,6 +35,51 @@ const FALLBACK: AboutBlocks = {
     { title: 'Transparency', desc: 'Full cost disclosure, no hidden charges. We share every document you need before you decide.', icon: 'Search' },
     { title: 'Legal Clarity', desc: 'Every project has clear land title, encumbrance certificate, and RERA registration. No shortcuts.', icon: 'Scale' },
     { title: 'Timely Delivery', desc: 'We respect your time and your money. On-time delivery is our core commitment, backed by RERA.', icon: 'Clock' },
+  ],
+  construction: [
+    {
+      region: 'India',
+      icon: 'Plane',
+      items: [
+        'Delhi Airport',
+        'Mumbai Airport',
+        'Krishna Nagar Metro Station',
+        'Shyam Park Metro Station (Ghaziabad)',
+        'Guldhar Metro (Meerut)',
+      ],
+    },
+    {
+      region: 'Bridges in India',
+      icon: 'Waypoints',
+      items: [
+        'Mumbai–Pune Highway Bridge',
+        'Kolkata Bridges',
+      ],
+    },
+    {
+      region: 'Oman',
+      icon: 'Globe2',
+      items: [
+        'Al Khabhura–Sohar Bridge',
+        'Borkha Palace',
+        'Al Meena Mosque',
+        'Sohar Residential Apartments',
+        'Water Tank in Sohaam and Khabhura',
+        'Muscat Residential Apartments',
+      ],
+    },
+  ],
+  brands: [
+    { name: 'TATA' },
+    { name: 'L&T' },
+    { name: 'SIKKA' },
+    { name: 'BHUTANI' },
+    { name: 'IRIS' },
+    { name: 'SUNTECK' },
+    { name: 'NDPS' },
+    { name: 'JMC' },
+    { name: 'Union Bank' },
+    { name: 'SBI Bank' },
   ],
   rera: {
     developer_rera_id: 'UPRERA/DEVELOPER/XXXX/XXXX',
@@ -52,15 +100,18 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function AboutPage() {
   const page = await getPageContent('about')
   const blocks = (page?.blocks && Object.keys(page.blocks).length > 0 ? page.blocks : FALLBACK) as unknown as AboutBlocks
+  // Per-key fallbacks: CMS rows saved before these blocks existed won't carry them.
+  const construction = blocks.construction ?? FALLBACK.construction
+  const brands = blocks.brands ?? FALLBACK.brands
 
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}
       <PageHero
         size="tall"
-        eyebrow={page?.hero_eyebrow ?? 'Since 2008'}
+        eyebrow={page?.hero_eyebrow ?? 'Since 2009'}
         title={page?.hero_title ?? 'About ANON INDIA'}
-        subtitle={page?.hero_subtitle ?? "Building trust, one plot at a time. Noida & NCR's most transparent real estate developer since 2008."}
+        subtitle={page?.hero_subtitle ?? "Building trust, one plot at a time. Noida & NCR's most transparent real estate developer since 2009."}
         image={page?.hero_image_url ?? 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80&auto=format&fit=crop'}
       />
 
@@ -107,6 +158,60 @@ export default async function AboutPage() {
             })}
           </div>
         </Reveal>
+
+        {/* Construction work delivered */}
+        {construction.length > 0 && (
+          <Reveal as="section">
+            <div className="text-center mb-10">
+              <p className="eyebrow mb-2">Our Work</p>
+              <h2 className="section-heading">Construction Delivered in India &amp; Abroad</h2>
+              <p className="section-sub mx-auto">Airports, metro stations, bridges and residential landmarks built by the group.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+              {construction.map(({ region, icon, items }, i) => {
+                const Icon = ICONS[icon] ?? Building2
+                return (
+                  <Reveal key={region} delay={i * 110} className="bg-white rounded-2xl border border-gray-100 p-7 transition-all duration-300 hover:shadow-card hover:-translate-y-0.5">
+                    <div className="w-12 h-12 rounded-xl bg-gold-50 flex items-center justify-center mb-4"><Icon size={22} className="text-gold-700" /></div>
+                    <h3 className="h-card mb-4">{region}</h3>
+                    <ul className="space-y-2.5">
+                      {items.map((item) => (
+                        <li key={item} className="flex items-start gap-2.5 text-sm text-gray-600 leading-relaxed">
+                          <span className="w-1.5 h-1.5 rounded-full bg-gold-500 shrink-0 mt-2" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </Reveal>
+                )
+              })}
+            </div>
+          </Reveal>
+        )}
+
+        {/* Associated brands */}
+        {brands.length > 0 && (
+          <Reveal as="section">
+            <div className="text-center mb-10">
+              <p className="eyebrow mb-2">Associations</p>
+              <h2 className="section-heading">We Are Associated With</h2>
+              <p className="section-sub mx-auto">Developers, contractors and institutions we work alongside.</p>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+              {brands.map(({ name, logo_url }) => (
+                <div key={name} className="bg-white rounded-2xl border border-gray-100 h-24 flex items-center justify-center px-4 text-center transition-all duration-300 hover:shadow-card hover:-translate-y-0.5">
+                  {logo_url ? (
+                    <div className="relative w-full h-12">
+                      <Image src={logo_url} alt={name} fill sizes="(max-width: 768px) 150px, 200px" className="object-contain" />
+                    </div>
+                  ) : (
+                    <span className="font-semibold text-brand-900 tracking-wide">{name}</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        )}
 
         {/* RERA section */}
         <Reveal>

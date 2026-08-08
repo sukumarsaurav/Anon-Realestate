@@ -144,7 +144,7 @@ export default async function HomePage() {
               { icon: 'ShieldCheck', title: 'RERA Verified', description: 'Only compliant, verified projects make our list.' },
               { icon: 'Headphones', title: 'Customer Oriented', description: 'Genuine advice and proactive follow-up, always.' },
               { icon: 'Cpu', title: 'Tech Enabled', description: 'Modern CRM, instant updates, zero paperwork hassle.' },
-              { icon: 'Award', title: 'Proven Track Record', description: '15+ years and thousands of happy investors.' },
+              { icon: 'Award', title: 'Proven Track Record', description: '17+ years and thousands of happy investors.' },
             ]).map(({ icon, title, description }) => {
               const IconComponent = ICON_MAP[icon] || ShieldCheck
               return (
@@ -174,7 +174,7 @@ export default async function HomePage() {
               {(settings?.lead_capture_bullets ?? [
                 "RERA-verified projects only",
                 "No-pressure, advisory-first approach",
-                "15+ years, 2,500+ investors served"
+                "17+ years, 2,500+ investors served"
               ]).map((t, idx) => {
                 const bulletIcons = [ShieldCheck, Headphones, Award]
                 const IconComponent = bulletIcons[idx % bulletIcons.length]

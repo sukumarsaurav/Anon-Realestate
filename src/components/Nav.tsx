@@ -11,8 +11,11 @@ import { projectImage } from '@/lib/images'
 
 const PHONE = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '+917065056999'
 
+// About leads the nav; Projects and Blog (mega-menus) are rendered between it
+// and the rest, so `simpleLinks` holds only what follows them.
+const aboutLink = { label: 'About', href: '/about' }
+
 const simpleLinks = [
-  { label: 'About', href: '/about' },
   { label: 'Careers', href: '/careers' },
   { label: 'Contact', href: '/contact' },
 ]
@@ -90,6 +93,8 @@ export default function Nav({ cities, projects, posts }: NavProps) {
 
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-1">
+            <Link href={aboutLink.href} className="px-3.5 py-2 text-sm font-medium text-gray-600 hover:text-brand-900 hover:bg-white rounded-lg transition-colors">{aboutLink.label}</Link>
+
             {/* Projects mega */}
             <div className="static" {...menuHandlers('projects')}>
               <button aria-haspopup="true" aria-expanded={menu === 'projects'}
@@ -245,6 +250,8 @@ export default function Nav({ cities, projects, posts }: NavProps) {
       {open && (
         <div className="lg:hidden border-t border-gray-100 bg-white max-h-[80vh] overflow-y-auto">
           <div className="px-4 py-3 space-y-1">
+            <Link href={aboutLink.href} onClick={() => setOpen(false)} className="block px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-brand-900 hover:bg-white rounded-xl">{aboutLink.label}</Link>
+
             {/* Projects — expandable: browse by city */}
             <div>
               <button

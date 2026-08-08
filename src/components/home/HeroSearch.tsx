@@ -13,7 +13,7 @@ export default function HeroSearch() {
       {/* Background image with slow ambient zoom */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80&auto=format&fit=crop"
+          src="https://kfrrndpuxmtnoeznaeee.supabase.co/storage/v1/object/public/projects/iris-broadway-greno-west/gallery/iris-broadway-pg02-aerial-render.jpg"
           alt="" fill priority sizes="100vw" className="object-cover motion-safe:animate-slow-zoom" />
       </div>
       {/* Cinematic scrims — heavy at the bottom-left where the copy sits */}
