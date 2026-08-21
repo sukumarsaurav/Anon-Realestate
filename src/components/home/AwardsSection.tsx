@@ -2,46 +2,10 @@
 
 import { useRef, useState } from 'react'
 import Image from 'next/image'
-import { ArrowLeft, ArrowRight, X } from 'lucide-react'
-
-const AWARDS = [
-  {
-    src: '/awards/jagran-swarnim-noida-trophy.jpeg',
-    title: 'Swarnim Noida Award',
-    org: 'Dainik Jagran',
-    description: 'Acknowledged for valued support and association — Delhi-NCR, April 2026',
-  },
-  {
-    src: '/awards/jagran-leaders-of-change.jpeg',
-    title: 'Leaders of Change',
-    org: 'Dainik Jagran',
-    description: 'Outstanding contribution towards the growth and prosperity of Noida',
-  },
-  {
-    src: '/awards/iris-broadway-rising-star.jpeg',
-    title: 'Rising Star Award',
-    org: 'IRIS Broadway, Greno West',
-    description: 'In recognition of hard work, commitment, and dedication to professionalism',
-  },
-  {
-    src: '/awards/sunteck-celebration-of-excellence.jpeg',
-    title: 'Celebration of Excellence',
-    org: 'Sunteck Beach Residences',
-    description: 'Presented to ANON INDIA as a token of appreciation for valuable participation',
-  },
-  {
-    src: '/awards/sunteck-beach-appreciation.jpeg',
-    title: 'Token of Appreciation',
-    org: 'Sunteck Beach Residences',
-    description: 'Recognized for valuable participation in Sunteck\'s luxury beachfront project',
-  },
-  {
-    src: '/awards/jagran-swarnim-noida-office.jpeg',
-    title: 'Swarnim Noida Recognition',
-    org: 'Dainik Jagran',
-    description: 'Dual award display at the ANON INDIA headquarters — Delhi-NCR, April 2026',
-  },
-]
+import Link from 'next/link'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
+import Lightbox from '@/components/Lightbox'
+import { AWARDS } from '@/data/awards'
 
 export default function AwardsSection() {
   const trackRef = useRef<HTMLDivElement>(null)
@@ -111,68 +75,21 @@ export default function AwardsSection() {
               ))}
             </div>
           </div>
+
+          <div className="text-center mt-8">
+            <Link href="/awards" className="text-sm font-semibold text-brand-900 hover:text-gold-700 transition-colors inline-flex items-center gap-1.5">
+              See all recognition <ArrowRight size={15} />
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* Lightbox */}
-      {lightboxIndex !== null && (
-        <div
-          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
-          onClick={() => setLightboxIndex(null)}
-        >
-          <div
-            className="relative max-w-3xl max-h-[90vh] w-full"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close */}
-            <button
-              onClick={() => setLightboxIndex(null)}
-              className="absolute -top-12 right-0 text-white/80 hover:text-white transition-colors"
-              aria-label="Close lightbox"
-            >
-              <X size={28} />
-            </button>
-
-            {/* Navigation arrows */}
-            {lightboxIndex > 0 && (
-              <button
-                onClick={() => setLightboxIndex(lightboxIndex - 1)}
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-14 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
-                aria-label="Previous award"
-              >
-                <ArrowLeft size={20} />
-              </button>
-            )}
-            {lightboxIndex < AWARDS.length - 1 && (
-              <button
-                onClick={() => setLightboxIndex(lightboxIndex + 1)}
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-14 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
-                aria-label="Next award"
-              >
-                <ArrowRight size={20} />
-              </button>
-            )}
-
-            {/* Image */}
-            <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-white">
-              <Image
-                src={AWARDS[lightboxIndex].src}
-                alt={AWARDS[lightboxIndex].title}
-                fill
-                sizes="(max-width: 768px) 100vw, 768px"
-                className="object-contain p-4"
-                priority
-              />
-            </div>
-
-            {/* Caption */}
-            <div className="text-center mt-4">
-              <p className="text-white font-semibold text-lg">{AWARDS[lightboxIndex].title}</p>
-              <p className="text-white/60 text-sm mt-1">{AWARDS[lightboxIndex].org} — {AWARDS[lightboxIndex].description}</p>
-            </div>
-          </div>
-        </div>
-      )}
+      <Lightbox
+        slides={AWARDS.map((a) => ({ src: a.src, title: a.title, caption: `${a.org} — ${a.description}` }))}
+        index={lightboxIndex}
+        onIndexChange={setLightboxIndex}
+        onClose={() => setLightboxIndex(null)}
+      />
     </>
   )
 }
