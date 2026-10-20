@@ -55,6 +55,16 @@ export async function POST(req: NextRequest) {
       await service.from('lead_activities').insert({ lead_id: lead.id, type: 'note', notes: note })
     }
 
+    // DPDP: the form tells the visitor that submitting accepts the privacy policy, so record that
+    // consent against the lead (shown in CRM → Legal → Privacy).
+    if (lead?.id) {
+      await service.from('consent_logs').insert({
+        entity_type: 'lead', entity_id: lead.id, entity_name: String(name).trim(),
+        consent_type: 'data_storage', consented: true, source: `website:${String(source)}`,
+        ip_address: req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? null,
+      })
+    }
+
     return NextResponse.json({ success: true })
   } catch (err) {
     console.error('Lead API error:', err)
