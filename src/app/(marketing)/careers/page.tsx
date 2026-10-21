@@ -7,6 +7,7 @@ import { getActiveCareerListings } from '@/lib/queries'
 import PageHero from '@/components/PageHero'
 import Reveal from '@/components/Reveal'
 import CareerListings from '@/components/CareerListings'
+import { crmCareersEnabled } from '@/lib/crm'
 
 export const revalidate = 300
 
@@ -79,7 +80,7 @@ export default async function CareersPage() {
         {/* Job listings (interactive island) */}
         <Reveal delay={100}>
           <h2 className="h-block mb-4">Open Positions</h2>
-          <CareerListings listings={listings} />
+          <CareerListings listings={listings} cvUpload={crmCareersEnabled()} />
         </Reveal>
       </div>
 

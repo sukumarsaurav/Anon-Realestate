@@ -3,6 +3,7 @@ import { unstable_cache } from 'next/cache'
 import { supabase } from './supabase'
 import { projectImage } from './images'
 import type { Project, BlogPost, CareerListing, Testimonial, Developer, TeamMember, CityStat } from '@/types'
+import { crmListings } from '@/lib/crm'
 
 // Columns needed by the project detail page + metadata. Avoids select('*').
 const PROJECT_DETAIL_COLUMNS =
@@ -222,6 +223,9 @@ export const getBlogPostBySlug = cache(async (slug: string): Promise<BlogPost | 
 
 export const getActiveCareerListings = unstable_cache(
   async (): Promise<CareerListing[]> => {
+    // Openings are managed in the CRM when it is connected (HR → Recruitment → Openings).
+    const fromCrm = await crmListings()
+    if (fromCrm) return fromCrm
     const { data } = await supabase
       .from('career_listings')
       .select('*')
