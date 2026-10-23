@@ -43,8 +43,9 @@ export default function ObjectListRepeater({
     try {
       const fd = new FormData()
       fd.append('file', file)
-      const publicUrl = await uploadToStorage(field.bucket ?? 'media', fd)
-      update(i, field.key, publicUrl)
+      const res = await uploadToStorage(field.bucket ?? 'media', fd)
+      if (res.error !== undefined) throw new Error(res.error)
+      update(i, field.key, res.url)
     } catch (err) {
       alert((err as Error).message)
     } finally {

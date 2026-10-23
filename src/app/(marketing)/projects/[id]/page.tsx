@@ -50,7 +50,7 @@ export default async function ProjectDetailPage({ params }: Props) {
     : null
   const defaultPrice = project.starting_price ?? (priceRange ? Math.round((priceRange.min + priceRange.max) / 2) : 2000000)
   const heroImg = projectImage(project, 1200)
-  const gallery = projectGallery(project, 6)
+  const gallery = projectGallery(project)
 
   const location = [project.locality, project.city].filter(Boolean).join(', ')
   const possession = project.expected_completion_date

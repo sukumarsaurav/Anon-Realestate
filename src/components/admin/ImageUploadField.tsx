@@ -60,8 +60,9 @@ export default function ImageUploadField({
     try {
       const fd = new FormData()
       fd.append('file', file)
-      const publicUrl = await uploadToStorage(bucket, fd)
-      setUrl(publicUrl)
+      const res = await uploadToStorage(bucket, fd)
+      if (res.error !== undefined) throw new Error(res.error)
+      setUrl(res.url)
     } catch (err) {
       setError((err as Error).message)
     } finally {

@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   // Tree-shake large icon/util barrels so only used exports ship to the client.
   experimental: {
     optimizePackageImports: ['lucide-react'],
+    // Admin image uploads go through a Server Action; the 1 MB default rejects
+    // most photos. Vercel caps request bodies at 4.5 MB, so stay just under it.
+    serverActions: { bodySizeLimit: '4mb' },
   },
   images: {
     formats: ['image/avif', 'image/webp'],

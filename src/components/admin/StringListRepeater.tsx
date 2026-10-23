@@ -37,8 +37,9 @@ export default function StringListRepeater({
     try {
       const fd = new FormData()
       fd.append('file', file)
-      const publicUrl = await uploadToStorage(bucket, fd)
-      update(i, publicUrl)
+      const res = await uploadToStorage(bucket, fd)
+      if (res.error !== undefined) throw new Error(res.error)
+      update(i, res.url)
     } catch (err) {
       alert((err as Error).message)
     } finally {

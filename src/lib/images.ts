@@ -34,16 +34,13 @@ export function projectImage(
   return p.hero_image_url || p.gallery_urls?.[0] || propertyImage(p.id, 0, w)
 }
 
-/** A gallery of at least `min` images, padding with fallbacks when needed. */
-export function projectGallery(
-  p: { id: string; gallery_urls?: string[] | null },
-  min = 4,
-): string[] {
-  const existing = (p.gallery_urls ?? []).filter(Boolean)
-  if (existing.length >= min) return existing
-  const out = [...existing]
-  for (let i = 0; out.length < min; i++) out.push(propertyImage(p.id, existing.length + i))
-  return out
+/**
+ * The project's uploaded gallery, as-is. Deliberately not padded with stock
+ * photos: a project with 1 uploaded image used to show 5 unrelated Unsplash
+ * pictures next to it, passing them off as the property.
+ */
+export function projectGallery(p: { gallery_urls?: string[] | null }): string[] {
+  return (p.gallery_urls ?? []).filter(Boolean)
 }
 
 /** Deterministic avatar for a person/quote (stable per name). */

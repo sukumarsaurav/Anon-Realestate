@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Calendar, ArrowRight } from 'lucide-react'
+import { Calendar, ArrowRight, Newspaper } from 'lucide-react'
 import type { BlogPost } from '@/types'
-import { propertyImage } from '@/lib/images'
 
 interface Props {
   post: BlogPost
@@ -14,13 +13,18 @@ function fmtDate(iso: string | null) {
 }
 
 export default function BlogCard({ post }: Props) {
-  const img = post.featured_image_url || propertyImage(post.id, 0, 800)
   return (
     <Link href={`/blog/${post.slug}`} className="card group flex flex-col">
       <div className="relative h-48 overflow-hidden bg-gray-100">
-        <Image src={img} alt={post.title} fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-          className="object-cover group-hover:scale-105 transition-transform duration-300" />
+        {post.featured_image_url ? (
+          <Image src={post.featured_image_url} alt={post.title} fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+            className="object-cover group-hover:scale-105 transition-transform duration-300" />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-brand-900 to-brand-700 flex items-center justify-center">
+            <Newspaper size={36} className="text-white/30" />
+          </div>
+        )}
         {post.category && (
           <span className="absolute top-3 left-3 badge bg-brand-900/85 text-white capitalize">{post.category}</span>
         )}
